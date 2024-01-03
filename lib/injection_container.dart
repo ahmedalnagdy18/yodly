@@ -12,7 +12,7 @@ final sl = GetIt.instance;
 Future<void> init() async {
 //! Features - posts
 
-// Usecases
+// Usecasessss
 
   sl.registerLazySingleton<LoginUsecase>(() => LoginUsecase(repository: sl()));
   sl.registerLazySingleton<RegisterUsecase>(
