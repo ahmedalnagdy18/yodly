@@ -1,0 +1,12 @@
+import 'package:yodly/features/domain/entites/register_entity.dart';
+import 'package:yodly/features/domain/repositories/register_repository.dart';
+
+class RegisterUsecase {
+  final RegisterRepository repository;
+
+  RegisterUsecase({required this.repository});
+
+  Future<void> call(RegisterEntity registerEntity) async {
+    return await repository.registerInput(registerEntity);
+  }
+}
