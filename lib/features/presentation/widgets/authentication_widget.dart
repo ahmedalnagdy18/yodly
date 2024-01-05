@@ -13,16 +13,19 @@ class CircleWidget extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         width: 50,
         height: 50,
-        child: const Center(
+        child: Center(
           child: TextField(
+            onChanged: (value) {
+              FocusScope.of(context).nextFocus();
+            },
             textAlign: TextAlign.center,
             keyboardType: TextInputType.phone,
             maxLength: 1,
             showCursor: false,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               counterText: "",
             ),
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.w700,
             ),
