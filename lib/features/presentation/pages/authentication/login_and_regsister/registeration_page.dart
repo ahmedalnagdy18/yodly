@@ -5,6 +5,7 @@ import 'package:yodly/features/domain/entites/register_entity.dart';
 import 'package:yodly/features/presentation/bloc/cubit/register/cubit/register_cubit.dart';
 import 'package:yodly/features/presentation/pages/authentication/authentication_pages/authentication_page.dart';
 import 'package:yodly/features/presentation/pages/authentication/login_and_regsister/Login_page.dart';
+import 'package:yodly/features/presentation/pages/home/navbar.dart';
 import 'package:yodly/features/presentation/widgets/Registeration_widget.dart';
 import 'package:yodly/injection_container.dart';
 
@@ -84,16 +85,24 @@ class _RegisterationPageState extends State<_RegisterationPageBody> {
                               ],
                             ),
                             //  const SizedBox(width: 210),
-                            const Row(
+                            Row(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Text(
-                                  'Skip',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xff969CAA),
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const Navbar()));
+                                  },
+                                  child: const Text(
+                                    'Skip',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                      color: Color(0xff969CAA),
+                                    ),
                                   ),
                                 ),
                               ],

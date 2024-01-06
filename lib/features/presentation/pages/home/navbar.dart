@@ -19,6 +19,7 @@ class _NavbarState extends State<Navbar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       floatingActionButton: SizedBox(
         width: 65,
         height: 65,
