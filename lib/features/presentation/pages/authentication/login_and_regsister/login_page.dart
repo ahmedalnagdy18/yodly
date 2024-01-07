@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yodly/core/colors/app_colors.dart';
@@ -69,6 +70,7 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                   padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: Form(
                     onChanged: _isEnabled,
+                    autovalidateMode: AutovalidateMode.always,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -90,8 +92,24 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                         SizedBox(
                           height: 50,
                           child: TextFormField(
+                            keyboardType: TextInputType.emailAddress,
+                            validator: (value) =>
+                                EmailValidator.validate(value!)
+                                    ? null
+                                    : "Please enter a valid email",
                             controller: _email,
                             decoration: InputDecoration(
+                                errorStyle: const TextStyle(fontSize: 0.01),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide:
+                                      const BorderSide(color: Colors.red),
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide:
+                                      const BorderSide(color: Colors.red),
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(30),
                                   borderSide:
@@ -118,6 +136,7 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                         SizedBox(
                           height: 50,
                           child: TextFormField(
+                            obscureText: true,
                             controller: _password,
                             decoration: InputDecoration(
                                 focusedBorder: OutlineInputBorder(

@@ -16,7 +16,11 @@ class CircleWidget extends StatelessWidget {
         child: Center(
           child: TextField(
             onChanged: (value) {
-              FocusScope.of(context).nextFocus();
+              if (value.length == 1) {
+                FocusScope.of(context).nextFocus();
+              } else {
+                FocusScope.of(context).previousFocus();
+              }
             },
             textAlign: TextAlign.center,
             keyboardType: TextInputType.phone,
