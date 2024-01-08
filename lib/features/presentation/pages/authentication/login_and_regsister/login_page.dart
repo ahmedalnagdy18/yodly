@@ -216,10 +216,24 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                                     constraints: const BoxConstraints(
                                         maxWidth: 300.0, minHeight: 50.0),
                                     alignment: Alignment.center,
-                                    child: const Text(
-                                      "Login",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(color: Colors.white),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        const Text(
+                                          "Login",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        if (state is LoadingLoginState)
+                                          SizedBox(
+                                            width: 15,
+                                            height: 15,
+                                            child: CircularProgressIndicator(
+                                              color: AppColors.n1,
+                                            ),
+                                          ),
+                                      ],
                                     ),
                                   ),
                                 ),

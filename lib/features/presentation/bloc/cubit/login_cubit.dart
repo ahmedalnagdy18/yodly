@@ -11,7 +11,14 @@ class LoginCubit extends Cubit<LoginState> {
 
   void login(LoginEntity loginEntity) async {
     emit(LoadingLoginState());
-    await loginUsecase.call(loginEntity);
+    print("==========");
+    try {
+      await loginUsecase.call(loginEntity);
+      print("Sucess");
+    } catch (e) {
+      print("Error");
+      rethrow;
+    }
     emit(SucsessLoginState());
     // emit(ErrorLoginState());
   }

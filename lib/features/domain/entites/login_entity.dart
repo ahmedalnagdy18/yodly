@@ -5,4 +5,12 @@ class LoginEntity {
 
   LoginEntity(
       {required this.email, required this.password, required this.deviceName});
+
+  toJson() {
+    return {
+      "email": email,
+      "password": password,
+      "device": deviceName,
+    };
+  }
 }
