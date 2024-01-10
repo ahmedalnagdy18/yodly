@@ -12,7 +12,10 @@ class RegisterRepositryImp implements RegisterRepository {
   @override
   Future<void> registerInput(RegisterEntity registerEntity) async {
     final result = await graphQLClient.mutate(MutationOptions(
-        document: gql(regesturMutation), variables: {"input": registerEntity}));
+        document: gql(regesturMutation),
+        variables: {"input": registerEntity.toJson()}));
+
+    if (result.data == null) {}
 
     final response = ApiRegister.fromJson(result.data!);
     if (response.register != null && response.register!.code == 200) {

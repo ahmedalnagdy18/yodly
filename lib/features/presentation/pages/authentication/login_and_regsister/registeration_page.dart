@@ -377,7 +377,13 @@ class _RegisterationPageState extends State<_RegisterationPageBody> {
 
   void _loginButton(BuildContext context) {
     BlocProvider.of<RegisterCubit>(context).register(RegisterEntity(
-        email: _email.text, password: _password.text, deviceName: "ANDROID"));
+      email: _email.text,
+      password: _password.text,
+      deviceName: "ANDROID",
+      userName: '',
+      displayName: '',
+      country: 'eg',
+    ));
   }
 
   void _isEnabled() {

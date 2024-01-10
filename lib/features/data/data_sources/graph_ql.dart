@@ -22,3 +22,17 @@ mutation register($input :RegisterInput!){
 } 
 }
 """;
+
+const String forgetPasswordMutation = r"""
+mutation ResetPasswordByEmailInput ($input:ResetPasswordByEmailInput!){
+  resetPasswordByEmail(input:$input){
+    data{
+      id
+    }
+    code
+    success
+    message
+    
+  }
+}
+""";

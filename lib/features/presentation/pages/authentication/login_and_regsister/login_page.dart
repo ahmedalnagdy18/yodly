@@ -6,7 +6,7 @@ import 'package:yodly/features/domain/entites/login_entity.dart';
 import 'package:yodly/features/presentation/bloc/cubit/login_cubit.dart';
 import 'package:yodly/features/presentation/pages/authentication/login_and_regsister/Registeration_page.dart';
 import 'package:yodly/features/presentation/pages/authentication/login_and_regsister/forgot_password.dart';
-import 'package:yodly/features/presentation/pages/home/home_page.dart';
+import 'package:yodly/features/presentation/pages/home/navbar.dart';
 import 'package:yodly/injection_container.dart';
 
 class LoginPage extends StatelessWidget {
@@ -184,7 +184,7 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                           listener: (context, state) {
                             if (state is SucsessLoginState) {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const HomePage()));
+                                  builder: (context) => const Navbar()));
                             }
                           },
                           child: Center(
