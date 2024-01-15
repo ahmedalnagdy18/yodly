@@ -1,4 +1,4 @@
-import 'package:yodly/features/domain/entites/forget_password.dart';
+import 'package:yodly/features/domain/entites/forget_password_entity.dart';
 import 'package:yodly/features/domain/repositories/forget_password._repository.dart';
 
 class ForgetPasswordUsecase {

@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:yodly/features/data/data_sources/graph_ql.dart';
 import 'package:yodly/features/data/models/api_forget_password.dart';
-import 'package:yodly/features/domain/entites/forget_password.dart';
+import 'package:yodly/features/domain/entites/forget_password_entity.dart';
 import 'package:yodly/features/domain/repositories/forget_password._repository.dart';
 
 class ForgetPasswordRepositryImp implements ForgetPasswordRepository {
@@ -14,11 +14,19 @@ class ForgetPasswordRepositryImp implements ForgetPasswordRepository {
   @override
   Future<void> resetPasswordByEmail(
       ForgetPasswordEntity forgetPasswordEntity) async {
-    final result = await graphQLClient.mutate(MutationOptions(
+    final result = await graphQLClient.mutate(
+      MutationOptions(
         document: gql(forgetPasswordMutation),
-        variables: {"input": forgetPasswordEntity.toJson()}));
+        variables: {
+          "input": forgetPasswordEntity.toJson(),
+        },
+      ),
+    );
 
-    if (result.data == null) {}
+    print(result.data);
+    if (result.data == null) {
+      throw Exception();
+    }
 
     final response = ApiForgetPassword.fromJson(result.data!);
     log('zzzzzzzzzz');

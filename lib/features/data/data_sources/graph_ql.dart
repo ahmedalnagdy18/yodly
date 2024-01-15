@@ -36,3 +36,14 @@ mutation ResetPasswordByEmailInput ($input:ResetPasswordByEmailInput!){
   }
 }
 """;
+
+const String sendEmailVerificationCodee = r"""
+mutation sendEmailVerificationCode($input:SendEmailVerificationCodeInput!){
+  sendEmailVerificationCode(input:$input){
+    data
+    code
+    success
+    message
+  }
+}
+""";

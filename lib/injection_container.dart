@@ -3,12 +3,15 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:yodly/features/data/repositories/forget_password_imp.dart';
 import 'package:yodly/features/data/repositories/login_repository_imp.dart';
 import 'package:yodly/features/data/repositories/register_repository_imp.dart';
+import 'package:yodly/features/data/repositories/send_email_verification_code_imp.dart';
 import 'package:yodly/features/domain/repositories/forget_password._repository.dart';
 import 'package:yodly/features/domain/repositories/login_repository.dart';
 import 'package:yodly/features/domain/repositories/register_repository.dart';
+import 'package:yodly/features/domain/repositories/send_email_verification_code_repository.dart';
 import 'package:yodly/features/domain/usecase/forget_password_usecase.dart';
 import 'package:yodly/features/domain/usecase/login_usecase.dart';
 import 'package:yodly/features/domain/usecase/register_usecase.dart';
+import 'package:yodly/features/domain/usecase/send_email_verification_code_usecase.dart';
 
 final sl = GetIt.instance;
 
@@ -23,6 +26,9 @@ Future<void> init() async {
   sl.registerLazySingleton<ForgetPasswordUsecase>(
       () => ForgetPasswordUsecase(repository: sl()));
 
+  sl.registerLazySingleton<SendEmailVerificationCodeUsecase>(
+      () => SendEmailVerificationCodeUsecase(repository: sl()));
+
 // Repository
 
   sl.registerLazySingleton<LoginRepository>(
@@ -33,6 +39,9 @@ Future<void> init() async {
 
   sl.registerLazySingleton<ForgetPasswordRepository>(
       () => ForgetPasswordRepositryImp(graphQLClient: sl()));
+
+  sl.registerLazySingleton<SendEmailVerificationCodeRepository>(
+      () => SendEmailVerificationCodeRepositoryImp(graphQLClient: sl()));
 
   sl.registerLazySingleton(() => GraphQLClient(
       link: Link.from([HttpLink("https://yodly.onrender.com/graphql")]),

@@ -23,7 +23,7 @@ class RegisterationPage extends StatelessWidget {
 }
 
 class _RegisterationPageBody extends StatefulWidget {
-  const _RegisterationPageBody({super.key});
+  const _RegisterationPageBody();
 
   @override
   State<_RegisterationPageBody> createState() => _RegisterationPageState();
@@ -37,6 +37,7 @@ class _RegisterationPageState extends State<_RegisterationPageBody> {
   final TextEditingController _email = TextEditingController();
 
   final TextEditingController _password = TextEditingController();
+  //final TextEditingController _displayName = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -380,14 +381,15 @@ class _RegisterationPageState extends State<_RegisterationPageBody> {
       email: _email.text,
       password: _password.text,
       deviceName: "ANDROID",
-      userName: '',
-      displayName: '',
+      userName: _userName.text,
+      //  displayName: _displayName.text,
       country: 'eg',
     ));
   }
 
   void _isEnabled() {
     if (_email.text.isNotEmpty &&
+        //  _displayName.text.isNotEmpty &&
         _password.text.isNotEmpty &&
         _userName.text.isNotEmpty) {
       _isButtonEnabled = true;

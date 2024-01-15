@@ -3,12 +3,12 @@ class RegisterEntity {
   final String password;
   final String deviceName;
   final String userName;
-  final String displayName;
+  // final String displayName;
   final String country;
 
   RegisterEntity(
       {required this.userName,
-      required this.displayName,
+      //  required this.displayName,
       required this.country,
       required this.email,
       required this.password,
@@ -20,7 +20,7 @@ class RegisterEntity {
       "password": password,
       "device": deviceName,
       "userName": userName,
-      "displayName": displayName,
+      //   "displayName": displayName,
       "country": country,
     };
   }
