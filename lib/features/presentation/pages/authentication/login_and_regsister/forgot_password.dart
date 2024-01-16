@@ -154,15 +154,7 @@ class _ForgotPasswordState extends State<_ForgotPassword> {
                                     child: BlocListener<
                                         SendEmailVerificationCodeCubit,
                                         SendEmailVerificationCodeState>(
-                                      listener: (context, state) {
-                                        if (state
-                                            is SucsessEmailVerificationCodeState) {
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const Authentication2Page()));
-                                        }
-                                      },
+                                      listener: (context, state) {},
                                       child: MaterialButton(
                                         onPressed: () {
                                           if (_isButtonEnabled) {
@@ -219,6 +211,10 @@ class _ForgotPasswordState extends State<_ForgotPassword> {
     BlocProvider.of<SendEmailVerificationCodeCubit>(context)
         .sendEmailVerificationCode(SendEmailVerificationCodeEntity(
             email: _email.text, useCase: 'PASSWORD_RESET'));
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => Authentication2Page(
+              email: _email.text,
+            )));
   }
 
   void _isEnabled() {

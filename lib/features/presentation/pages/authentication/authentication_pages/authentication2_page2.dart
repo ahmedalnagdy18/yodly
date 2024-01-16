@@ -1,10 +1,38 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yodly/core/colors/app_colors.dart';
+import 'package:yodly/features/domain/entites/forget_password_entity.dart';
+import 'package:yodly/features/presentation/bloc/forget_password/cubit/forget_password_cubit.dart';
 import 'package:yodly/features/presentation/pages/authentication/login_and_regsister/set_new_password.dart';
 import 'package:yodly/features/presentation/widgets/authentication_widget.dart';
+import 'package:yodly/injection_container.dart';
 
 class Authentication2Page extends StatelessWidget {
-  const Authentication2Page({super.key});
+  final String email;
+  const Authentication2Page({super.key, required this.email});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => ForgetPasswordCubit(forgetPasswordUsecase: sl()),
+      child: _Authentication2Page(email),
+    );
+  }
+}
+
+class _Authentication2Page extends StatefulWidget {
+  final String email;
+
+  const _Authentication2Page(this.email);
+
+  @override
+  State<_Authentication2Page> createState() => _Authentication2PageState();
+}
+
+class _Authentication2PageState extends State<_Authentication2Page> {
+  bool _isButtonEnabled = false;
+  late final String verificationCode;
 
   @override
   Widget build(BuildContext context) {
@@ -72,12 +100,6 @@ class Authentication2Page extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 CircleWidget(),
-                                SizedBox(width: 10),
-                                CircleWidget(),
-                                SizedBox(width: 10),
-                                CircleWidget(),
-                                SizedBox(width: 10),
-                                CircleWidget(),
                               ],
                             ),
                             const SizedBox(height: 20),
@@ -107,40 +129,54 @@ class Authentication2Page extends StatelessWidget {
                             ),
                             SizedBox(
                               height: 51,
-                              width: 300,
-                              child: MaterialButton(
-                                onPressed: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          const NewPasswordPage()));
+                              child: BlocConsumer<ForgetPasswordCubit,
+                                  ForgetPasswordState>(
+                                listener: (context, state) {
+                                  if (state is SucsessForgetPasswordState) {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const NewPasswordPage()));
+                                  }
                                 },
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25.0)),
-                                padding: const EdgeInsets.all(0.0),
-                                child: Ink(
-                                  decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        colors: AppColors.g2,
-                                        begin: Alignment.centerLeft,
-                                        end: Alignment.centerRight,
-                                      ),
-                                      borderRadius:
-                                          BorderRadius.circular(30.0)),
-                                  child: Container(
-                                    constraints: const BoxConstraints(
-                                        maxWidth: 300.0, minHeight: 50.0),
-                                    alignment: Alignment.center,
-                                    child: const Text(
-                                      "Submit",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w700,
+                                builder: (context, state) {
+                                  return MaterialButton(
+                                    onPressed: () {
+                                      print("dog");
+                                      if (_isButtonEnabled) {
+                                        _loginButton(context);
+                                      }
+                                    },
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(25.0)),
+                                    padding: const EdgeInsets.all(0.0),
+                                    child: Ink(
+                                      decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            colors: AppColors.g2,
+                                            begin: Alignment.centerLeft,
+                                            end: Alignment.centerRight,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(30.0)),
+                                      child: Container(
+                                        constraints: const BoxConstraints(
+                                            maxWidth: 300.0, minHeight: 50.0),
+                                        alignment: Alignment.center,
+                                        child: const Text(
+                                          "Submit",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ),
+                                  );
+                                },
                               ),
                             ),
                           ],
@@ -156,5 +192,28 @@ class Authentication2Page extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _loginButton(BuildContext context) {
+    BlocProvider.of<ForgetPasswordCubit>(context)
+        .forgetPassword(ForgetPasswordEntity(
+      email: widget.email,
+      code: verificationCode,
+      newPassword: '11',
+    ));
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const NewPasswordPage()));
+  }
+
+  void _isEnabled() {
+    if (verificationCode.isNotEmpty) {
+      _isButtonEnabled = true;
+      _loginButton(context);
+      setState(() {});
+    } else {
+      _isButtonEnabled = false;
+      setState(() {});
+    }
+    setState(() {});
   }
 }
