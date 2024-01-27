@@ -47,3 +47,17 @@ mutation sendEmailVerificationCode($input:SendEmailVerificationCodeInput!){
   }
 }
 """;
+
+const String verifyUserByEmailInput = r"""
+mutation verifyUserByEmail($input:VerifyUserByEmailInput!){
+  verifyUserByEmail (input:$input){
+    data{
+      id
+  
+    }
+    code
+    success
+     message
+  }
+}
+""";
