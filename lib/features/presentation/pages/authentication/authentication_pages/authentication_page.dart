@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yodly/core/colors/app_colors.dart';
+import 'package:yodly/features/presentation/pages/home/navbar.dart';
 import 'package:yodly/features/presentation/widgets/authentication_widget.dart';
 
 class AuthenticationPage extends StatefulWidget {
@@ -76,12 +77,6 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                CircleWidget(),
-                                SizedBox(width: 10),
-                                CircleWidget(),
-                                SizedBox(width: 10),
-                                CircleWidget(),
-                                SizedBox(width: 10),
                                 CircleWidget(),
                               ],
                             ),
@@ -170,7 +165,12 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                                             width: 50,
                                             height: 50,
                                             child: MaterialButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const Navbar()));
+                                              },
                                               shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(

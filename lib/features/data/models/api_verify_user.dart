@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final apiVerifyUserByEmail = apiVerifyUserByEmailFromJson(jsonString);
+
 import 'dart:convert';
 
 ApiVerifyUserByEmail apiVerifyUserByEmailFromJson(String str) =>
@@ -7,7 +11,7 @@ String apiVerifyUserByEmailToJson(ApiVerifyUserByEmail data) =>
     json.encode(data.toJson());
 
 class ApiVerifyUserByEmail {
-  final ApiVerifyUserByEmailData? data;
+  final Data? data;
 
   ApiVerifyUserByEmail({
     this.data,
@@ -15,9 +19,7 @@ class ApiVerifyUserByEmail {
 
   factory ApiVerifyUserByEmail.fromJson(Map<String, dynamic> json) =>
       ApiVerifyUserByEmail(
-        data: json["data"] == null
-            ? null
-            : ApiVerifyUserByEmailData.fromJson(json["data"]),
+        data: json["data"] == null ? null : Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -25,69 +27,53 @@ class ApiVerifyUserByEmail {
       };
 }
 
-class ApiVerifyUserByEmailData {
-  final VerifyUserByEmail? verifyUserByEmail;
+class Data {
+  final DoesUserWithVerificationCodeExist? doesUserWithVerificationCodeExist;
 
-  ApiVerifyUserByEmailData({
-    this.verifyUserByEmail,
+  Data({
+    this.doesUserWithVerificationCodeExist,
   });
 
-  factory ApiVerifyUserByEmailData.fromJson(Map<String, dynamic> json) =>
-      ApiVerifyUserByEmailData(
-        verifyUserByEmail: json["verifyUserByEmail"] == null
-            ? null
-            : VerifyUserByEmail.fromJson(json["verifyUserByEmail"]),
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+        doesUserWithVerificationCodeExist:
+            json["doesUserWithVerificationCodeExist"] == null
+                ? null
+                : DoesUserWithVerificationCodeExist.fromJson(
+                    json["doesUserWithVerificationCodeExist"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "verifyUserByEmail": verifyUserByEmail?.toJson(),
+        "doesUserWithVerificationCodeExist":
+            doesUserWithVerificationCodeExist?.toJson(),
       };
 }
 
-class VerifyUserByEmail {
-  final VerifyUserByEmailData? data;
+class DoesUserWithVerificationCodeExist {
+  final bool? data;
   final int? code;
   final bool? success;
   final String? message;
 
-  VerifyUserByEmail({
+  DoesUserWithVerificationCodeExist({
     this.data,
     this.code,
     this.success,
     this.message,
   });
 
-  factory VerifyUserByEmail.fromJson(Map<String, dynamic> json) =>
-      VerifyUserByEmail(
-        data: json["data"] == null
-            ? null
-            : VerifyUserByEmailData.fromJson(json["data"]),
+  factory DoesUserWithVerificationCodeExist.fromJson(
+          Map<String, dynamic> json) =>
+      DoesUserWithVerificationCodeExist(
+        data: json["data"],
         code: json["code"],
         success: json["success"],
         message: json["message"],
       );
 
   Map<String, dynamic> toJson() => {
-        "data": data?.toJson(),
+        "data": data,
         "code": code,
         "success": success,
         "message": message,
-      };
-}
-
-class VerifyUserByEmailData {
-  final String? id;
-
-  VerifyUserByEmailData({
-    this.id,
-  });
-
-  factory VerifyUserByEmailData.fromJson(Map<String, dynamic> json) =>
-      VerifyUserByEmailData(
-        id: json["id"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
       };
 }

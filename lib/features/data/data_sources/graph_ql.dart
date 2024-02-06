@@ -49,12 +49,9 @@ mutation sendEmailVerificationCode($input:SendEmailVerificationCodeInput!){
 """;
 
 const String verifyUserByEmailInput = r"""
-mutation verifyUserByEmail($input:VerifyUserByEmailInput!){
-  verifyUserByEmail (input:$input){
-    data{
-      id
-  
-    }
+query doesUserWithVerificationCodeExist($input:IsUserWithVerificationCodeExistInput!){
+  doesUserWithVerificationCodeExist (input:$input){
+  data
     code
     success
      message

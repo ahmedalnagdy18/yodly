@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yodly/core/colors/app_colors.dart';
+import 'package:yodly/features/presentation/pages/authentication/login_and_regsister/login_regsister_page.dart';
 import 'package:yodly/features/presentation/pages/home/home_page.dart';
 
 class LogoutPage extends StatelessWidget {
@@ -92,8 +93,9 @@ class LogoutPage extends StatelessWidget {
                         color: Colors.transparent,
                         elevation: 0,
                         onPressed: () {
-                          // Navigator.of(context).pop(MaterialPageRoute(
-                          //     builder: (context) => const MyProfilePage()));
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>
+                                  const LoginRegsisterPage()));
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,

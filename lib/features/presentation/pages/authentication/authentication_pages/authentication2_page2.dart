@@ -32,7 +32,7 @@ class _Authentication2Page extends StatefulWidget {
 class _Authentication2PageState extends State<_Authentication2Page> {
   // ignore: unused_field
   bool _isButtonEnabled = false;
-  late final String? verificationCode;
+  final List? verificationCode = [];
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +104,7 @@ class _Authentication2PageState extends State<_Authentication2Page> {
                                   children: [
                                     CircleWidget(
                                       onChange: (String code) {
-                                        verificationCode == code;
+                                        verificationCode?.add(code);
                                       },
                                     ),
                                   ],
@@ -202,8 +202,11 @@ class _Authentication2PageState extends State<_Authentication2Page> {
   }
 
   void _loginButton(BuildContext context) {
+    String x = '';
+    print("vvvvv======${verificationCode?.join()}");
+
     BlocProvider.of<VerifyUserCubit>(context).verifyUser(VerifyUserEntity(
-      email: widget.email, verificationCode: verificationCode ?? "",
+      email: widget.email, verificationCode: verificationCode?.join() ?? "1111",
       // verificationCode: verificationCode ?? '3245',
     ));
     Navigator.of(context)
