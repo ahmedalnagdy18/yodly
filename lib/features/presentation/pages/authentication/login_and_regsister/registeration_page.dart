@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yodly/core/colors/app_colors.dart';
 import 'package:yodly/features/domain/entites/register_entity.dart';
+import 'package:yodly/features/domain/entites/send_email_verification_code_entity.dart';
+import 'package:yodly/features/presentation/bloc/SendEmailVerificationCode/cubit/send_email_verification_code_cubit.dart';
 import 'package:yodly/features/presentation/bloc/cubit/register/cubit/register_cubit.dart';
+import 'package:yodly/features/presentation/bloc/verify_user/cubit/verify_user_cubit.dart';
+import 'package:yodly/features/presentation/pages/authentication/authentication_pages/authentication2_page2.dart';
 import 'package:yodly/features/presentation/pages/authentication/authentication_pages/authentication_page.dart';
 import 'package:yodly/features/presentation/pages/authentication/login_and_regsister/Login_page.dart';
 import 'package:yodly/features/presentation/pages/home/navbar.dart';
@@ -15,10 +19,22 @@ class RegisterationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => RegisterCubit(registerUsecase: sl()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<RegisterCubit>(
+          create: (BuildContext context) =>
+              RegisterCubit(registerUsecase: sl()),
+        ),
+        BlocProvider<SendEmailVerificationCodeCubit>(
+          create: (BuildContext context) => SendEmailVerificationCodeCubit(
+              sendEmailVerificationCodeUsecase: sl()),
+        ),
+      ],
       child: const _RegisterationPageBody(),
     );
+    //   create: (context) => RegisterCubit(registerUsecase: sl()),
+    //   child: const _RegisterationPageBody(),
+    // );
   }
 }
 
@@ -268,52 +284,71 @@ class _RegisterationPageState extends State<_RegisterationPageBody> {
                         ),
                         const SizedBox(height: 20),
 
-                        BlocListener<RegisterCubit, RegisterState>(
+                        BlocListener<SendEmailVerificationCodeCubit,
+                            SendEmailVerificationCodeState>(
                           listener: (context, state) {
-                            if (state is SucsessRegsisterState) {
+                            if (state is SucsessEmailVerificationCodeState) {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
-                                      const AuthenticationPage()));
+                                      const Authentication2Page(
+                                        email: '',
+                                      )));
                             }
                           },
-                          child: Center(
-                            child: SizedBox(
-                              height: 51,
-                              width: 300,
-                              child: MaterialButton(
-                                onPressed: () {
-                                  if (_isButtonEnabled) _loginButton(context);
-                                },
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25.0)),
-                                padding: const EdgeInsets.all(0.0),
-                                child: Ink(
-                                  decoration: BoxDecoration(
-                                      color: !_isButtonEnabled
-                                          ? Colors.grey
-                                          : null,
-                                      gradient: !_isButtonEnabled
-                                          ? null
-                                          : LinearGradient(
-                                              colors: AppColors.g2,
-                                              begin: Alignment.centerRight,
-                                              end: Alignment.centerLeft,
-                                            ),
+                          child: BlocListener<RegisterCubit, RegisterState>(
+                            listener: (context, state) {
+                              if (state is SucsessRegsisterState) {
+                                BlocProvider.of<SendEmailVerificationCodeCubit>(
+                                        context)
+                                    .sendEmailVerificationCode(
+                                        SendEmailVerificationCodeEntity(
+                                  email: _email.text,
+                                  useCase: 'EMAIL_VERIFICATION',
+                                ));
+                              }
+                            },
+                            child: Center(
+                              child: SizedBox(
+                                height: 51,
+                                width: 300,
+                                child: MaterialButton(
+                                  onPressed: () {
+                                    if (_isButtonEnabled) {
+                                      _loginButton(context);
+                                    }
+                                  },
+                                  shape: RoundedRectangleBorder(
                                       borderRadius:
-                                          BorderRadius.circular(30.0)),
-                                  child: Container(
-                                    constraints: const BoxConstraints(
-                                      maxWidth: 300.0,
-                                      minHeight: 50.0,
-                                    ),
-                                    alignment: Alignment.center,
-                                    child: const Text(
-                                      "Agree & Register",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w700,
+                                          BorderRadius.circular(25.0)),
+                                  padding: const EdgeInsets.all(0.0),
+                                  child: Ink(
+                                    decoration: BoxDecoration(
+                                        color: !_isButtonEnabled
+                                            ? Colors.grey
+                                            : null,
+                                        gradient: !_isButtonEnabled
+                                            ? null
+                                            : LinearGradient(
+                                                colors: AppColors.g2,
+                                                begin: Alignment.centerRight,
+                                                end: Alignment.centerLeft,
+                                              ),
+                                        borderRadius:
+                                            BorderRadius.circular(30.0)),
+                                    child: Container(
+                                      constraints: const BoxConstraints(
+                                        maxWidth: 300.0,
+                                        minHeight: 50.0,
+                                      ),
+                                      alignment: Alignment.center,
+                                      child: const Text(
+                                        "Agree & Register",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -379,6 +414,7 @@ class _RegisterationPageState extends State<_RegisterationPageBody> {
   }
 
   void _loginButton(BuildContext context) {
+    print('zzzzzzzzzzzzzzzzzzz');
     BlocProvider.of<RegisterCubit>(context).register(RegisterEntity(
       email: _email.text,
       password: _password.text,

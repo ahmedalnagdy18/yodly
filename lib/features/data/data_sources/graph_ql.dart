@@ -8,16 +8,14 @@ mutation login($input :EmailAndPasswordLoginInput!){
 } 
 }
 """;
-const String regesturMutation = r"""
+const String registerMutation = r"""
 mutation register($input :RegisterInput!){
   register(input:$input){
     success
     code
     message
     data{
-      id
-      userName
-
+     token
     }
 } 
 }

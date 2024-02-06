@@ -11,30 +11,14 @@ String apiSendEmailVerificationCodeToJson(ApiSendEmailVerificationCode data) =>
     json.encode(data.toJson());
 
 class ApiSendEmailVerificationCode {
-  final Data? data;
+  final SendEmailVerificationCode? sendEmailVerificationCode;
 
   ApiSendEmailVerificationCode({
-    this.data,
+    this.sendEmailVerificationCode,
   });
 
   factory ApiSendEmailVerificationCode.fromJson(Map<String, dynamic> json) =>
       ApiSendEmailVerificationCode(
-        data: json["data"] == null ? null : Data.fromJson(json["data"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "data": data?.toJson(),
-      };
-}
-
-class Data {
-  final SendEmailVerificationCode? sendEmailVerificationCode;
-
-  Data({
-    this.sendEmailVerificationCode,
-  });
-
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
         sendEmailVerificationCode: json["sendEmailVerificationCode"] == null
             ? null
             : SendEmailVerificationCode.fromJson(

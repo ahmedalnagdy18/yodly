@@ -206,7 +206,7 @@ class _Authentication2PageState extends State<_Authentication2Page> {
     print("vvvvv======${verificationCode?.join()}");
 
     BlocProvider.of<VerifyUserCubit>(context).verifyUser(VerifyUserEntity(
-      email: widget.email, verificationCode: verificationCode?.join() ?? "1111",
+      email: widget.email, verificationCode: verificationCode?.join() ?? "1234",
       // verificationCode: verificationCode ?? '3245',
     ));
     Navigator.of(context)

@@ -25,9 +25,8 @@ class SendEmailVerificationCodeRepositoryImp
       throw Exception();
     }
     final response = ApiSendEmailVerificationCode.fromJson(result.data!);
-
-    if (response.data != null &&
-        response.data?.sendEmailVerificationCode?.code == 200) {
+    if (response.sendEmailVerificationCode != null &&
+        response.sendEmailVerificationCode?.code == 200) {
       return;
     } else {
       throw Exception();

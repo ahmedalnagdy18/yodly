@@ -150,7 +150,7 @@ class NewPasswordPage extends StatelessWidget {
                                     builder: (context) {
                                       Future.delayed(const Duration(seconds: 2),
                                           () {
-                                        Navigator.of(context).push(
+                                        Navigator.of(context).pushReplacement(
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     const LoginPage())); // Close the dialog

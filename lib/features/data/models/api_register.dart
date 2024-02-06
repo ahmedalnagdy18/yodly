@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final apiRegister = apiRegisterFromJson(jsonString);
+
 import 'dart:convert';
 
 ApiRegister apiRegisterFromJson(String str) =>
@@ -6,13 +10,32 @@ ApiRegister apiRegisterFromJson(String str) =>
 String apiRegisterToJson(ApiRegister data) => json.encode(data.toJson());
 
 class ApiRegister {
-  final Register? register;
+  final ApiRegisterData? data;
 
   ApiRegister({
-    this.register,
+    this.data,
   });
 
   factory ApiRegister.fromJson(Map<String, dynamic> json) => ApiRegister(
+        data: json["data"] == null
+            ? null
+            : ApiRegisterData.fromJson(json["data"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "data": data?.toJson(),
+      };
+}
+
+class ApiRegisterData {
+  final Register? register;
+
+  ApiRegisterData({
+    this.register,
+  });
+
+  factory ApiRegisterData.fromJson(Map<String, dynamic> json) =>
+      ApiRegisterData(
         register: json["register"] == null
             ? null
             : Register.fromJson(json["register"]),
@@ -27,7 +50,7 @@ class Register {
   final bool? success;
   final int? code;
   final String? message;
-  final Data? data;
+  final RegisterData? data;
 
   Register({
     this.success,
@@ -40,7 +63,7 @@ class Register {
         success: json["success"],
         code: json["code"],
         message: json["message"],
-        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+        data: json["data"] == null ? null : RegisterData.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -51,22 +74,18 @@ class Register {
       };
 }
 
-class Data {
-  final String? id;
-  final String? userName;
+class RegisterData {
+  final dynamic token;
 
-  Data({
-    this.id,
-    this.userName,
+  RegisterData({
+    this.token,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-        id: json["id"],
-        userName: json["userName"],
+  factory RegisterData.fromJson(Map<String, dynamic> json) => RegisterData(
+        token: json["token"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "userName": userName,
+        "token": token,
       };
 }
