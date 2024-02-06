@@ -101,7 +101,7 @@ class LoginWidget extends StatelessWidget {
             const SizedBox(width: 10),
             InkWell(
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (context) => const RegisterationPage()));
               },
               child: Text('Create account',

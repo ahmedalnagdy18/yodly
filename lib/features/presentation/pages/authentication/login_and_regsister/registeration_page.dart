@@ -351,8 +351,10 @@ class _RegisterationPageState extends State<_RegisterationPageBody> {
                             const SizedBox(width: 15),
                             InkWell(
                               onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => const LoginPage()));
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const LoginPage()));
                               },
                               child: Text('Login',
                                   style: TextStyle(

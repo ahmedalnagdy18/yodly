@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yodly/core/colors/app_colors.dart';
+import 'package:yodly/features/presentation/pages/authentication/login_and_regsister/login_page.dart';
 
 class NewPasswordPage extends StatelessWidget {
   const NewPasswordPage({super.key});
@@ -149,8 +150,10 @@ class NewPasswordPage extends StatelessWidget {
                                     builder: (context) {
                                       Future.delayed(const Duration(seconds: 2),
                                           () {
-                                        Navigator.of(context)
-                                            .pop(); // Close the dialog
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const LoginPage())); // Close the dialog
                                       });
                                       return AlertDialog(
                                         shape: RoundedRectangleBorder(
