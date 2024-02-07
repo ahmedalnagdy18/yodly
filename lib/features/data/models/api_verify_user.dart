@@ -11,69 +11,65 @@ String apiVerifyUserByEmailToJson(ApiVerifyUserByEmail data) =>
     json.encode(data.toJson());
 
 class ApiVerifyUserByEmail {
-  final Data? data;
+  final VerifyUserByEmail? verifyUserByEmail;
 
   ApiVerifyUserByEmail({
-    this.data,
+    this.verifyUserByEmail,
   });
 
   factory ApiVerifyUserByEmail.fromJson(Map<String, dynamic> json) =>
       ApiVerifyUserByEmail(
-        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+        verifyUserByEmail: json["verifyUserByEmail"] == null
+            ? null
+            : VerifyUserByEmail.fromJson(json["verifyUserByEmail"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "data": data?.toJson(),
+        "verifyUserByEmail": verifyUserByEmail?.toJson(),
       };
 }
 
-class Data {
-  final DoesUserWithVerificationCodeExist? doesUserWithVerificationCodeExist;
-
-  Data({
-    this.doesUserWithVerificationCodeExist,
-  });
-
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-        doesUserWithVerificationCodeExist:
-            json["doesUserWithVerificationCodeExist"] == null
-                ? null
-                : DoesUserWithVerificationCodeExist.fromJson(
-                    json["doesUserWithVerificationCodeExist"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "doesUserWithVerificationCodeExist":
-            doesUserWithVerificationCodeExist?.toJson(),
-      };
-}
-
-class DoesUserWithVerificationCodeExist {
-  final bool? data;
+class VerifyUserByEmail {
+  final Data? data;
   final int? code;
   final bool? success;
   final String? message;
 
-  DoesUserWithVerificationCodeExist({
+  VerifyUserByEmail({
     this.data,
     this.code,
     this.success,
     this.message,
   });
 
-  factory DoesUserWithVerificationCodeExist.fromJson(
-          Map<String, dynamic> json) =>
-      DoesUserWithVerificationCodeExist(
-        data: json["data"],
+  factory VerifyUserByEmail.fromJson(Map<String, dynamic> json) =>
+      VerifyUserByEmail(
+        data: json["data"] == null ? null : Data.fromJson(json["data"]),
         code: json["code"],
         success: json["success"],
         message: json["message"],
       );
 
   Map<String, dynamic> toJson() => {
-        "data": data,
+        "data": data?.toJson(),
         "code": code,
         "success": success,
         "message": message,
+      };
+}
+
+class Data {
+  final String? token;
+
+  Data({
+    this.token,
+  });
+
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+        token: json["token"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "token": token,
       };
 }

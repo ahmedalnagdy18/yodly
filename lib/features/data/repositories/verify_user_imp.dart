@@ -13,21 +13,25 @@ class VerifyUserRepositoryImp implements VerifyUserRepository {
 
   @override
   Future<void> verifyUserByEmail(VerifyUserEntity verifyUserEntity) async {
-    print("ccc${verifyUserEntity.toJson()}");
-    final result = await graphQLClient.mutate(MutationOptions(
+    final result = await graphQLClient.mutate(
+      MutationOptions(
         document: gql(verifyUserByEmailInput),
-        variables: {"input": verifyUserEntity.toJson()}));
-
+        variables: {
+          "input": verifyUserEntity.toJson(),
+        },
+      ),
+    );
+    print('11111111111111');
     if (result.data == null) {}
-    log('zzzzzzzzzz${result.toString()}');
-
+    print('222222222222222');
     final response = ApiVerifyUserByEmail.fromJson(result.data!);
-    log('zzzzzzzzzz${response.toString()}');
-    if (response.data != null &&
-        response.data?.doesUserWithVerificationCodeExist?.code == 200) {
+    print('33333333333333333');
+    if (response.verifyUserByEmail != null &&
+        response.verifyUserByEmail?.code == 200) {
+      print('44444444444444444');
       return;
     } else {
-      throw Exception();
+      throw FormatException(response.verifyUserByEmail?.message ?? "");
     }
   }
 }

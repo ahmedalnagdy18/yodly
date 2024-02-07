@@ -12,16 +12,14 @@ class VerifyUserCubit extends Cubit<VerifyUserState> {
 
   void verifyUser(VerifyUserEntity verifyUserEntity) async {
     emit(LoadingVerifyUserState());
-    print("==========${verifyUserEntity.email}");
-    print("==========${verifyUserEntity.verificationCode}");
 
     try {
       await verifyUserUsecase.call(verifyUserEntity);
       emit(SucsessVerifyUserState());
-
-      print("Sucess");
     } catch (e) {
-      print("Error");
+      if (e is FormatException) {
+        emit(ErrorVerifyUserState(message: e.message));
+      }
       rethrow;
     }
     // emit(ErrorLoginState());

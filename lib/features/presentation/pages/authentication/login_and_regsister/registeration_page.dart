@@ -6,12 +6,11 @@ import 'package:yodly/features/domain/entites/register_entity.dart';
 import 'package:yodly/features/domain/entites/send_email_verification_code_entity.dart';
 import 'package:yodly/features/presentation/bloc/SendEmailVerificationCode/cubit/send_email_verification_code_cubit.dart';
 import 'package:yodly/features/presentation/bloc/cubit/register/cubit/register_cubit.dart';
-import 'package:yodly/features/presentation/bloc/verify_user/cubit/verify_user_cubit.dart';
-import 'package:yodly/features/presentation/pages/authentication/authentication_pages/authentication2_page2.dart';
 import 'package:yodly/features/presentation/pages/authentication/authentication_pages/authentication_page.dart';
 import 'package:yodly/features/presentation/pages/authentication/login_and_regsister/Login_page.dart';
 import 'package:yodly/features/presentation/pages/home/navbar.dart';
 import 'package:yodly/features/presentation/widgets/Registeration_widget.dart';
+import 'package:yodly/features/presentation/widgets/textfield_widget.dart';
 import 'package:yodly/injection_container.dart';
 
 class RegisterationPage extends StatelessWidget {
@@ -32,9 +31,6 @@ class RegisterationPage extends StatelessWidget {
       ],
       child: const _RegisterationPageBody(),
     );
-    //   create: (context) => RegisterCubit(registerUsecase: sl()),
-    //   child: const _RegisterationPageBody(),
-    // );
   }
 }
 
@@ -149,33 +145,13 @@ class _RegisterationPageState extends State<_RegisterationPageBody> {
                           height: 30,
                         ),
                         SizedBox(
-                          // padding: const EdgeInsets.symmetric(horizontal: 30),
-                          // width: 400,
                           height: 50,
-                          child: TextFormField(
-                            controller: _userName,
-                            decoration: InputDecoration(
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide:
-                                      const BorderSide(color: Colors.grey),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: const BorderSide(
-                                      color:
-                                          Color.fromARGB(255, 203, 202, 202)),
-                                ),
-                                prefixIcon: const Icon(Icons.person_2_outlined,
-                                    size: 20),
-                                hintText: 'User name* ',
-                                filled: true,
-                                fillColor: Colors.white,
-                                hintStyle: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.n3,
-                                )),
+                          child: TextFieldWidget(
+                            hintText: 'User name* ',
+                            mycontroller: _userName,
+                            prefixIcon:
+                                const Icon(Icons.person_2_outlined, size: 20),
+                            obscureText: false,
                           ),
                         ),
                         const SizedBox(
@@ -230,32 +206,12 @@ class _RegisterationPageState extends State<_RegisterationPageBody> {
                         ),
                         SizedBox(
                           height: 50,
-                          child: TextFormField(
+                          child: TextFieldWidget(
+                            hintText: 'Password*',
+                            mycontroller: _password,
+                            prefixIcon:
+                                const Icon(Icons.lock_outline, size: 20),
                             obscureText: true,
-                            controller: _password,
-                            decoration: InputDecoration(
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide:
-                                      const BorderSide(color: Colors.grey),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: const BorderSide(
-                                      color:
-                                          Color.fromARGB(255, 203, 202, 202)),
-                                ),
-                                prefixIcon:
-                                    const Icon(Icons.lock_outline, size: 20),
-                                hintText: 'Password*',
-                                //sss
-                                filled: true,
-                                fillColor: Colors.white,
-                                hintStyle: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.grey,
-                                )),
                           ),
                         ),
                         const SizedBox(
@@ -289,8 +245,9 @@ class _RegisterationPageState extends State<_RegisterationPageBody> {
                           listener: (context, state) {
                             if (state is SucsessEmailVerificationCodeState) {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) =>
-                                      const AuthenticationPage()));
+                                  builder: (context) => AuthenticationPage(
+                                        email: _email.text,
+                                      )));
                             }
                           },
                           child: BlocListener<RegisterCubit, RegisterState>(
@@ -339,14 +296,28 @@ class _RegisterationPageState extends State<_RegisterationPageBody> {
                                         minHeight: 50.0,
                                       ),
                                       alignment: Alignment.center,
-                                      child: const Text(
-                                        "Agree & Register",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w700,
-                                        ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          const Text(
+                                            "Agree & Register",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                          if (state is LoadingRegsisterState)
+                                            SizedBox(
+                                              width: 15,
+                                              height: 15,
+                                              child: CircularProgressIndicator(
+                                                color: AppColors.n1,
+                                              ),
+                                            ),
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -412,7 +383,6 @@ class _RegisterationPageState extends State<_RegisterationPageBody> {
   }
 
   void _loginButton(BuildContext context) {
-    print('zzzzzzzzzzzzzzzzzzz');
     BlocProvider.of<RegisterCubit>(context).register(RegisterEntity(
       email: _email.text,
       password: _password.text,
