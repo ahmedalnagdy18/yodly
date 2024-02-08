@@ -15,7 +15,7 @@ class RegisterRepositryImp implements RegisterRepository {
         document: gql(registerMutation),
         variables: {"input": registerEntity.toJson()}));
 
-    if (registerApiResult.hasException || registerApiResult == null) {
+    if (registerApiResult.hasException || registerApiResult.data == null) {
       throw Exception();
     }
     final response = ApiRegisterData.fromJson(registerApiResult.data!).register;

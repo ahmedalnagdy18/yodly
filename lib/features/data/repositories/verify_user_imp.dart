@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:yodly/features/data/data_sources/graph_ql.dart';
 import 'package:yodly/features/data/models/api_verify_user.dart';
@@ -21,14 +19,10 @@ class VerifyUserRepositoryImp implements VerifyUserRepository {
         },
       ),
     );
-    print('11111111111111');
     if (result.data == null) {}
-    print('222222222222222');
     final response = ApiVerifyUserByEmail.fromJson(result.data!);
-    print('33333333333333333');
     if (response.verifyUserByEmail != null &&
         response.verifyUserByEmail?.code == 200) {
-      print('44444444444444444');
       return;
     } else {
       throw FormatException(response.verifyUserByEmail?.message ?? "");

@@ -23,7 +23,6 @@ class ForgetPasswordRepositryImp implements ForgetPasswordRepository {
       ),
     );
 
-    print(result.data);
     if (result.data == null) {
       throw Exception();
     }
@@ -34,7 +33,7 @@ class ForgetPasswordRepositryImp implements ForgetPasswordRepository {
         response.resetPasswordByEmail!.code == 200) {
       return;
     } else {
-      throw Exception();
+      throw FormatException(response.resetPasswordByEmail?.message ?? "");
     }
   }
 }

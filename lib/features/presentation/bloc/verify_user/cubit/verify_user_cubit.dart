@@ -22,6 +22,5 @@ class VerifyUserCubit extends Cubit<VerifyUserState> {
       }
       rethrow;
     }
-    // emit(ErrorLoginState());
   }
 }

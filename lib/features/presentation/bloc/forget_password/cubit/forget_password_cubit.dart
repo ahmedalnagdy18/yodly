@@ -12,16 +12,14 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
 
   void forgetPassword(ForgetPasswordEntity forgetPasswordEntity) async {
     emit(LoadingForgetPasswordState());
-    print("==========");
     try {
       await forgetPasswordUsecase.call(forgetPasswordEntity);
       emit(SucsessForgetPasswordState());
-
-      print("Sucess");
     } catch (e) {
-      print("Error");
+      if (e is FormatException) {
+        emit(ErrorForgetPasswordState(message: e.message));
+      }
       rethrow;
     }
-    // emit(ErrorLoginState());
   }
 }

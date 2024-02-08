@@ -34,10 +34,19 @@ class _ForgotPasswordState extends State<_ForgotPassword> {
   Widget build(BuildContext context) {
     return BlocConsumer<SendEmailVerificationCodeCubit,
         SendEmailVerificationCodeState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is ErrorEmailVerificationCodeState) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(state.message.toString()),
+            action: SnackBarAction(
+              label: 'Undo',
+              onPressed: () {},
+            ),
+          ));
+        }
+      },
       builder: (context, state) {
         return Scaffold(
-          // backgroundColor: const Color.fromARGB(255, 236, 244, 248),
           body: SingleChildScrollView(
             child: Stack(
               children: [
@@ -152,7 +161,17 @@ class _ForgotPasswordState extends State<_ForgotPassword> {
                                     child: BlocListener<
                                         SendEmailVerificationCodeCubit,
                                         SendEmailVerificationCodeState>(
-                                      listener: (context, state) {},
+                                      listener: (context, state) {
+                                        if (state
+                                            is SucsessEmailVerificationCodeState) {
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Authentication2Page(
+                                                        email: _email.text,
+                                                      )));
+                                        }
+                                      },
                                       child: MaterialButton(
                                         onPressed: () {
                                           if (_isButtonEnabled) {
@@ -174,14 +193,30 @@ class _ForgotPasswordState extends State<_ForgotPassword> {
                                                   BorderRadius.circular(30.0)),
                                           child: Container(
                                             alignment: Alignment.center,
-                                            child: const Text(
-                                              "Send",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w700,
-                                              ),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                const Text(
+                                                  "Send",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                                if (state
+                                                    is LoadingEmailVerificationCodeState)
+                                                  SizedBox(
+                                                    width: 15,
+                                                    height: 15,
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      color: AppColors.n1,
+                                                    ),
+                                                  ),
+                                              ],
                                             ),
                                           ),
                                         ),
@@ -209,10 +244,6 @@ class _ForgotPasswordState extends State<_ForgotPassword> {
     BlocProvider.of<SendEmailVerificationCodeCubit>(context)
         .sendEmailVerificationCode(SendEmailVerificationCodeEntity(
             email: _email.text, useCase: 'PASSWORD_RESET'));
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => Authentication2Page(
-              email: _email.text,
-            )));
   }
 
   void _isEnabled() {

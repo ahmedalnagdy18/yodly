@@ -13,23 +13,19 @@ class LoginRepositryImp implements LoginRepository {
 
   @override
   Future<void> loginWithEmailAndPassword(LoginEntity loginEntity) async {
-    print("11111111111");
     final result = await graphQLClient.mutate(MutationOptions(
         document: gql(loginMutation),
         variables: {"input": loginEntity.toJson()}));
-    print("22222222");
 
     if (result.data == null) {}
 
     final response = ApiLogin.fromJson(result.data!);
-    print("3333333333");
     log('zzzzzzzzzz');
     if (response.emailAndPasswordLogin != null &&
         response.emailAndPasswordLogin!.code == 200) {
       return;
     } else {
-      print("44444444444");
-      throw Exception();
+      throw FormatException(response.emailAndPasswordLogin?.message ?? "");
     }
   }
 }

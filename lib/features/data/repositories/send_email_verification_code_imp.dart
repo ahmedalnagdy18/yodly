@@ -29,7 +29,7 @@ class SendEmailVerificationCodeRepositoryImp
         response.sendEmailVerificationCode?.code == 200) {
       return;
     } else {
-      throw Exception();
+      throw FormatException(response.sendEmailVerificationCode?.message ?? "");
     }
   }
 }

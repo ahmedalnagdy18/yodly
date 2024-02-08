@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pinput/pinput.dart';
 import 'package:yodly/core/colors/app_colors.dart';
 import 'package:yodly/features/domain/entites/verify_user_entity.dart';
 import 'package:yodly/features/presentation/bloc/verify_user/cubit/verify_user_cubit.dart';
@@ -114,14 +115,13 @@ class _AuthenticationPageBodyState extends State<AuthenticationPageBody> {
                                   children: [
                                     //  CircleWidget(),
                                     SizedBox(
-                                      height: 50,
-                                      width: 150,
                                       child: Form(
                                         onChanged: _isEnabled,
-                                        child: TextFieldWidget(
-                                          hintText: "otp number",
-                                          obscureText: false,
-                                          mycontroller: _userName,
+                                        child: Pinput(
+                                          controller: _userName,
+                                          keyboardType: TextInputType.number,
+                                          length: 4,
+                                          textInputAction: TextInputAction.next,
                                         ),
                                       ),
                                     )

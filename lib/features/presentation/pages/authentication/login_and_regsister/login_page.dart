@@ -41,16 +41,17 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is ErrorLoginState) {
-          // AlertDialog(
-          //   actions: [
-          //     Text("Errrrrror"),
-          //   ],
-          // );
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(state.message.toString()),
+            action: SnackBarAction(
+              label: 'Undo',
+              onPressed: () {},
+            ),
+          ));
         }
       },
       builder: (context, state) {
         return Scaffold(
-          //backgroundColor: const Color.fromARGB(255, 236, 244, 248),
           body: SingleChildScrollView(
             child: Stack(
               children: [

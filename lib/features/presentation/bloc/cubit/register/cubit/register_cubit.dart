@@ -11,7 +11,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   void register(RegisterEntity registerEntity) async {
     emit(LoadingRegsisterState());
-    final result = await registerUsecase.call(registerEntity);
+    await registerUsecase.call(registerEntity);
     emit(SucsessRegsisterState());
   }
 }

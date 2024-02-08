@@ -15,15 +15,14 @@ class SendEmailVerificationCodeCubit
   void sendEmailVerificationCode(
       SendEmailVerificationCodeEntity sendEmailVerificationCodeEntity) async {
     emit(LoadingEmailVerificationCodeState());
-    print("==========");
     try {
       await sendEmailVerificationCodeUsecase
           .call(sendEmailVerificationCodeEntity);
       emit(SucsessEmailVerificationCodeState());
-
-      print("Sucess");
     } catch (e) {
-      print("Error");
+      if (e is FormatException) {
+        emit(ErrorEmailVerificationCodeState(message: e.message));
+      }
       rethrow;
     }
   }
