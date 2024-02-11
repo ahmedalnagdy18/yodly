@@ -72,7 +72,6 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                   padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: Form(
                     onChanged: _isEnabled,
-                    autovalidateMode: AutovalidateMode.always,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -194,20 +193,22 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                           ],
                         ),
                         const SizedBox(height: 20),
-                        BlocListener<LoginCubit, LoginState>(
-                          listener: (context, state) {
-                            if (state is SucsessLoginState) {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const Navbar()));
-                            }
-                          },
-                          child: Center(
-                            child: SizedBox(
-                              height: 51,
-                              width: 180,
+                        Center(
+                          child: SizedBox(
+                            height: 51,
+                            width: 180,
+                            child: BlocListener<LoginCubit, LoginState>(
+                              listener: (context, state) {
+                                if (state is SucsessLoginState) {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => const Navbar()));
+                                }
+                              },
                               child: MaterialButton(
                                 onPressed: () {
-                                  if (_isButtonEnabled) _loginButton(context);
+                                  if (_isButtonEnabled) {
+                                    _loginButton(context);
+                                  }
                                 },
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(25.0)),
@@ -277,7 +278,6 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
   void _isEnabled() {
     if (_email.text.isNotEmpty && _password.text.isNotEmpty) {
       _isButtonEnabled = true;
-      _loginButton(context);
       setState(() {});
     } else {
       _isButtonEnabled = false;

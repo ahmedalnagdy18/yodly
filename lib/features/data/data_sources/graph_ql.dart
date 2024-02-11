@@ -58,3 +58,14 @@ mutation verifyUserByEmail($input:VerifyUserByEmailInput!){
   }
 }
 """;
+
+const String verficationOtpQuery = r"""
+query doesUserWithVerificationCodeExist($input:IsUserWithVerificationCodeExistInput!){
+  doesUserWithVerificationCodeExist (input:$input){
+  data
+    code
+    success
+     message
+  }
+}
+""";

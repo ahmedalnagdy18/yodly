@@ -28,7 +28,7 @@ class RegisterRepositryImp implements RegisterRepository {
         deviceName: registerEntity.deviceName,
       );
     } else {
-      throw Exception();
+      throw FormatException(response.message ?? "");
     }
   }
 }

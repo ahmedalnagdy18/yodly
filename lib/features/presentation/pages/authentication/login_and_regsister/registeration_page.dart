@@ -54,7 +54,17 @@ class _RegisterationPageState extends State<_RegisterationPageBody> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<RegisterCubit, RegisterState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is ErrorRegsisterState) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(state.message.toString()),
+            action: SnackBarAction(
+              label: 'Undo',
+              onPressed: () {},
+            ),
+          ));
+        }
+      },
       builder: (context, state) {
         return Scaffold(
           body: SingleChildScrollView(

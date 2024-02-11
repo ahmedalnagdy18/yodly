@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
 import 'package:yodly/core/colors/app_colors.dart';
-import 'package:yodly/features/domain/entites/verify_user_entity.dart';
-import 'package:yodly/features/presentation/bloc/verify_user/cubit/verify_user_cubit.dart';
+import 'package:yodly/features/domain/entites/does_verification_exist_entity.dart';
+import 'package:yodly/features/presentation/bloc/does_user_exist/cubit/does_user_exist_cubit.dart';
 import 'package:yodly/features/presentation/pages/authentication/login_and_regsister/set_new_password.dart';
 import 'package:yodly/injection_container.dart';
 
@@ -15,7 +15,8 @@ class Authentication2Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => VerifyUserCubit(verifyUserUsecase: sl()),
+      create: (context) =>
+          DoesUserExistCubit(doesVerificationExistUsecase: sl()),
       child: _Authentication2Page(email),
     );
   }
@@ -32,14 +33,13 @@ class _Authentication2Page extends StatefulWidget {
 
 class _Authentication2PageState extends State<_Authentication2Page> {
   bool _isButtonEnabled = false;
-  // List<String> otpController = [];
-  // String otpController = "";
+
   final TextEditingController _otpController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<VerifyUserCubit, VerifyUserState>(
+    return BlocConsumer<DoesUserExistCubit, DoesUserExistState>(
       listener: (context, state) {
-        if (state is ErrorVerifyUserState) {
+        if (state is ErrorDoesUserExistState) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(state.message.toString()),
             action: SnackBarAction(
@@ -152,14 +152,19 @@ class _Authentication2PageState extends State<_Authentication2Page> {
                                   ),
                                   SizedBox(
                                     height: 51,
-                                    child: BlocConsumer<VerifyUserCubit,
-                                        VerifyUserState>(
+                                    child: BlocConsumer<DoesUserExistCubit,
+                                        DoesUserExistState>(
                                       listener: (context, state) {
-                                        if (state is SucsessVerifyUserState) {
+                                        if (state
+                                            is SucsessDoesUserExistState) {
                                           Navigator.of(context).push(
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      const NewPasswordPage()));
+                                                      NewPasswordPage(
+                                                        email: widget.email,
+                                                        code:
+                                                            _otpController.text,
+                                                      )));
                                         }
                                       },
                                       builder: (context, state) {
@@ -204,7 +209,7 @@ class _Authentication2PageState extends State<_Authentication2Page> {
                                                     ),
                                                   ),
                                                   if (state
-                                                      is LoadingVerifyUserState)
+                                                      is LoadingDoesUserExistState)
                                                     SizedBox(
                                                       width: 15,
                                                       height: 15,
@@ -240,9 +245,11 @@ class _Authentication2PageState extends State<_Authentication2Page> {
   }
 
   void _loginButton(BuildContext context) {
-    BlocProvider.of<VerifyUserCubit>(context).verifyUser(VerifyUserEntity(
+    BlocProvider.of<DoesUserExistCubit>(context)
+        .doesUserExist(DoesVerificationExistEntity(
       email: widget.email,
-      verificationCode: _otpController.text,
+      useCase: "PASSWORD_RESET",
+      code: _otpController.text,
     ));
   }
 

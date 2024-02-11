@@ -10,8 +10,16 @@ class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit({required this.registerUsecase}) : super(RegisterInitial());
 
   void register(RegisterEntity registerEntity) async {
-    emit(LoadingRegsisterState());
-    await registerUsecase.call(registerEntity);
-    emit(SucsessRegsisterState());
+    try {
+      emit(LoadingRegsisterState());
+
+      await registerUsecase.call(registerEntity);
+      emit(SucsessRegsisterState());
+    } catch (e) {
+      if (e is FormatException) {
+        emit(ErrorRegsisterState(message: e.message));
+      }
+      rethrow;
+    }
   }
 }

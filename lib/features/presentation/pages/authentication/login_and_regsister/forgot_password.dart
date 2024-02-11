@@ -184,11 +184,17 @@ class _ForgotPasswordState extends State<_ForgotPassword> {
                                         padding: const EdgeInsets.all(0.0),
                                         child: Ink(
                                           decoration: BoxDecoration(
-                                              gradient: LinearGradient(
-                                                colors: AppColors.g2,
-                                                begin: Alignment.centerLeft,
-                                                end: Alignment.centerRight,
-                                              ),
+                                              color: !_isButtonEnabled
+                                                  ? Colors.grey
+                                                  : null,
+                                              gradient: !_isButtonEnabled
+                                                  ? null
+                                                  : LinearGradient(
+                                                      colors: AppColors.g2,
+                                                      begin:
+                                                          Alignment.centerRight,
+                                                      end: Alignment.centerLeft,
+                                                    ),
                                               borderRadius:
                                                   BorderRadius.circular(30.0)),
                                           child: Container(
@@ -249,7 +255,6 @@ class _ForgotPasswordState extends State<_ForgotPassword> {
   void _isEnabled() {
     if (_email.text.isNotEmpty) {
       _isButtonEnabled = true;
-      //   _loginButton(context);
       setState(() {});
     } else {
       _isButtonEnabled = false;
