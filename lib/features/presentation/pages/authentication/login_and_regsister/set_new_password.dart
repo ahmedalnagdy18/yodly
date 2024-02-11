@@ -360,15 +360,24 @@ class _NewPasswordPageState extends State<_NewPasswordPage> {
   }
 
   void _loginButton(BuildContext context) {
-    BlocProvider.of<ForgetPasswordCubit>(context).forgetPassword(
-        ForgetPasswordEntity(
-            email: widget.email,
-            code: widget.code,
-            newPassword: _password.text));
+    if (_password.text == _password2.text) {
+      BlocProvider.of<ForgetPasswordCubit>(context).forgetPassword(
+          ForgetPasswordEntity(
+              email: widget.email,
+              code: widget.code,
+              newPassword: _password.text));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Error password not same'),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {},
+        ),
+      ));
+    }
   }
 
   void _isEnabled() {
-    print('ghj');
     if (_password.text.isNotEmpty && _password2.text.isNotEmpty) {
       _isButtonEnabled = true;
       setState(() {});
