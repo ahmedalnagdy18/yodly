@@ -13,8 +13,15 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
+  ImageProvider logo = const AssetImage('images/frame.png');
 
   int _crurentPage = 0;
+  @override
+  void didChangeDependencies() {
+    precacheImage(logo, context, size: const Size(10000, 1000000));
+    super.didChangeDependencies();
+  }
+
   @override
   void initState() {
     _crurentPage = _pageController.initialPage;
@@ -43,65 +50,30 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
             child: Column(children: [
               Expanded(
-                child: PageView.builder(
-                  controller: _pageController,
-                  onPageChanged: (value) {
-                    _crurentPage = value;
-                    setState(() {});
-                  },
-                  itemCount: 3,
-                  itemBuilder: (_, i) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 50),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 100),
-                            child: Image.asset(
-                              oImage[i],
-                              height: 300,
-                              width: 280,
-                              scale: 3,
-                            ),
-                          ),
-                          SizedBox(
-                            // height: 60,
-                            // width: 280,
-                            child: Text(
-                              oTitle[i],
-                              textAlign: TextAlign.start,
-                              style: const TextStyle(
-                                fontSize: 26,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          //  const SizedBox(height: 27),
-                          SizedBox(
-                            //   height: 36,
-                            child: Text(
-                              oSubtitle[i],
-                              textAlign: TextAlign.start,
-                              style: const TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
+                child: Container(
+                  padding: const EdgeInsets.only(
+                    top: 100,
+                  ),
+                  child: PageView.builder(
+                    controller: _pageController,
+                    onPageChanged: (value) {
+                      _crurentPage = value;
+                      setState(() {});
+                    },
+                    itemCount: onboardingList.length,
+                    itemBuilder: (_, i) {
+                      return OnboardingBody(
+                          image: onboardingList[i].image,
+                          title: onboardingList[i].title,
+                          subtitle: onboardingList[i].subtitle);
+                    },
+                  ),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(
                   bottom: 50,
-                  top: 100,
+                  top: 25,
                 ),
                 child: DotsIndicator(
                   dotsCount: 3,
@@ -182,6 +154,58 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ]),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class OnboardingBody extends StatelessWidget {
+  const OnboardingBody({
+    super.key,
+    required this.image,
+    required this.title,
+    required this.subtitle,
+  });
+  final String image;
+  final String title;
+  final String subtitle;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 40,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: Image.asset(
+              image,
+              height: 250,
+              width: 250,
+            ),
+          ),
+          const SizedBox(height: 30),
+          Text(
+            title,
+            textAlign: TextAlign.start,
+            style: const TextStyle(
+              fontSize: 26,
+              fontWeight: FontWeight.w400,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(height: 20),
+          Text(
+            subtitle,
+            textAlign: TextAlign.start,
+            style: const TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w400,
+              color: Colors.white,
+            ),
+          ),
+        ],
       ),
     );
   }

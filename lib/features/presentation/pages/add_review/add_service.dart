@@ -296,8 +296,9 @@ class _AddServicePageState extends State<AddServicePage> {
                                     ),
                                   ),
                                 );
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => const Navbar()));
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) => const Navbar()));
                               },
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25.0)),

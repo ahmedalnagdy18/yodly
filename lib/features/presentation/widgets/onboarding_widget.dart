@@ -1,17 +1,30 @@
-List oImage = [
-  "images/onboarding1.png",
-  "images/onboarding2.png",
-  "images/onboarding3.png",
+final onboardingList = [
+  Onboarding(
+    image: "images/onboarding1.png",
+    title: "Tell us what you think",
+    subtitle: "You can express your opinion freely and share it with others",
+  ),
+  Onboarding(
+    image: "images/onboarding2.png",
+    title: "Share your thoughts",
+    subtitle:
+        "Share your opinion objectively and freely with others to help them",
+  ),
+  Onboarding(
+    image: "images/onboarding3.png",
+    title: "Make your review helpful",
+    subtitle:
+        "Share your opinion objectively and freely with others to help them",
+  ),
 ];
 
-List oTitle = [
-  "Tell us what you think",
-  "Share your thoughts",
-  "Make your review \nhelpful",
-];
+class Onboarding {
+  final String image;
 
-List oSubtitle = [
-  "You can express your opinion freely \nand share it with others",
-  "Share your opinion objectively and \nfreely with others to help them",
-  "Share your opinion objectively and \nfreely with others to help them",
-];
+  final String title;
+
+  final String subtitle;
+
+  Onboarding(
+      {required this.image, required this.title, required this.subtitle});
+}

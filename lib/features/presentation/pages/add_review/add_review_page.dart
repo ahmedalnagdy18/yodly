@@ -198,8 +198,24 @@ class _AddReviewPageState extends State<AddReviewPage> {
                         height: 50,
                         child: MaterialButton(
                           onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const AddServicePage()));
+                            if (_controller2.text.isNotEmpty &&
+                                _controller.text.isNotEmpty &&
+                                _name.text.isNotEmpty) {
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const AddServicePage()));
+                            } else {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: const Text(
+                                    'Error ! you must write all field'),
+                                action: SnackBarAction(
+                                  label: 'Undo',
+                                  onPressed: () {},
+                                ),
+                              ));
+                            }
                           },
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25.0)),
