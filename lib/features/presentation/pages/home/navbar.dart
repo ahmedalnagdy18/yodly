@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yodly/core/colors/app_colors.dart';
+import 'package:yodly/features/presentation/pages/add_review/select_add_review.dart';
 import 'package:yodly/features/presentation/pages/home/home_page.dart';
 import 'package:yodly/features/presentation/pages/home/search/search_page.dart';
 
@@ -26,7 +27,10 @@ class _NavbarState extends State<Navbar> {
         child: FloatingActionButton(
           tooltip: 'Add Review',
           elevation: 4.0,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const SelectAddReview()));
+          },
           child: Container(
             width: 65,
             height: 65,

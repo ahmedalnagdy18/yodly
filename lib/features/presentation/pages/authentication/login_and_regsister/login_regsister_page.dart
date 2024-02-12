@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:yodly/core/colors/app_colors.dart';
-import 'package:yodly/features/presentation/pages/add_review/select_add_review.dart';
 import 'package:yodly/features/presentation/pages/authentication/login_and_regsister/Login_page.dart';
 import 'package:yodly/features/presentation/pages/authentication/login_and_regsister/Registeration_page.dart';
+import 'package:yodly/features/presentation/pages/home/navbar.dart';
 
 class LoginRegsisterPage extends StatelessWidget {
   const LoginRegsisterPage({super.key});
@@ -95,7 +95,7 @@ class LoginRegsisterPage extends StatelessWidget {
                     InkWell(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const SelectAddReview()));
+                            builder: (context) => const Navbar()));
                       },
                       child: const Text(
                         "Skip now",

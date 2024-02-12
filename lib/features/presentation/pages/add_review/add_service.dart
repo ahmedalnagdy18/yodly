@@ -286,6 +286,16 @@ class _AddServicePageState extends State<AddServicePage> {
                             width: 150,
                             child: MaterialButton(
                               onPressed: () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    duration: const Duration(seconds: 1),
+                                    content: const Text('post added'),
+                                    action: SnackBarAction(
+                                      label: 'ok',
+                                      onPressed: () {},
+                                    ),
+                                  ),
+                                );
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => const Navbar()));
                               },
