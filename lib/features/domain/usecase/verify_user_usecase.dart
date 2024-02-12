@@ -1,5 +1,5 @@
 import 'package:yodly/features/domain/entites/verify_user_entity.dart';
-import 'package:yodly/features/domain/repositories/verify_user_repository.dart';
+import 'package:yodly/features/domain/repositories/authentication/authentication_repository.dart';
 
 class VerifyUserUsecase {
   final VerifyUserRepository repository;

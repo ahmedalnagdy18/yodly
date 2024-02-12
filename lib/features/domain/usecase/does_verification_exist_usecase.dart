@@ -1,5 +1,5 @@
 import 'package:yodly/features/domain/entites/does_verification_exist_entity.dart';
-import 'package:yodly/features/domain/repositories/does_verification_exist_repository.dart';
+import 'package:yodly/features/domain/repositories/authentication/authentication_repository.dart';
 
 class DoesVerificationExistUsecase {
   final DoesVerificationExistRepository repository;

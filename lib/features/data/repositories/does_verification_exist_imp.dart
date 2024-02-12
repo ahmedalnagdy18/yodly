@@ -2,7 +2,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:yodly/features/data/data_sources/graph_ql.dart';
 import 'package:yodly/features/data/models/api_does_verification_exist.dart';
 import 'package:yodly/features/domain/entites/does_verification_exist_entity.dart';
-import 'package:yodly/features/domain/repositories/does_verification_exist_repository.dart';
+import 'package:yodly/features/domain/repositories/authentication/authentication_repository.dart';
 
 class DoesVerificationExistRepositryImp
     implements DoesVerificationExistRepository {

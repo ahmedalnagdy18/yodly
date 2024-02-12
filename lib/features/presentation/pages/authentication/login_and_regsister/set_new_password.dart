@@ -368,7 +368,7 @@ class _NewPasswordPageState extends State<_NewPasswordPage> {
               newPassword: _password.text));
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Error password not same'),
+        content: const Text('Error ! password not same'),
         action: SnackBarAction(
           label: 'Undo',
           onPressed: () {},

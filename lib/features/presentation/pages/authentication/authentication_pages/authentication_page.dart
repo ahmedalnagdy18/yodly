@@ -112,7 +112,6 @@ class _AuthenticationPageBodyState extends State<AuthenticationPageBody> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    //  CircleWidget(),
                                     SizedBox(
                                       child: Form(
                                         onChanged: _isEnabled,

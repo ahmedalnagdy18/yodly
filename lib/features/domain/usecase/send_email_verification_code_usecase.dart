@@ -1,5 +1,5 @@
 import 'package:yodly/features/domain/entites/send_email_verification_code_entity.dart';
-import 'package:yodly/features/domain/repositories/send_email_verification_code_repository.dart';
+import 'package:yodly/features/domain/repositories/authentication/authentication_repository.dart';
 
 class SendEmailVerificationCodeUsecase {
   final SendEmailVerificationCodeRepository repository;

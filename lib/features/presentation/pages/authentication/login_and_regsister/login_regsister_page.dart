@@ -24,7 +24,7 @@ class LoginRegsisterPage extends StatelessWidget {
             Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 36,
+                  horizontal: 40,
                   vertical: 169,
                 ),
                 child: Column(
@@ -36,7 +36,7 @@ class LoginRegsisterPage extends StatelessWidget {
                     const SizedBox(height: 160),
                     SizedBox(
                       height: 51,
-                      //width: 300,
+                      width: double.infinity,
                       child: MaterialButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
@@ -54,8 +54,7 @@ class LoginRegsisterPage extends StatelessWidget {
                               ),
                               borderRadius: BorderRadius.circular(30.0)),
                           child: Container(
-                            constraints: const BoxConstraints(
-                                maxWidth: 300.0, minHeight: 50.0),
+                            constraints: const BoxConstraints(minHeight: 50.0),
                             alignment: Alignment.center,
                             child: const Text(
                               "Login",
@@ -71,7 +70,7 @@ class LoginRegsisterPage extends StatelessWidget {
                     ),
                     MaterialButton(
                       height: 50,
-                      minWidth: 300,
+                      minWidth: double.infinity,
                       shape: RoundedRectangleBorder(
                           side: const BorderSide(color: Colors.white),
                           borderRadius: BorderRadius.circular(25)),

@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:yodly/features/data/data_sources/graph_ql.dart';
 import 'package:yodly/features/data/models/api_login.dart';
 import 'package:yodly/features/domain/entites/login_entity.dart';
-import 'package:yodly/features/domain/repositories/login_repository.dart';
+import 'package:yodly/features/domain/repositories/authentication/authentication_repository.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 class LoginRepositryImp implements LoginRepository {

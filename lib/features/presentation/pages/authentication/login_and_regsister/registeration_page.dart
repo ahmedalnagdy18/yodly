@@ -49,7 +49,6 @@ class _RegisterationPageState extends State<_RegisterationPageBody> {
   final TextEditingController _email = TextEditingController();
 
   final TextEditingController _password = TextEditingController();
-  //final TextEditingController _displayName = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +108,6 @@ class _RegisterationPageState extends State<_RegisterationPageBody> {
                                 ),
                               ],
                             ),
-                            //  const SizedBox(width: 210),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               mainAxisAlignment: MainAxisAlignment.end,

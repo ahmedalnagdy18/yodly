@@ -1,5 +1,5 @@
 import 'package:yodly/features/domain/entites/register_entity.dart';
-import 'package:yodly/features/domain/repositories/register_repository.dart';
+import 'package:yodly/features/domain/repositories/authentication/authentication_repository.dart';
 
 class RegisterUsecase {
   final RegisterRepository repository;
