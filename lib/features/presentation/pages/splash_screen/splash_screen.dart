@@ -1,7 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yodly/core/colors/app_colors.dart';
+import 'package:yodly/core/shared_prefrances/shared_prefrance.dart';
+import 'package:yodly/features/presentation/pages/home/navbar.dart';
 import 'package:yodly/features/presentation/pages/onboarding/onboarding.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -12,13 +15,24 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  void init() async {}
+
   @override
   void initState() {
-    super.initState();
+    init();
+
     Timer(
         const Duration(seconds: 3),
         () => Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const OnboardingScreen())));
+                MaterialPageRoute(builder: (context) {
+              final token = SharedPrefrance.instanc.getToken('token');
+              print('token iss ${token}');
+              if (token == null) {
+                return OnboardingScreen();
+              }
+              return Navbar();
+            })));
+    super.initState();
   }
 
   @override

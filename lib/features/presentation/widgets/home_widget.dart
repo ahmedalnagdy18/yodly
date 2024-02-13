@@ -18,7 +18,7 @@ class PostWidget extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: 26,
+              horizontal: 24,
               vertical: 21,
             ),
             child: Column(
@@ -39,46 +39,46 @@ class PostWidget extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Ahmed Alnagdy',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.n1,
-                          ),
-                        ),
-                        const SizedBox(height: 5),
-                        Row(
-                          children: [
-                            Text(
-                              'May 2, 2020 at 04:00 PM',
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.n2,
-                              ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Ahmed Alnagdy',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.n1,
                             ),
-                          ],
-                        ),
-                        const SizedBox(height: 5),
-                        const AwardsWidet(),
-                      ],
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            'May 2, 2020 at 04:00 PM',
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.n2,
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          const AwardsWidet(),
+                        ],
+                      ),
                     ), //aaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    const Spacer(flex: 10),
                     Image.asset(
                       'images/present.png',
                       width: 20,
                     ),
-                    const Spacer(),
-                    const Expanded(
-                      child: Icon(
-                        Icons.more_vert_outlined,
-                        size: 25,
-                      ),
+                    PopupMenuButton(
+                      padding: EdgeInsets.zero,
+                      color: Colors.white,
+                      icon: const Icon(Icons.more_vert, color: Colors.black),
+                      elevation: 10,
+                      itemBuilder: (context) => [
+                        const PopupMenuItem(child: Text('edit')),
+                        const PopupMenuItem(child: Text('delete')),
+                      ],
                     ),
                   ],
                 ),

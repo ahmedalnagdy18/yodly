@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:yodly/core/shared_prefrances/shared_prefrance.dart';
 import 'package:yodly/features/data/data_sources/graph_ql.dart';
 import 'package:yodly/features/data/models/api_login.dart';
 import 'package:yodly/features/domain/entites/login_entity.dart';
@@ -17,12 +16,13 @@ class LoginRepositryImp implements LoginRepository {
         document: gql(loginMutation),
         variables: {"input": loginEntity.toJson()}));
 
-    if (result.data == null) {}
-
     final response = ApiLogin.fromJson(result.data!);
-    log('zzzzzzzzzz');
+
     if (response.emailAndPasswordLogin != null &&
         response.emailAndPasswordLogin!.code == 200) {
+      final token = response.emailAndPasswordLogin?.data?.token;
+
+      SharedPrefrance.instanc.setToken(key: 'token', token: token ?? '');
       return;
     } else {
       throw FormatException(response.emailAndPasswordLogin?.message ?? "");

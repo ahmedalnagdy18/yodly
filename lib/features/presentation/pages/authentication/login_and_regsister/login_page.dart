@@ -71,6 +71,7 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: Form(
+                    autovalidateMode: AutovalidateMode.always,
                     onChanged: _isEnabled,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,87 +91,75 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                         const SizedBox(
                           height: 30,
                         ),
-                        SizedBox(
-                          height: 50,
-                          child: TextFormField(
-                            keyboardType: TextInputType.emailAddress,
-                            validator: (value) =>
-                                EmailValidator.validate(value!)
-                                    ? null
-                                    : "Please enter a valid email",
-                            controller: _email,
-                            decoration: InputDecoration(
-                                errorStyle: const TextStyle(fontSize: 0.01),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide:
-                                      const BorderSide(color: Colors.red),
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide:
-                                      const BorderSide(color: Colors.red),
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide:
-                                      const BorderSide(color: Colors.grey),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: const BorderSide(
-                                      color:
-                                          Color.fromARGB(255, 203, 202, 202)),
-                                ),
-                                prefixIcon:
-                                    const Icon(Icons.email_outlined, size: 20),
-                                hintText: 'Email*',
-                                filled: true,
-                                fillColor: Colors.white,
-                                hintStyle: const TextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.w400)),
-                          ),
+                        TextFormField(
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (value) => EmailValidator.validate(value!)
+                              ? null
+                              : "Please enter a valid email",
+                          controller: _email,
+                          decoration: InputDecoration(
+                              errorBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(color: Colors.red),
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(color: Colors.red),
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide:
+                                    const BorderSide(color: Colors.grey),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: const BorderSide(
+                                    color: Color.fromARGB(255, 203, 202, 202)),
+                              ),
+                              prefixIcon:
+                                  const Icon(Icons.email_outlined, size: 20),
+                              hintText: 'Email*',
+                              filled: true,
+                              fillColor: Colors.white,
+                              hintStyle: const TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.w400)),
                         ),
                         const SizedBox(
                           height: 15,
                         ),
-                        SizedBox(
-                          height: 50,
-                          child: TextFormField(
-                            obscureText: isObscuretext,
-                            controller: _password,
-                            decoration: InputDecoration(
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide:
-                                      const BorderSide(color: Colors.grey),
+                        TextFormField(
+                          obscureText: isObscuretext,
+                          controller: _password,
+                          decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide:
+                                    const BorderSide(color: Colors.grey),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: const BorderSide(
+                                    color: Color.fromARGB(255, 203, 202, 202)),
+                              ),
+                              suffixIcon: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    isObscuretext = !isObscuretext;
+                                  });
+                                },
+                                child: Icon(
+                                  isObscuretext
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
                                 ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: const BorderSide(
-                                      color:
-                                          Color.fromARGB(255, 203, 202, 202)),
-                                ),
-                                suffixIcon: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      isObscuretext = !isObscuretext;
-                                    });
-                                  },
-                                  child: Icon(
-                                    isObscuretext
-                                        ? Icons.visibility_off
-                                        : Icons.visibility,
-                                  ),
-                                ),
-                                prefixIcon:
-                                    const Icon(Icons.lock_outline, size: 20),
-                                hintText: 'Password*',
-                                filled: true,
-                                fillColor: Colors.white,
-                                hintStyle: const TextStyle(
-                                    fontSize: 14, fontWeight: FontWeight.w400)),
-                          ),
+                              ),
+                              prefixIcon:
+                                  const Icon(Icons.lock_outline, size: 20),
+                              hintText: 'Password*',
+                              filled: true,
+                              fillColor: Colors.white,
+                              hintStyle: const TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.w400)),
                         ),
                         const SizedBox(height: 15),
                         Row(
@@ -206,6 +195,18 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                               },
                               child: MaterialButton(
                                 onPressed: () {
+                                  if (_email.text.isEmpty ||
+                                      _password.text.isEmpty) {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      content: const Text(
+                                          'Error ! you must write all field'),
+                                      action: SnackBarAction(
+                                        label: 'Undo',
+                                        onPressed: () {},
+                                      ),
+                                    ));
+                                  }
                                   if (_isButtonEnabled) {
                                     _loginButton(context);
                                   }

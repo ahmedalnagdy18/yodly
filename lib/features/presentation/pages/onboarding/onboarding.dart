@@ -145,7 +145,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       child: const Icon(
                         Icons.arrow_right_alt,
                         color: Colors.white,
-                        size: 30,
+                        size: 26,
                       ),
                     ),
                   ),

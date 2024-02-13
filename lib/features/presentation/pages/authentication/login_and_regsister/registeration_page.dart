@@ -152,75 +152,62 @@ class _RegisterationPageState extends State<_RegisterationPageBody> {
                         const SizedBox(
                           height: 30,
                         ),
-                        SizedBox(
-                          height: 50,
-                          child: TextFieldWidget(
-                            hintText: 'User name* ',
-                            mycontroller: _userName,
-                            prefixIcon:
-                                const Icon(Icons.person_2_outlined, size: 20),
-                            obscureText: false,
-                          ),
+                        TextFieldWidget(
+                          hintText: 'User name* ',
+                          mycontroller: _userName,
+                          prefixIcon:
+                              const Icon(Icons.person_2_outlined, size: 20),
+                          obscureText: false,
                         ),
                         const SizedBox(
                           height: 15,
                         ),
-                        SizedBox(
-                          height: 50,
-                          child: TextFormField(
-                            keyboardType: TextInputType.emailAddress,
-                            validator: (value) =>
-                                EmailValidator.validate(value!)
-                                    ? null
-                                    : "Please enter a valid email",
-                            controller: _email,
-                            decoration: InputDecoration(
-                                errorStyle: const TextStyle(fontSize: 0.01),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide:
-                                      const BorderSide(color: Colors.red),
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide:
-                                      const BorderSide(color: Colors.red),
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide:
-                                      const BorderSide(color: Colors.grey),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: const BorderSide(
-                                      color:
-                                          Color.fromARGB(255, 203, 202, 202)),
-                                ),
-                                prefixIcon:
-                                    const Icon(Icons.email_outlined, size: 20),
-                                hintText: 'JohnDeo@gmail.com',
-                                filled: true,
-                                fillColor: Colors.white,
-                                hintStyle: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.n3,
-                                )),
-                          ),
+                        TextFormField(
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (value) => EmailValidator.validate(value!)
+                              ? null
+                              : "Please enter a valid email",
+                          controller: _email,
+                          decoration: InputDecoration(
+
+                              //   errorStyle: const TextStyle(fontSize: 0.01),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(color: Colors.red),
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(color: Colors.red),
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide:
+                                    const BorderSide(color: Colors.grey),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: const BorderSide(
+                                    color: Color.fromARGB(255, 203, 202, 202)),
+                              ),
+                              prefixIcon:
+                                  const Icon(Icons.email_outlined, size: 20),
+                              hintText: 'JohnDeo@gmail.com',
+                              filled: true,
+                              fillColor: Colors.white,
+                              hintStyle: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.n3,
+                              )),
                         ),
                         const SizedBox(
                           height: 15,
                         ),
-                        SizedBox(
-                          height: 50,
-                          child: TextFieldWidget(
-                            hintText: 'Password*',
-                            mycontroller: _password,
-                            prefixIcon:
-                                const Icon(Icons.lock_outline, size: 20),
-                            obscureText: true,
-                          ),
+                        TextFieldWidget(
+                          hintText: 'Password*',
+                          mycontroller: _password,
+                          prefixIcon: const Icon(Icons.lock_outline, size: 20),
+                          obscureText: true,
                         ),
                         const SizedBox(
                           height: 30,
@@ -276,6 +263,19 @@ class _RegisterationPageState extends State<_RegisterationPageBody> {
                                 width: 300,
                                 child: MaterialButton(
                                   onPressed: () {
+                                    if (_email.text.isEmpty ||
+                                        _password.text.isEmpty ||
+                                        _userName.text.isEmpty) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                        content: const Text(
+                                            'Error ! you must write all field'),
+                                        action: SnackBarAction(
+                                          label: 'Undo',
+                                          onPressed: () {},
+                                        ),
+                                      ));
+                                    }
                                     if (_isButtonEnabled) {
                                       _loginButton(context);
                                     }
@@ -396,14 +396,12 @@ class _RegisterationPageState extends State<_RegisterationPageBody> {
       password: _password.text,
       deviceName: "ANDROID",
       userName: _userName.text,
-      //  displayName: _displayName.text,
       country: 'eg',
     ));
   }
 
   void _isEnabled() {
     if (_email.text.isNotEmpty &&
-        //  _displayName.text.isNotEmpty &&
         _password.text.isNotEmpty &&
         _userName.text.isNotEmpty) {
       _isButtonEnabled = true;

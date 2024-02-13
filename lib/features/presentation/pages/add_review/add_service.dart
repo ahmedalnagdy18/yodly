@@ -286,19 +286,33 @@ class _AddServicePageState extends State<AddServicePage> {
                             width: 150,
                             child: MaterialButton(
                               onPressed: () {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    duration: const Duration(seconds: 1),
-                                    content: const Text('post added'),
+                                if (_reivew.text.isNotEmpty &&
+                                    _description.text.isNotEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      duration: const Duration(seconds: 1),
+                                      content: const Text('post added'),
+                                      action: SnackBarAction(
+                                        label: 'ok',
+                                        onPressed: () {},
+                                      ),
+                                    ),
+                                  );
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const Navbar()));
+                                } else {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: const Text(
+                                        'Error ! you must write all field'),
                                     action: SnackBarAction(
-                                      label: 'ok',
+                                      label: 'Undo',
                                       onPressed: () {},
                                     ),
-                                  ),
-                                );
-                                Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                        builder: (context) => const Navbar()));
+                                  ));
+                                }
                               },
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25.0)),

@@ -4,9 +4,12 @@ mutation login($input :EmailAndPasswordLoginInput!){
     success
     code
     message
-    
+    data{
+       token
+    }
 } 
 }
+
 """;
 const String registerMutation = r"""
 mutation register($input :RegisterInput!){
