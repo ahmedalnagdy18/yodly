@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yodly/core/colors/app_colors.dart';
+import 'package:yodly/core/shared_prefrances/shared_prefrance.dart';
 import 'package:yodly/features/presentation/pages/authentication/login_and_regsister/login_regsister_page.dart';
 import 'package:yodly/features/presentation/pages/home/home_page.dart';
 
 class LogoutPage extends StatelessWidget {
-  const LogoutPage({super.key});
+  const LogoutPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +94,14 @@ class LogoutPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(25)),
                         color: Colors.transparent,
                         elevation: 0,
-                        onPressed: () {
+                        // onPressed: () {
+                        //   Navigator.of(context).push(MaterialPageRoute(
+                        //       builder: (context) =>
+                        //           const LoginRegsisterPage()));
+                        // },
+                        onPressed: () async {
+                          await SharedPrefrance.instanc
+                              .removeFromShared(key: 'token');
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) =>
                                   const LoginRegsisterPage()));

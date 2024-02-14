@@ -75,7 +75,7 @@ class Register {
 }
 
 class RegisterData {
-  final dynamic token;
+  String? token;
 
   RegisterData({
     this.token,

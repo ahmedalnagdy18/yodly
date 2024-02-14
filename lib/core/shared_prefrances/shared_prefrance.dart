@@ -17,4 +17,8 @@ class SharedPrefrance {
   String? getToken(String key) {
     return sharedPreferences.getString(key);
   }
+
+  Future<bool> removeFromShared({required String key}) {
+    return sharedPreferences.remove(key);
+  }
 }

@@ -11,8 +11,6 @@ final class RegisterInitial extends RegisterState {}
 
 class LoadingRegsisterState extends RegisterState {}
 
-class LoadedRegsisterState extends RegisterState {}
-
 class SucsessRegsisterState extends RegisterState {}
 
 class ErrorRegsisterState extends RegisterState {

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pinput/pinput.dart';
 import 'package:yodly/core/colors/app_colors.dart';
 import 'package:yodly/features/domain/entites/verify_user_entity.dart';
 import 'package:yodly/features/presentation/bloc/verify_user/cubit/verify_user_cubit.dart';
 import 'package:yodly/features/presentation/pages/home/navbar.dart';
+import 'package:yodly/features/presentation/widgets/otp_widget.dart';
 import 'package:yodly/injection_container.dart';
 
 class AuthenticationPage extends StatelessWidget {
@@ -33,7 +33,7 @@ class _AuthenticationPageBodyState extends State<AuthenticationPageBody> {
   bool _isButtonEnabled = false;
 
   bool isChecked = false;
-  final TextEditingController _userName = TextEditingController();
+  final TextEditingController _otpCode = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -114,14 +114,10 @@ class _AuthenticationPageBodyState extends State<AuthenticationPageBody> {
                                   children: [
                                     SizedBox(
                                       child: Form(
-                                        onChanged: _isEnabled,
-                                        child: Pinput(
-                                          controller: _userName,
-                                          keyboardType: TextInputType.number,
-                                          length: 4,
-                                          textInputAction: TextInputAction.next,
-                                        ),
-                                      ),
+                                          onChanged: _isEnabled,
+                                          child: OtpWidget(
+                                            controller: _otpCode,
+                                          )),
                                     )
                                   ],
                                 ),
@@ -165,6 +161,17 @@ class _AuthenticationPageBodyState extends State<AuthenticationPageBody> {
                                     builder: (context, state) {
                                       return MaterialButton(
                                         onPressed: () {
+                                          if (_otpCode.text.isEmpty) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(SnackBar(
+                                              content: const Text(
+                                                  'Error ! you must write all field'),
+                                              action: SnackBarAction(
+                                                label: 'Undo',
+                                                onPressed: () {},
+                                              ),
+                                            ));
+                                          }
                                           if (_isButtonEnabled) {
                                             _loginButton(context);
                                           }
@@ -238,12 +245,12 @@ class _AuthenticationPageBodyState extends State<AuthenticationPageBody> {
   void _loginButton(BuildContext context) {
     BlocProvider.of<VerifyUserCubit>(context).verifyUser(VerifyUserEntity(
       email: widget.email,
-      verificationCode: _userName.text,
+      verificationCode: _otpCode.text,
     ));
   }
 
   void _isEnabled() {
-    if (_userName.text.isNotEmpty) {
+    if (_otpCode.text.isNotEmpty) {
       _isButtonEnabled = true;
       setState(() {});
     } else {

@@ -57,16 +57,20 @@ class EmailAndPasswordLogin {
 
 class Data {
   final String? token;
+  final String? userName;
 
   Data({
     this.token,
+    this.userName,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         token: json["token"],
+        userName: json["userName"],
       );
 
   Map<String, dynamic> toJson() => {
         "token": token,
+        "userName": userName,
       };
 }
