@@ -41,9 +41,11 @@ class _AuthenticationPageBodyState extends State<AuthenticationPageBody> {
       listener: (context, state) {
         if (state is ErrorVerifyUserState) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.red,
             content: Text(state.message.toString()),
             action: SnackBarAction(
               label: 'Undo',
+              textColor: Colors.white,
               onPressed: () {},
             ),
           ));
@@ -118,7 +120,7 @@ class _AuthenticationPageBodyState extends State<AuthenticationPageBody> {
                                           child: OtpWidget(
                                             controller: _otpCode,
                                           )),
-                                    )
+                                    ),
                                   ],
                                 ),
                                 const SizedBox(height: 20),
@@ -164,10 +166,12 @@ class _AuthenticationPageBodyState extends State<AuthenticationPageBody> {
                                           if (_otpCode.text.isEmpty) {
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(SnackBar(
+                                              backgroundColor: Colors.red,
                                               content: const Text(
                                                   'Error ! you must write all field'),
                                               action: SnackBarAction(
                                                 label: 'Undo',
+                                                textColor: Colors.white,
                                                 onPressed: () {},
                                               ),
                                             ));

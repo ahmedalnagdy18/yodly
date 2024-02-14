@@ -208,10 +208,12 @@ class _AddReviewPageState extends State<AddReviewPage> {
                             } else {
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(SnackBar(
+                                backgroundColor: Colors.red,
                                 content: const Text(
                                     'Error ! you must write all field'),
                                 action: SnackBarAction(
                                   label: 'Undo',
+                                  textColor: Colors.white,
                                   onPressed: () {},
                                 ),
                               ));

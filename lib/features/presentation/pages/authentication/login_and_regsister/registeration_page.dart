@@ -56,9 +56,11 @@ class _RegisterationPageState extends State<_RegisterationPageBody> {
       listener: (context, state) {
         if (state is ErrorRegsisterState) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.red,
             content: Text(state.message.toString()),
             action: SnackBarAction(
               label: 'Undo',
+              textColor: Colors.white,
               onPressed: () {},
             ),
           ));
@@ -268,10 +270,12 @@ class _RegisterationPageState extends State<_RegisterationPageBody> {
                                         _userName.text.isEmpty) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(SnackBar(
+                                        backgroundColor: Colors.red,
                                         content: const Text(
                                             'Error ! you must write all field'),
                                         action: SnackBarAction(
                                           label: 'Undo',
+                                          textColor: Colors.white,
                                           onPressed: () {},
                                         ),
                                       ));

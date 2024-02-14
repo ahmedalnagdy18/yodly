@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pinput/pinput.dart';
 import 'package:yodly/core/colors/app_colors.dart';
 import 'package:yodly/features/domain/entites/does_verification_exist_entity.dart';
 import 'package:yodly/features/presentation/bloc/does_user_exist/cubit/does_user_exist_cubit.dart';
 import 'package:yodly/features/presentation/pages/authentication/login_and_regsister/set_new_password.dart';
+import 'package:yodly/features/presentation/widgets/otp_widget.dart';
 import 'package:yodly/injection_container.dart';
 
 class Authentication2Page extends StatelessWidget {
@@ -41,9 +41,11 @@ class _Authentication2PageState extends State<_Authentication2Page> {
       listener: (context, state) {
         if (state is ErrorDoesUserExistState) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.red,
             content: Text(state.message.toString()),
             action: SnackBarAction(
               label: 'Undo',
+              textColor: Colors.white,
               onPressed: () {},
             ),
           ));
@@ -116,12 +118,7 @@ class _Authentication2PageState extends State<_Authentication2Page> {
                                         CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Pinput(
-                                        controller: _otpController,
-                                        keyboardType: TextInputType.number,
-                                        length: 4,
-                                        textInputAction: TextInputAction.next,
-                                      ),
+                                      OtpWidget(controller: _otpController)
                                     ],
                                   ),
                                   const SizedBox(height: 20),
@@ -170,6 +167,19 @@ class _Authentication2PageState extends State<_Authentication2Page> {
                                       builder: (context, state) {
                                         return MaterialButton(
                                           onPressed: () {
+                                            if (_otpController.text.isEmpty) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                backgroundColor: Colors.red,
+                                                content: const Text(
+                                                    'Error ! you must write all field'),
+                                                action: SnackBarAction(
+                                                  label: 'Undo',
+                                                  textColor: Colors.white,
+                                                  onPressed: () {},
+                                                ),
+                                              ));
+                                            }
                                             if (_isButtonEnabled) {
                                               _loginButton(context);
                                             }

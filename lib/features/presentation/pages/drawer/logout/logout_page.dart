@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yodly/core/colors/app_colors.dart';
 import 'package:yodly/core/shared_prefrances/shared_prefrance.dart';
 import 'package:yodly/features/presentation/pages/authentication/login_and_regsister/login_regsister_page.dart';

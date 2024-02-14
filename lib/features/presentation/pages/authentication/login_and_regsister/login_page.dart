@@ -42,9 +42,11 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
       listener: (context, state) {
         if (state is ErrorLoginState) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.red,
             content: Text(state.message.toString()),
             action: SnackBarAction(
               label: 'Undo',
+              textColor: Colors.white,
               onPressed: () {},
             ),
           ));
@@ -199,10 +201,12 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                                       _password.text.isEmpty) {
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(SnackBar(
+                                      backgroundColor: Colors.red,
                                       content: const Text(
                                           'Error ! you must write all field'),
                                       action: SnackBarAction(
                                         label: 'Undo',
+                                        textColor: Colors.white,
                                         onPressed: () {},
                                       ),
                                     ));

@@ -43,9 +43,11 @@ class _NewPasswordPageState extends State<_NewPasswordPage> {
         listener: (context, state) {
           if (state is ErrorForgetPasswordState) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.red,
               content: Text(state.message.toString()),
               action: SnackBarAction(
                 label: 'Undo',
+                textColor: Colors.white,
                 onPressed: () {},
               ),
             ));
@@ -283,6 +285,20 @@ class _NewPasswordPageState extends State<_NewPasswordPage> {
                                       },
                                       child: MaterialButton(
                                         onPressed: () {
+                                          if (_password.text.isEmpty ||
+                                              _password2.text.isEmpty) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(SnackBar(
+                                              backgroundColor: Colors.red,
+                                              content: const Text(
+                                                  'Error ! you must write all field'),
+                                              action: SnackBarAction(
+                                                label: 'Undo',
+                                                textColor: Colors.white,
+                                                onPressed: () {},
+                                              ),
+                                            ));
+                                          }
                                           if (_isButtonEnabled) {
                                             _loginButton(context);
                                           }
@@ -368,9 +384,11 @@ class _NewPasswordPageState extends State<_NewPasswordPage> {
               newPassword: _password.text));
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        backgroundColor: Colors.red,
         content: const Text('Error ! password not same'),
         action: SnackBarAction(
           label: 'Undo',
+          textColor: Colors.white,
           onPressed: () {},
         ),
       ));

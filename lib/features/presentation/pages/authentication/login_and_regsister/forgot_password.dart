@@ -37,9 +37,11 @@ class _ForgotPasswordState extends State<_ForgotPassword> {
       listener: (context, state) {
         if (state is ErrorEmailVerificationCodeState) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.red,
             content: Text(state.message.toString()),
             action: SnackBarAction(
               label: 'Undo',
+              textColor: Colors.white,
               onPressed: () {},
             ),
           ));
@@ -174,6 +176,19 @@ class _ForgotPasswordState extends State<_ForgotPassword> {
                                       },
                                       child: MaterialButton(
                                         onPressed: () {
+                                          if (_email.text.isEmpty) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(SnackBar(
+                                              backgroundColor: Colors.red,
+                                              content: const Text(
+                                                  'Error ! you must write the field'),
+                                              action: SnackBarAction(
+                                                label: 'Undo',
+                                                textColor: Colors.white,
+                                                onPressed: () {},
+                                              ),
+                                            ));
+                                          }
                                           if (_isButtonEnabled) {
                                             _loginButton(context);
                                           }
