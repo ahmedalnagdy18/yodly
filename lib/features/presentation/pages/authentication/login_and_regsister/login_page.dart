@@ -191,8 +191,10 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                             child: BlocListener<LoginCubit, LoginState>(
                               listener: (context, state) {
                                 if (state is SucsessLoginState) {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => const Navbar()));
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const Navbar()));
                                 }
                               },
                               child: MaterialButton(

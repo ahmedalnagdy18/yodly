@@ -17,7 +17,7 @@ import 'package:yodly/features/domain/usecase/verify_user_usecase.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
-//! Features - posts
+//! Features - auchentication
 
 // Usecases
 

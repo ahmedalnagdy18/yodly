@@ -290,6 +290,7 @@ class _AddServicePageState extends State<AddServicePage> {
                                     _description.text.isNotEmpty) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
+                                      behavior: SnackBarBehavior.floating,
                                       duration: const Duration(seconds: 1),
                                       content: const Text('post added'),
                                       action: SnackBarAction(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pinput/pinput.dart';
 import 'package:yodly/core/colors/app_colors.dart';
 
@@ -24,6 +25,9 @@ class OtpWidget extends StatelessWidget {
             ),
           )),
       keyboardType: TextInputType.number,
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.digitsOnly
+      ],
       length: 4,
       focusedPinTheme: PinTheme(
           textStyle: const TextStyle(

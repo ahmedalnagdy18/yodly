@@ -154,7 +154,7 @@ class _Authentication2PageState extends State<_Authentication2Page> {
                                       listener: (context, state) {
                                         if (state
                                             is SucsessDoesUserExistState) {
-                                          Navigator.of(context).push(
+                                          Navigator.of(context).pushReplacement(
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       NewPasswordPage(

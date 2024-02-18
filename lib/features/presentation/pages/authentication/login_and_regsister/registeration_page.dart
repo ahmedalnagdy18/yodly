@@ -241,10 +241,11 @@ class _RegisterationPageState extends State<_RegisterationPageBody> {
                             SendEmailVerificationCodeState>(
                           listener: (context, state) {
                             if (state is SucsessEmailVerificationCodeState) {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => AuthenticationPage(
-                                        email: _email.text,
-                                      )));
+                              Navigator.of(context)
+                                  .pushReplacement(MaterialPageRoute(
+                                      builder: (context) => AuthenticationPage(
+                                            email: _email.text,
+                                          )));
                             }
                           },
                           child: BlocListener<RegisterCubit, RegisterState>(

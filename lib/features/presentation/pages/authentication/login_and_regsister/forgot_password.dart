@@ -166,7 +166,7 @@ class _ForgotPasswordState extends State<_ForgotPassword> {
                                       listener: (context, state) {
                                         if (state
                                             is SucsessEmailVerificationCodeState) {
-                                          Navigator.of(context).push(
+                                          Navigator.of(context).pushReplacement(
                                               MaterialPageRoute(
                                                   builder: (context) =>
                                                       Authentication2Page(

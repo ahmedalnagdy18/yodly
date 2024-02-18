@@ -154,7 +154,7 @@ class _AuthenticationPageBodyState extends State<AuthenticationPageBody> {
                                       VerifyUserState>(
                                     listener: (context, state) {
                                       if (state is SucsessVerifyUserState) {
-                                        Navigator.of(context).push(
+                                        Navigator.of(context).pushReplacement(
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     const Navbar()));

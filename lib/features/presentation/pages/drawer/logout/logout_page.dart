@@ -101,9 +101,10 @@ class LogoutPage extends StatelessWidget {
                         onPressed: () async {
                           await SharedPrefrance.instanc
                               .removeFromShared(key: 'token');
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  const LoginRegsisterPage()));
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const LoginRegsisterPage()));
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -125,8 +126,8 @@ class LogoutPage extends StatelessWidget {
                         width: 140,
                         child: MaterialButton(
                           onPressed: () {
-                            // Navigator.of(context).push(MaterialPageRoute(
-                            //     builder: (context) => const HomePage()));
+                            Navigator.of(context).pop(MaterialPageRoute(
+                                builder: (context) => const HomePage()));
                           },
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25.0)),
