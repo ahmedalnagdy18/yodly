@@ -1,4 +1,4 @@
-part of 'register_cubit.dart';
+import 'package:equatable/equatable.dart';
 
 sealed class RegisterState extends Equatable {
   const RegisterState();

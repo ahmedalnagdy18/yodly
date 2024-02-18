@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yodly/core/colors/app_colors.dart';
 import 'package:yodly/features/domain/entites/authentication/does_verification_exist_entity.dart';
-import 'package:yodly/features/presentation/bloc/does_user_exist/cubit/does_user_exist_cubit.dart';
+import 'package:yodly/features/presentation/cubit/authentication_cubit/does_user_exist/cubit/does_user_exist_cubit.dart';
 import 'package:yodly/features/presentation/pages/authentication/login_and_regsister/set_new_password.dart';
 import 'package:yodly/features/presentation/widgets/otp_widget.dart';
 import 'package:yodly/injection_container.dart';
