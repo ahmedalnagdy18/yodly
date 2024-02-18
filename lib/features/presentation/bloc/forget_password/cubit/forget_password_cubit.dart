@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:yodly/features/domain/entites/forget_password_entity.dart';
-import 'package:yodly/features/domain/usecase/forget_password_usecase.dart';
+import 'package:yodly/features/domain/entites/authentication/forget_password_entity.dart';
+import 'package:yodly/features/domain/usecase/authentication/forget_password_usecase.dart';
 
 part 'forget_password_state.dart';
 

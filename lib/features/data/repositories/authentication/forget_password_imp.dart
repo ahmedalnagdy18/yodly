@@ -1,9 +1,9 @@
 import 'dart:developer';
 
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:yodly/features/data/data_sources/graph_ql.dart';
-import 'package:yodly/features/data/models/api_forget_password.dart';
-import 'package:yodly/features/domain/entites/forget_password_entity.dart';
+import 'package:yodly/features/data/data_sources/authentication/graph_ql.dart';
+import 'package:yodly/features/data/models/authentication/api_forget_password.dart';
+import 'package:yodly/features/domain/entites/authentication/forget_password_entity.dart';
 import 'package:yodly/features/domain/repositories/authentication/authentication_repository.dart';
 
 class ForgetPasswordRepositryImp implements ForgetPasswordRepository {

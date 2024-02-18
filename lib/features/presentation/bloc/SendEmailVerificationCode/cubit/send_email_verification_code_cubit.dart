@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:yodly/features/domain/entites/send_email_verification_code_entity.dart';
-import 'package:yodly/features/domain/usecase/send_email_verification_code_usecase.dart';
+import 'package:yodly/features/domain/entites/authentication/send_email_verification_code_entity.dart';
+import 'package:yodly/features/domain/usecase/authentication/send_email_verification_code_usecase.dart';
 
 part 'send_email_verification_code_state.dart';
 

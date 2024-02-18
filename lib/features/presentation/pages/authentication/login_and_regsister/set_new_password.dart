@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yodly/core/colors/app_colors.dart';
-import 'package:yodly/features/domain/entites/forget_password_entity.dart';
+import 'package:yodly/features/domain/entites/authentication/forget_password_entity.dart';
 import 'package:yodly/features/presentation/bloc/forget_password/cubit/forget_password_cubit.dart';
 import 'package:yodly/features/presentation/pages/authentication/login_and_regsister/login_page.dart';
 import 'package:yodly/injection_container.dart';

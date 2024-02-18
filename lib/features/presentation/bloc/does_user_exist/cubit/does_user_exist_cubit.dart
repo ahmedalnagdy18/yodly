@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:yodly/features/domain/entites/does_verification_exist_entity.dart';
-import 'package:yodly/features/domain/usecase/does_verification_exist_usecase.dart';
+import 'package:yodly/features/domain/entites/authentication/does_verification_exist_entity.dart';
+import 'package:yodly/features/domain/usecase/authentication/does_verification_exist_usecase.dart';
 
 part 'does_user_exist_state.dart';
 

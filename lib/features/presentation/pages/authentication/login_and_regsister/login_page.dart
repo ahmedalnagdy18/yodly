@@ -2,7 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yodly/core/colors/app_colors.dart';
-import 'package:yodly/features/domain/entites/login_entity.dart';
+import 'package:yodly/features/domain/entites/authentication/login_entity.dart';
 import 'package:yodly/features/presentation/bloc/cubit/login_cubit.dart';
 import 'package:yodly/features/presentation/pages/authentication/login_and_regsister/forgot_password.dart';
 import 'package:yodly/features/presentation/pages/home/navbar.dart';

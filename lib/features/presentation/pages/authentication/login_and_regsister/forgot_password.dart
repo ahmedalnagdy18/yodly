@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yodly/core/colors/app_colors.dart';
-import 'package:yodly/features/domain/entites/send_email_verification_code_entity.dart';
+import 'package:yodly/features/domain/entites/authentication/send_email_verification_code_entity.dart';
 import 'package:yodly/features/presentation/bloc/SendEmailVerificationCode/cubit/send_email_verification_code_cubit.dart';
 import 'package:yodly/features/presentation/pages/authentication/authentication_pages/authentication2_page2.dart';
 import 'package:yodly/injection_container.dart';

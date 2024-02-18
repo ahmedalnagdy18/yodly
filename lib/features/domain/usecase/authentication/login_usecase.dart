@@ -1,4 +1,4 @@
-import 'package:yodly/features/domain/entites/login_entity.dart';
+import 'package:yodly/features/domain/entites/authentication/login_entity.dart';
 import 'package:yodly/features/domain/repositories/authentication/authentication_repository.dart';
 
 class LoginUsecase {

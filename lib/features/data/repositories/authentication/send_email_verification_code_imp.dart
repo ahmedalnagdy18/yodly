@@ -1,7 +1,7 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:yodly/features/data/data_sources/graph_ql.dart';
-import 'package:yodly/features/data/models/api_send_email_verification_code.dart';
-import 'package:yodly/features/domain/entites/send_email_verification_code_entity.dart';
+import 'package:yodly/features/data/data_sources/authentication/graph_ql.dart';
+import 'package:yodly/features/data/models/authentication/api_send_email_verification_code.dart';
+import 'package:yodly/features/domain/entites/authentication/send_email_verification_code_entity.dart';
 import 'package:yodly/features/domain/repositories/authentication/authentication_repository.dart';
 
 class SendEmailVerificationCodeRepositoryImp

@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:yodly/features/domain/entites/register_entity.dart';
-import 'package:yodly/features/domain/usecase/register_usecase.dart';
+import 'package:yodly/features/domain/entites/authentication/register_entity.dart';
+import 'package:yodly/features/domain/usecase/authentication/register_usecase.dart';
 
 part 'register_state.dart';
 

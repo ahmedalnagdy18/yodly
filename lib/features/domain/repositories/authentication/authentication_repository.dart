@@ -1,9 +1,9 @@
-import 'package:yodly/features/domain/entites/does_verification_exist_entity.dart';
-import 'package:yodly/features/domain/entites/forget_password_entity.dart';
-import 'package:yodly/features/domain/entites/login_entity.dart';
-import 'package:yodly/features/domain/entites/register_entity.dart';
-import 'package:yodly/features/domain/entites/send_email_verification_code_entity.dart';
-import 'package:yodly/features/domain/entites/verify_user_entity.dart';
+import 'package:yodly/features/domain/entites/authentication/does_verification_exist_entity.dart';
+import 'package:yodly/features/domain/entites/authentication/forget_password_entity.dart';
+import 'package:yodly/features/domain/entites/authentication/login_entity.dart';
+import 'package:yodly/features/domain/entites/authentication/register_entity.dart';
+import 'package:yodly/features/domain/entites/authentication/send_email_verification_code_entity.dart';
+import 'package:yodly/features/domain/entites/authentication/verify_user_entity.dart';
 
 abstract class RegisterRepository {
   Future<void> registerInput(RegisterEntity registerEntity);

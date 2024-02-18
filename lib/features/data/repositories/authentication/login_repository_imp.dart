@@ -1,7 +1,7 @@
 import 'package:yodly/core/shared_prefrances/shared_prefrance.dart';
-import 'package:yodly/features/data/data_sources/graph_ql.dart';
-import 'package:yodly/features/data/models/api_login.dart';
-import 'package:yodly/features/domain/entites/login_entity.dart';
+import 'package:yodly/features/data/data_sources/authentication/graph_ql.dart';
+import 'package:yodly/features/data/models/authentication/api_login.dart';
+import 'package:yodly/features/domain/entites/authentication/login_entity.dart';
 import 'package:yodly/features/domain/repositories/authentication/authentication_repository.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
