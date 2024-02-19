@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:yodly/core/colors/app_colors.dart';
 import 'package:yodly/features/presentation/widgets/awards_widget.dart';
 
-class PostWidget extends StatelessWidget {
+class PostWidget extends StatefulWidget {
   const PostWidget({super.key});
 
+  @override
+  State<PostWidget> createState() => _PostWidgetState();
+}
+
+class _PostWidgetState extends State<PostWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -158,11 +163,6 @@ class PostWidget extends StatelessWidget {
                   onTap: () {},
                   child: Row(
                     children: [
-                      // SizedBox(
-                      //   child: Image.asset(
-                      //     'images/arrow.png',
-                      //   ),
-                      // ),
                       ShaderMask(
                         blendMode: BlendMode.srcIn,
                         shaderCallback: (Rect bounds) => RadialGradient(
@@ -199,8 +199,10 @@ class PostWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-                InkWell(
-                  onTap: () {},
+                MaterialButton(
+                  onPressed: () {},
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  padding: EdgeInsets.zero,
                   child: const Row(
                     children: [
                       SizedBox(
@@ -220,8 +222,9 @@ class PostWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-                InkWell(
-                  onTap: () {},
+                MaterialButton(
+                  onPressed: () {},
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   child: const Row(
                     children: [
                       SizedBox(

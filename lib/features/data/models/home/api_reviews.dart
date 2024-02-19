@@ -55,7 +55,7 @@ class Reviews {
 }
 
 class Data {
-  final List<Item>? items;
+  final List<ApiReviewItems>? items;
 
   Data({
     this.items,
@@ -64,7 +64,8 @@ class Data {
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         items: json["items"] == null
             ? []
-            : List<Item>.from(json["items"]!.map((x) => Item.fromJson(x))),
+            : List<ApiReviewItems>.from(
+                json["items"]!.map((x) => ApiReviewItems.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -74,26 +75,38 @@ class Data {
       };
 }
 
-class Item {
+class ApiReviewItems {
   final String? id;
   final String? name;
   final String? description;
+  final String? title;
+  final String country;
+  final String city;
 
-  Item({
-    this.id,
-    this.name,
-    this.description,
+  ApiReviewItems({
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.title,
+    required this.country,
+    required this.city,
   });
 
-  factory Item.fromJson(Map<String, dynamic> json) => Item(
+  factory ApiReviewItems.fromJson(Map<String, dynamic> json) => ApiReviewItems(
         id: json["id"],
         name: json["name"],
         description: json["description"],
+        title: json["title"],
+        country: json["country"],
+        city: json["city"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
         "description": description,
+        "title": title,
+        "country": country,
+        "city": city,
       };
 }

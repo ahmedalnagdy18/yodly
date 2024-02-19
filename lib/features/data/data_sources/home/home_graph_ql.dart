@@ -6,7 +6,9 @@ query reviews($paginate:PaginatorInput,$filter:ReviewFilter){
         id
         name
         description
-        
+        title
+        country
+        city
       }
     }
     code

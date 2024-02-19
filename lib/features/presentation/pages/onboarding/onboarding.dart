@@ -29,6 +29,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     super.initState();
   }
 
+  static List<List<Color>> gradientColors = [
+    AppColors.g3,
+    AppColors.g1,
+    AppColors.g2,
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +46,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: AppColors.g1,
+              colors: gradientColors[_crurentPage],
             ),
           ),
           child: Padding(

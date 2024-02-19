@@ -2,6 +2,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:yodly/features/data/data_sources/home/home_graph_ql.dart';
 import 'package:yodly/features/data/models/home/api_reviews.dart';
 import 'package:yodly/features/domain/entites/home/reviews_entity.dart';
+import 'package:yodly/features/domain/models/reviews_model.dart';
 import 'package:yodly/features/domain/repositories/home/home_repository.dart';
 
 class ReviewsRepositryImp implements ReviewsRepository {
@@ -10,7 +11,7 @@ class ReviewsRepositryImp implements ReviewsRepository {
   ReviewsRepositryImp({required this.graphQLClient});
 
   @override
-  Future<void> reviews(ReviewsEntity reviewsEntity) async {
+  Future<List<ReviewsModels>> reviews(ReviewsEntity reviewsEntity) async {
     final result = await graphQLClient
         .query(QueryOptions(document: gql(reviewsQuery), variables: {
       "input": reviewsEntity.toJson(),
@@ -20,7 +21,8 @@ class ReviewsRepositryImp implements ReviewsRepository {
     }
     final response = ApiReviews.fromJson(result.data!);
     if (response.reviews?.code != null && response.reviews?.code == 200) {
-      return;
+      final data = response.reviews?.data?.items ?? [];
+      return data.map((e) => e.zzz()).toList();
     } else {
       throw FormatException(response.reviews?.message ?? "");
     }
