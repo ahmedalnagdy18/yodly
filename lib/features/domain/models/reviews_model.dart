@@ -18,13 +18,13 @@ class ReviewsModels {
 }
 
 extension PoostItems on ApiReviewItems {
-  ReviewsModels zzz() {
+  ReviewsModels reviewMap() {
     return ReviewsModels(
         id: id ?? "",
-        city: city,
+        city: city ?? "",
         name: name ?? "",
         description: description ?? "",
         title: title ?? "",
-        country: country);
+        country: country ?? "");
   }
 }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:yodly/core/colors/app_colors.dart';
+import 'package:yodly/features/domain/models/reviews_model.dart';
 import 'package:yodly/features/presentation/widgets/awards_widget.dart';
 
 class PostWidget extends StatefulWidget {
-  const PostWidget({super.key});
+  const PostWidget({super.key, required this.model});
+  final ReviewsModels model;
 
   @override
   State<PostWidget> createState() => _PostWidgetState();
@@ -49,7 +51,7 @@ class _PostWidgetState extends State<PostWidget> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Ahmed Alnagdy',
+                            widget.model.name,
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
@@ -96,7 +98,7 @@ class _PostWidgetState extends State<PostWidget> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          'Diet Pepsi',
+                          widget.model.title,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
@@ -118,7 +120,17 @@ class _PostWidgetState extends State<PostWidget> {
                               color: Colors.grey,
                             ),
                             Text(
-                              'Domyat- Egypt',
+                              "Domyat",
+                              //widget.model.city,
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w400,
+                                color: Color.fromARGB(255, 130, 128, 128),
+                              ),
+                            ),
+                            Text(
+                              "-Egypt",
+                              //  widget.model.country,
                               style: TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.w400,
@@ -137,7 +149,7 @@ class _PostWidgetState extends State<PostWidget> {
                 ),
                 const SizedBox(height: 14),
                 Text(
-                  'A Perfect Bold Refreshment for All Parties, Events, & \nSocial Gatherings! Perfect Size For Drinking With',
+                  widget.model.description,
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w400,

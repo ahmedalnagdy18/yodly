@@ -11,18 +11,18 @@ class ReviewsRepositryImp implements ReviewsRepository {
   ReviewsRepositryImp({required this.graphQLClient});
 
   @override
-  Future<List<ReviewsModels>> reviews(ReviewsEntity reviewsEntity) async {
+  Future<List<ReviewsModels>> reviews() async {
     final result = await graphQLClient
         .query(QueryOptions(document: gql(reviewsQuery), variables: {
-      "input": reviewsEntity.toJson(),
+      "paginate": ReviewsEntity(limit: 10, page: 1),
     }));
     if (result.data == null) {
       throw Exception();
     }
     final response = ApiReviews.fromJson(result.data!);
-    if (response.reviews?.code != null && response.reviews?.code == 200) {
+    if (response.reviews?.data != null && response.reviews?.code == 200) {
       final data = response.reviews?.data?.items ?? [];
-      return data.map((e) => e.zzz()).toList();
+      return data.map((e) => e.reviewMap()).toList();
     } else {
       throw FormatException(response.reviews?.message ?? "");
     }

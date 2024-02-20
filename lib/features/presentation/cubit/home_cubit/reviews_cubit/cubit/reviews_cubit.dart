@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yodly/features/domain/entites/home/reviews_entity.dart';
 import 'package:yodly/features/domain/models/reviews_model.dart';
 import 'package:yodly/features/domain/usecase/home/reviews_usecase.dart';
 
@@ -10,10 +9,10 @@ class ReviewsCubit extends Cubit<ReviewsState> {
   final ReviewsUsecase reviewsUsecase;
   ReviewsCubit({required this.reviewsUsecase}) : super(ReviewsInitial());
 
-  void review(ReviewsEntity reviewsEntity) async {
+  void review() async {
     emit(LoadingReviewsState());
     try {
-      final data = await reviewsUsecase.call(reviewsEntity);
+      final data = await reviewsUsecase.call();
       emit(SucsessReviewsState(postItems: data));
     } catch (e) {
       if (e is FormatException) {

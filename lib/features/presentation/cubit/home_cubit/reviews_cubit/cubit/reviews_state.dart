@@ -1,8 +1,6 @@
 part of 'reviews_cubit.dart';
 
-sealed class ReviewsState extends Equatable {
-  const ReviewsState();
-
+abstract class ReviewsState extends Equatable {
   @override
   List<Object> get props => [];
 }
@@ -14,7 +12,7 @@ class LoadingReviewsState extends ReviewsState {}
 class SucsessReviewsState extends ReviewsState {
   final List<ReviewsModels> postItems;
 
-  const SucsessReviewsState({required this.postItems});
+  SucsessReviewsState({required this.postItems});
   @override
   List<Object> get props => [postItems];
 }
@@ -22,7 +20,7 @@ class SucsessReviewsState extends ReviewsState {
 class ErrorReviewsState extends ReviewsState {
   final String message;
 
-  const ErrorReviewsState({required this.message});
+  ErrorReviewsState({required this.message});
 
   @override
   List<Object> get props => [message];

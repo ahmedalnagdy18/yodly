@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ReviewsCubit(reviewsUsecase: sl()),
+      create: (context) => ReviewsCubit(reviewsUsecase: sl())..review(),
       child: const _HomePage(),
     );
   }
@@ -31,69 +31,107 @@ class _HomePageState extends State<_HomePage> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ReviewsCubit, ReviewsState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        return Scaffold(
-          extendBodyBehindAppBar: true,
-          extendBody: true,
-          drawer: const DrawerWidget(),
-          body: CustomScrollView(slivers: [
-            SliverAppBar(
-              backgroundColor: Colors.transparent,
-              floating: false,
-              forceMaterialTransparency: false,
-              pinned: false,
-              snap: false,
-              leadingWidth: 70,
-              elevation: 0,
-              iconTheme: IconThemeData(
-                color: AppColors.n1,
-              ),
-              actions: [
-                Row(
-                  children: [
-                    Icon(
-                      Icons.notifications_outlined,
-                      color: AppColors.n1,
-                      size: 30,
-                    ),
-                  ],
-                ),
-                const SizedBox(width: 20),
-              ],
+      listener: (context, state) {
+        if (state is ErrorReviewsState) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.red,
+            content: Text(state.message.toString()),
+            action: SnackBarAction(
+              label: 'Undo',
+              textColor: Colors.white,
+              onPressed: () {},
             ),
-            SliverToBoxAdapter(
-              child: Stack(
-                children: [
-                  Opacity(
-                    opacity: .15,
-                    child: Container(
-                      width: double.infinity,
-                      height: MediaQuery.of(context).size.height,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.topRight,
-                          colors: AppColors.g2,
+          ));
+        }
+      },
+      builder: (context, state) {
+        if (state is SucsessReviewsState) {
+          return Scaffold(
+            extendBodyBehindAppBar: true,
+            extendBody: true,
+            drawer: const DrawerWidget(),
+            body: CustomScrollView(slivers: [
+              SliverAppBar(
+                backgroundColor: Colors.transparent,
+                floating: false,
+                forceMaterialTransparency: false,
+                pinned: false,
+                snap: false,
+                leadingWidth: 70,
+                elevation: 0,
+                iconTheme: IconThemeData(
+                  color: AppColors.n1,
+                ),
+                actions: [
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.notifications_outlined,
+                        color: AppColors.n1,
+                        size: 30,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(width: 20),
+                ],
+              ),
+              SliverToBoxAdapter(
+                child: Stack(
+                  children: [
+                    Opacity(
+                      opacity: .15,
+                      child: Container(
+                        width: double.infinity,
+                        height: MediaQuery.of(context).size.height,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.topRight,
+                            colors: AppColors.g2,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  ListView.separated(
+                    ListView.separated(
                       itemBuilder: (context, index) {
-                        return const PostWidget();
+                        return PostWidget(model: state.postItems[index]);
                       },
                       separatorBuilder: (context, index) {
                         return const SizedBox(height: 20);
                       },
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 10)
-                ],
+                      itemCount: state.postItems.length,
+                    ),
+                  ],
+                ),
               ),
+            ]),
+          );
+        } else if (state is ErrorReviewsState) {
+          return Positioned.fill(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 80,
+                  width: 80,
+                  child: Image.asset(
+                    'images/about.png',
+                  ),
+                ),
+                const SizedBox(height: 10),
+                const Text("there is something went wrong",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    )),
+              ],
             ),
-          ]),
-        );
+          );
+        } else {
+          return const CircularProgressIndicator();
+        }
       },
     );
   }

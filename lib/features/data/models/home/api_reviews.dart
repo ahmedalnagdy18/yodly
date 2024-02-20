@@ -80,8 +80,8 @@ class ApiReviewItems {
   final String? name;
   final String? description;
   final String? title;
-  final String country;
-  final String city;
+  final String? country;
+  final String? city;
 
   ApiReviewItems({
     required this.id,

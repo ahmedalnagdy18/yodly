@@ -1,6 +1,6 @@
 class ReviewsEntity {
-  final String page;
-  final String limit;
+  final int page;
+  final int limit;
 
   ReviewsEntity({required this.page, required this.limit});
 
