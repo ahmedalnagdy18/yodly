@@ -4,19 +4,19 @@
 
 import 'dart:convert';
 
-ApiReviews apiReviewsFromJson(String str) =>
-    ApiReviews.fromJson(json.decode(str));
+ApiReviewItems apiReviewsFromJson(String str) =>
+    ApiReviewItems.fromJson(json.decode(str));
 
-String apiReviewsToJson(ApiReviews data) => json.encode(data.toJson());
+String apiReviewsToJson(ApiReviewItems data) => json.encode(data.toJson());
 
-class ApiReviews {
+class ApiReviewItems {
   final Reviews? reviews;
 
-  ApiReviews({
+  ApiReviewItems({
     this.reviews,
   });
 
-  factory ApiReviews.fromJson(Map<String, dynamic> json) => ApiReviews(
+  factory ApiReviewItems.fromJson(Map<String, dynamic> json) => ApiReviewItems(
         reviews:
             json["reviews"] == null ? null : Reviews.fromJson(json["reviews"]),
       );
@@ -55,7 +55,7 @@ class Reviews {
 }
 
 class Data {
-  final List<ApiReviewItems>? items;
+  final List<Item>? items;
 
   Data({
     this.items,
@@ -64,8 +64,7 @@ class Data {
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         items: json["items"] == null
             ? []
-            : List<ApiReviewItems>.from(
-                json["items"]!.map((x) => ApiReviewItems.fromJson(x))),
+            : List<Item>.from(json["items"]!.map((x) => Item.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -75,7 +74,8 @@ class Data {
       };
 }
 
-class ApiReviewItems {
+class Item {
+  final User? user;
   final String? id;
   final String? name;
   final String? description;
@@ -83,7 +83,8 @@ class ApiReviewItems {
   final String? country;
   final String? city;
 
-  ApiReviewItems({
+  Item({
+    required this.user,
     required this.id,
     required this.name,
     required this.description,
@@ -92,7 +93,8 @@ class ApiReviewItems {
     required this.city,
   });
 
-  factory ApiReviewItems.fromJson(Map<String, dynamic> json) => ApiReviewItems(
+  factory Item.fromJson(Map<String, dynamic> json) => Item(
+        user: json["user"] == null ? null : User.fromJson(json["user"]),
         id: json["id"],
         name: json["name"],
         description: json["description"],
@@ -102,11 +104,28 @@ class ApiReviewItems {
       );
 
   Map<String, dynamic> toJson() => {
+        "user": user,
         "id": id,
         "name": name,
         "description": description,
         "title": title,
         "country": country,
         "city": city,
+      };
+}
+
+class User {
+  final String? userName;
+
+  User({
+    this.userName,
+  });
+
+  factory User.fromJson(Map<String, dynamic> json) => User(
+        userName: json["userName"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "userName": userName,
       };
 }

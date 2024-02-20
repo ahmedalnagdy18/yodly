@@ -19,7 +19,7 @@ class ReviewsRepositryImp implements ReviewsRepository {
     if (result.data == null) {
       throw Exception();
     }
-    final response = ApiReviews.fromJson(result.data!);
+    final response = ApiReviewItems.fromJson(result.data!);
     if (response.reviews?.data != null && response.reviews?.code == 200) {
       final data = response.reviews?.data?.items ?? [];
       return data.map((e) => e.reviewMap()).toList();

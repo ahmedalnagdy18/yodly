@@ -51,10 +51,10 @@ class _PostWidgetState extends State<PostWidget> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            widget.model.name,
+                            widget.model.userName,
                             style: TextStyle(
                               fontSize: 16,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w700,
                               color: AppColors.n1,
                             ),
                           ),
@@ -98,28 +98,30 @@ class _PostWidgetState extends State<PostWidget> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          widget.model.title,
+                          widget.model.name,
                           style: TextStyle(
                             fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.n2,
-                          ),
-                        ),
-                        Text(
-                          'The new skinny can',
-                          style: TextStyle(
-                            fontSize: 14,
                             fontWeight: FontWeight.w600,
                             color: AppColors.n1,
                           ),
                         ),
-                        const Row(
+                        Text(
+                          widget.model.title,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.n2,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Row(
                           children: [
-                            Icon(
-                              Icons.location_on_outlined,
-                              color: Colors.grey,
+                            Image.asset(
+                              'images/shape.png',
+                              width: 10,
                             ),
-                            Text(
+                            const SizedBox(width: 4),
+                            const Text(
                               "Domyat",
                               //widget.model.city,
                               style: TextStyle(
@@ -128,7 +130,7 @@ class _PostWidgetState extends State<PostWidget> {
                                 color: Color.fromARGB(255, 130, 128, 128),
                               ),
                             ),
-                            Text(
+                            const Text(
                               "-Egypt",
                               //  widget.model.country,
                               style: TextStyle(
@@ -147,7 +149,7 @@ class _PostWidgetState extends State<PostWidget> {
                     )
                   ],
                 ),
-                const SizedBox(height: 14),
+                const SizedBox(height: 8),
                 Text(
                   widget.model.description,
                   style: TextStyle(

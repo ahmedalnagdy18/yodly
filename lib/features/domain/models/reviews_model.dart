@@ -7,17 +7,19 @@ class ReviewsModels {
   final String title;
   final String country;
   final String city;
+  final String userName;
 
   ReviewsModels(
       {required this.id,
       required this.city,
+      required this.userName,
       required this.name,
       required this.description,
       required this.title,
       required this.country});
 }
 
-extension PoostItems on ApiReviewItems {
+extension PoostItems on Item {
   ReviewsModels reviewMap() {
     return ReviewsModels(
         id: id ?? "",
@@ -25,6 +27,7 @@ extension PoostItems on ApiReviewItems {
         name: name ?? "",
         description: description ?? "",
         title: title ?? "",
-        country: country ?? "");
+        country: country ?? "",
+        userName: user?.userName ?? "");
   }
 }
