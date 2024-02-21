@@ -158,13 +158,36 @@ class _PostWidgetState extends State<PostWidget> {
                     color: AppColors.n2,
                   ),
                 ),
+                widget.model.specificRating.isNotEmpty
+                    ? Text(widget.model.specificRating[0].rating ?? '')
+                    : const SizedBox(),
               ],
             ),
           ),
-          Image.asset(
-            'images/pepsi.png',
-            fit: BoxFit.contain,
-          ),
+          widget.model.attachments.isNotEmpty
+              ? Center(
+                  child: ListView.separated(
+                    itemBuilder: (context, index) {
+                      return Image.network(
+                        widget
+                                .model
+                                .attachments[
+                                    widget.model.attachments.length - 1]
+                                .link ??
+                            '',
+                        height: MediaQuery.of(context).size.height * 0.3,
+                        fit: BoxFit.contain,
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(height: 2);
+                    },
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: widget.model.attachments.length,
+                  ),
+                )
+              : const SizedBox(),
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 26,

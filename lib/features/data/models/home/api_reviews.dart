@@ -1,13 +1,13 @@
 // To parse this JSON data, do
 //
-//     final apiReviews = apiReviewsFromJson(jsonString);
+//     final apiReviewItems = apiReviewItemsFromJson(jsonString);
 
 import 'dart:convert';
 
-ApiReviewItems apiReviewsFromJson(String str) =>
+ApiReviewItems apiReviewItemsFromJson(String str) =>
     ApiReviewItems.fromJson(json.decode(str));
 
-String apiReviewsToJson(ApiReviewItems data) => json.encode(data.toJson());
+String apiReviewItemsToJson(ApiReviewItems data) => json.encode(data.toJson());
 
 class ApiReviewItems {
   final Reviews? reviews;
@@ -80,17 +80,21 @@ class Item {
   final String? name;
   final String? description;
   final String? title;
-  final String? country;
-  final String? city;
+  final dynamic country;
+  final dynamic city;
+  final List<SpecificRating>? specificRating;
+  final List<Attachment>? attachments;
 
   Item({
-    required this.user,
-    required this.id,
-    required this.name,
-    required this.description,
-    required this.title,
-    required this.country,
-    required this.city,
+    this.user,
+    this.id,
+    this.name,
+    this.description,
+    this.title,
+    this.country,
+    this.city,
+    this.specificRating,
+    this.attachments,
   });
 
   factory Item.fromJson(Map<String, dynamic> json) => Item(
@@ -101,16 +105,70 @@ class Item {
         title: json["title"],
         country: json["country"],
         city: json["city"],
+        specificRating: json["specificRating"] == null
+            ? []
+            : List<SpecificRating>.from(
+                json["specificRating"]!.map((x) => SpecificRating.fromJson(x))),
+        attachments: json["attachments"] == null
+            ? []
+            : List<Attachment>.from(
+                json["attachments"]!.map((x) => Attachment.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "user": user,
+        "user": user?.toJson(),
         "id": id,
         "name": name,
         "description": description,
         "title": title,
         "country": country,
         "city": city,
+        "specificRating": specificRating == null
+            ? []
+            : List<dynamic>.from(specificRating!.map((x) => x.toJson())),
+        "attachments": attachments == null
+            ? []
+            : List<dynamic>.from(attachments!.map((x) => x.toJson())),
+      };
+}
+
+class Attachment {
+  final String? attachmentType;
+  final String? link;
+
+  Attachment({
+    this.attachmentType,
+    this.link,
+  });
+
+  factory Attachment.fromJson(Map<String, dynamic> json) => Attachment(
+        attachmentType: json["attachmentType"],
+        link: json["link"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "attachmentType": attachmentType,
+        "link": link,
+      };
+}
+
+class SpecificRating {
+  final String? tag;
+  final String? rating;
+
+  SpecificRating({
+    this.tag,
+    this.rating,
+  });
+
+  factory SpecificRating.fromJson(Map<String, dynamic> json) => SpecificRating(
+        tag: json["tag"],
+        rating: json["rating"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "tag": tag,
+        "rating": rating,
       };
 }
 

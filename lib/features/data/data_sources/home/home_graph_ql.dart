@@ -12,6 +12,10 @@ query reviews($paginate:PaginatorInput,$filter:ReviewFilter){
         title
         country
         city
+        attachments{
+          attachmentType
+          link
+        }
       }
     }
     code

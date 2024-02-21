@@ -31,19 +31,7 @@ class _HomePageState extends State<_HomePage> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ReviewsCubit, ReviewsState>(
-      listener: (context, state) {
-        if (state is ErrorReviewsState) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: Colors.red,
-            content: Text(state.message.toString()),
-            action: SnackBarAction(
-              label: 'Undo',
-              textColor: Colors.white,
-              onPressed: () {},
-            ),
-          ));
-        }
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         if (state is SucsessReviewsState) {
           return Scaffold(
@@ -130,7 +118,29 @@ class _HomePageState extends State<_HomePage> {
             ),
           );
         } else {
-          return const Center(child: CircularProgressIndicator());
+          return Positioned.fill(
+            child: Center(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 80,
+                  width: 80,
+                  child: Image.asset(
+                    'images/about.png',
+                  ),
+                ),
+                const SizedBox(height: 10),
+                SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: CircularProgressIndicator(
+                    color: AppColors.n1,
+                  ),
+                ),
+              ],
+            )),
+          );
         }
       },
     );
