@@ -1,5 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yodly/features/domain/entites/authentication/login_entity.dart';
 import 'package:yodly/features/domain/usecase/authentication/login_usecase.dart';
 

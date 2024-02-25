@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:yodly/features/data/data_sources/authentication/graph_ql.dart';
 import 'package:yodly/features/data/models/authentication/api_forget_password.dart';
@@ -28,7 +26,6 @@ class ForgetPasswordRepositryImp implements ForgetPasswordRepository {
     }
 
     final response = ApiForgetPassword.fromJson(result.data!);
-    log('zzzzzzzzzz');
     if (response.resetPasswordByEmail != null &&
         response.resetPasswordByEmail!.code == 200) {
       return;
