@@ -166,26 +166,40 @@ class _PostWidgetState extends State<PostWidget> {
           ),
           widget.model.attachments.isNotEmpty
               ? Center(
-                  child: ListView.separated(
-                    itemBuilder: (context, index) {
-                      return Image.network(
-                        widget
-                                .model
-                                .attachments[
-                                    widget.model.attachments.length - 1]
-                                .link ??
-                            '',
-                        height: MediaQuery.of(context).size.height * 0.3,
-                        fit: BoxFit.contain,
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return const SizedBox(height: 2);
-                    },
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: widget.model.attachments.length,
-                  ),
+                  child: widget.model.attachments.length == 1
+                      ? Image.network(
+                          widget
+                                  .model
+                                  .attachments[
+                                      widget.model.attachments.length - 1]
+                                  .link ??
+                              '',
+                          height: MediaQuery.of(context).size.height * 0.3,
+                          fit: BoxFit.contain,
+                        )
+                      : GridView.builder(
+                          itemBuilder: (context, index) {
+                            return Image.network(
+                              widget
+                                      .model
+                                      .attachments[
+                                          widget.model.attachments.length - 1]
+                                      .link ??
+                                  '',
+                              height: MediaQuery.of(context).size.height * 0.3,
+                              fit: BoxFit.contain,
+                            );
+                          },
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: widget.model.attachments.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisSpacing: 10.0,
+                            crossAxisCount: 2,
+                            mainAxisExtent: 150,
+                          ),
+                        ),
                 )
               : const SizedBox(),
           Padding(

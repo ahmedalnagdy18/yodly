@@ -7,7 +7,7 @@ import 'package:yodly/features/presentation/widgets/home_widget.dart';
 import 'package:yodly/injection_container.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -118,29 +118,27 @@ class _HomePageState extends State<_HomePage> {
             ),
           );
         } else {
-          return Positioned.fill(
-            child: Center(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 80,
-                  width: 80,
-                  child: Image.asset(
-                    'images/about.png',
-                  ),
+          return Center(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 80,
+                width: 80,
+                child: Image.asset(
+                  'images/about.png',
                 ),
-                const SizedBox(height: 10),
-                SizedBox(
-                  height: 20,
-                  width: 20,
-                  child: CircularProgressIndicator(
-                    color: AppColors.n1,
-                  ),
+              ),
+              const SizedBox(height: 10),
+              SizedBox(
+                height: 20,
+                width: 20,
+                child: CircularProgressIndicator(
+                  color: AppColors.n1,
                 ),
-              ],
-            )),
-          );
+              ),
+            ],
+          ));
         }
       },
     );
