@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yodly/core/colors/app_colors.dart';
 import 'package:yodly/features/domain/models/reviews_model.dart';
+import 'package:yodly/features/presentation/cubit/home_cubit/reviews_cubit/cubit/reviews_cubit.dart';
 import 'package:yodly/features/presentation/widgets/awards_widget.dart';
 
 class PostWidget extends StatefulWidget {
@@ -15,6 +17,7 @@ class _PostWidgetState extends State<PostWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      // height: 100,
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -84,7 +87,13 @@ class _PostWidgetState extends State<PostWidget> {
                       elevation: 10,
                       itemBuilder: (context) => [
                         const PopupMenuItem(child: Text('edit')),
-                        const PopupMenuItem(child: Text('delete')),
+                        PopupMenuItem(
+                            onTap: () {
+                              BlocProvider.of<ReviewsCubit>(context)
+                                  .delete(widget.model.id);
+                              setState(() {});
+                            },
+                            child: const Text('delete')),
                       ],
                     ),
                   ],
@@ -168,24 +177,24 @@ class _PostWidgetState extends State<PostWidget> {
               ? Center(
                   child: widget.model.attachments.length == 1
                       ? Image.network(
-                          widget
+                          addBaseUrls(widget
                                   .model
                                   .attachments[
                                       widget.model.attachments.length - 1]
                                   .link ??
-                              '',
+                              ''),
                           height: MediaQuery.of(context).size.height * 0.3,
                           fit: BoxFit.contain,
                         )
                       : GridView.builder(
                           itemBuilder: (context, index) {
                             return Image.network(
-                              widget
+                              addBaseUrls(widget
                                       .model
                                       .attachments[
                                           widget.model.attachments.length - 1]
                                       .link ??
-                                  '',
+                                  ''),
                               height: MediaQuery.of(context).size.height * 0.3,
                               fit: BoxFit.contain,
                             );
@@ -302,4 +311,8 @@ class _PostWidgetState extends State<PostWidget> {
       ),
     );
   }
+}
+
+String addBaseUrls(String url) {
+  return "https://yodly.onrender.com/${url}";
 }

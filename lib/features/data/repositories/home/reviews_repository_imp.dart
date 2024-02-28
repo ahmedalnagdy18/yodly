@@ -1,5 +1,6 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:yodly/features/data/data_sources/home/home_graph_ql.dart';
+import 'package:yodly/features/data/models/home/api_delete.dart';
 import 'package:yodly/features/data/models/home/api_reviews.dart';
 import 'package:yodly/features/domain/entites/home/reviews_entity.dart';
 import 'package:yodly/features/domain/models/reviews_model.dart';
@@ -25,6 +26,19 @@ class ReviewsRepositryImp implements ReviewsRepository {
       return data.map((e) => e.reviewMap()).toList();
     } else {
       throw FormatException(response.reviews?.message ?? "");
+    }
+  }
+
+  @override
+  Future<void> deleteReview(String id) async {
+    final result = await graphQLClient.mutate(MutationOptions(
+        document: gql(deleteReviewId), variables: {"reviewId": id}));
+
+    final response = ApiDeleteReview.fromJson(result.data!);
+    if (response.deleteReview != null && response.deleteReview!.code == 200) {
+      return;
+    } else {
+      throw FormatException(response.deleteReview?.message ?? "");
     }
   }
 }

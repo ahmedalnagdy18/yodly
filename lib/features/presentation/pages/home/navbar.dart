@@ -1,22 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:yodly/core/colors/app_colors.dart';
+import 'package:yodly/features/domain/models/reviews_model.dart';
 import 'package:yodly/features/presentation/pages/add_review/select_add_review.dart';
 import 'package:yodly/features/presentation/pages/home/home_page.dart';
 import 'package:yodly/features/presentation/pages/home/search/search_page.dart';
 
 class Navbar extends StatefulWidget {
-  const Navbar({super.key});
-
+  const Navbar({
+    super.key,
+    this.reviewsModels,
+  });
+  final ReviewsModels? reviewsModels;
   @override
   State<Navbar> createState() => _NavbarState();
 }
 
 class _NavbarState extends State<Navbar> {
   int selectedindex = 0;
-  final List name = [
-    const HomePage(),
-    const SearchPage(),
-  ];
+  List name = [];
+  @override
+  void initState() {
+    name.addAll([
+      HomePage(
+        reviewsModels: widget.reviewsModels,
+      ),
+      const SearchPage()
+    ]);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

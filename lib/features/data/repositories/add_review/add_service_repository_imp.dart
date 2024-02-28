@@ -13,22 +13,16 @@ class AddServiceRepositoryImp implements AddServiceRepository {
 
   @override
   Future<void> addService(AddServiceEntity addServiceEntity) async {
-    print('111111111111111111111');
     final result = await graphQLClient.mutate(MutationOptions(
         document: gql(createReview),
         variables: {"input": addServiceEntity.toJson()}));
-    print('2222222222');
     if (result.data == null) {
-      print('33333333333333');
       throw Exception();
     }
     final response = ApiAddService.fromJson(result.data!);
-    print('4444444444444444444444${response.createReview?.message}');
     if (response.createReview != null && response.createReview?.code == 200) {
-      print('55555555555555555555');
       return;
     } else {
-      print('666666666666666666666');
       throw FormatException(response.createReview?.message ?? "");
     }
   }

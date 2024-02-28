@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:yodly/core/colors/app_colors.dart';
 
-class AddServiceReactionWidget extends StatelessWidget {
+class AddServiceReactionWidget extends StatefulWidget {
   const AddServiceReactionWidget({super.key});
 
+  @override
+  State<AddServiceReactionWidget> createState() =>
+      _AddServiceReactionWidgetState();
+}
+
+class _AddServiceReactionWidgetState extends State<AddServiceReactionWidget> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -52,11 +58,17 @@ class AddServiceReactionWidget extends StatelessWidget {
         ),
         Column(
           children: [
-            SizedBox(
-              width: 30,
-              height: 30,
-              child: Image.asset(
-                "images/ok.png",
+            ShaderMask(
+              shaderCallback: (Rect bounds) => RadialGradient(
+                center: Alignment.topCenter,
+                colors: AppColors.g1,
+              ).createShader(bounds),
+              child: SizedBox(
+                width: 30,
+                height: 30,
+                child: Image.asset(
+                  "images/ok.png",
+                ),
               ),
             ),
             const SizedBox(height: 5),

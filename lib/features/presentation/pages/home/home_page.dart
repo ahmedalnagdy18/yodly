@@ -1,37 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yodly/core/colors/app_colors.dart';
+import 'package:yodly/features/domain/models/reviews_model.dart';
 import 'package:yodly/features/presentation/cubit/home_cubit/reviews_cubit/cubit/reviews_cubit.dart';
 import 'package:yodly/features/presentation/widgets/drawer_widget.dart';
 import 'package:yodly/features/presentation/widgets/home_widget.dart';
 import 'package:yodly/injection_container.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key, this.reviewsModels}) : super(key: key);
+  final ReviewsModels? reviewsModels;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ReviewsCubit(reviewsUsecase: sl())..review(),
-      child: const _HomePage(),
+      create: (context) =>
+          ReviewsCubit(reviewsUsecase: sl(), deleteReviewUsecase: sl())
+            ..review(),
+      child: _HomePage(reviewsModels, true),
     );
   }
 }
 
 class _HomePage extends StatefulWidget {
-  const _HomePage();
-
+  const _HomePage(this.reviewsModels, this.isNew);
+  final bool isNew;
+  final ReviewsModels? reviewsModels;
   @override
   State<_HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<_HomePage> {
   int selectedindex = 0;
+  bool isNew = true;
+  @override
+  void initState() {
+    isNew = widget.isNew;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ReviewsCubit, ReviewsState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is ErrorDeleteReviewsState) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+            content: Text(state.message.toString()),
+            action: SnackBarAction(
+              label: 'Undo',
+              textColor: Colors.white,
+              onPressed: () {},
+            ),
+          ));
+        }
+        if (state is SucsessReviewsState && isNew == true) {
+          isNew = false;
+          BlocProvider.of<ReviewsCubit>(context).addPost(widget.reviewsModels);
+        }
+      },
       builder: (context, state) {
         if (state is SucsessReviewsState) {
           return Scaffold(
@@ -96,28 +124,32 @@ class _HomePageState extends State<_HomePage> {
               ),
             ]),
           );
-        } else if (state is ErrorReviewsState) {
+        }
+        if (state is ErrorReviewsState || state is ErrorDeleteReviewsState) {
           return Positioned.fill(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 80,
-                  width: 80,
-                  child: Image.asset(
-                    'images/about.png',
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 80,
+                    width: 80,
+                    child: Image.asset(
+                      'images/about.png',
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                const Text("there is something went wrong",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                    )),
-              ],
+                  const SizedBox(height: 10),
+                  const Text("there is something went wrong",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      )),
+                ],
+              ),
             ),
           );
-        } else {
+        }
+        if (state is LoadingReviewsState) {
           return Center(
               child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -140,6 +172,7 @@ class _HomePageState extends State<_HomePage> {
             ],
           ));
         }
+        return const SizedBox();
       },
     );
   }

@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:yodly/core/colors/app_colors.dart';
 import 'package:yodly/features/data/models/home/api_reviews.dart';
 import 'package:yodly/features/domain/entites/add_review/add_service_entity.dart';
+import 'package:yodly/features/domain/models/reviews_model.dart';
 import 'package:yodly/features/presentation/cubit/add_review_cubit/add_service_cubit/cubit/add_service_cubit.dart';
 import 'package:yodly/features/presentation/pages/add_review/add_review_page.dart';
 import 'package:yodly/features/presentation/pages/home/navbar.dart';
@@ -50,6 +55,19 @@ class AddServicePageState extends State<AddServicePageBody> {
   final TextEditingController _reivew = TextEditingController();
 
   final TextEditingController _description = TextEditingController();
+  final imagepicker = ImagePicker();
+
+  File? image;
+  Future pickImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+      final imageTemp = File(image.path);
+      setState(() => this.image = imageTemp);
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,36 +133,51 @@ class AddServicePageState extends State<AddServicePageBody> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Container(
-                            height: 155,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              // color: Colors.cyan,
-                              border: DashedBorder.all(
-                                dashLength: 10,
-                                width: 2,
-                                color: Colors.grey,
+                          InkWell(
+                            onTap: () {
+                              pickImage();
+                            },
+                            child: Container(
+                              height: 155,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                // color: Colors.cyan,
+                                border: DashedBorder.all(
+                                  dashLength: 10,
+                                  width: 2,
+                                  color: Colors.grey,
+                                ),
                               ),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(
-                                  Icons.file_upload_outlined,
-                                  size: 45,
-                                  color: Colors.black,
-                                ),
-                                Text(
-                                  'Upload image or video',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.n1,
-                                  ),
-                                ),
-                              ],
+                              child: image != null
+                                  ? ClipRRect(
+                                      borderRadius: BorderRadius.circular(15),
+                                      child: Image.file(
+                                        image!,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    )
+                                  : Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        const Icon(
+                                          Icons.file_upload_outlined,
+                                          size: 45,
+                                          color: Colors.black,
+                                        ),
+                                        Text(
+                                          'Upload image or video',
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w400,
+                                            color: AppColors.n1,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                             ),
                           ),
                           const SizedBox(height: 20),
@@ -210,25 +243,21 @@ class AddServicePageState extends State<AddServicePageBody> {
                             ),
                           ),
                           const SizedBox(height: 5),
-                          SizedBox(
-                            height: 53,
-                            child: TextFormField(
-                              controller: _reivew,
-                              decoration: InputDecoration(
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide:
-                                      const BorderSide(color: Colors.grey),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: const BorderSide(
-                                      color:
-                                          Color.fromARGB(255, 196, 194, 194)),
-                                ),
-                                filled: true,
-                                fillColor: Colors.white,
+                          TextFormField(
+                            controller: _reivew,
+                            decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide:
+                                    const BorderSide(color: Colors.grey),
                               ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: const BorderSide(
+                                    color: Color.fromARGB(255, 196, 194, 194)),
+                              ),
+                              filled: true,
+                              fillColor: Colors.white,
                             ),
                           ),
                           const SizedBox(height: 15),
@@ -244,12 +273,9 @@ class AddServicePageState extends State<AddServicePageBody> {
                           SizedBox(
                             height: 120,
                             child: TextFormField(
+                              maxLines: 4,
                               controller: _description,
                               decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 115,
-                                  horizontal: 20,
-                                ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(30),
                                   borderSide:
@@ -342,6 +368,7 @@ class AddServicePageState extends State<AddServicePageBody> {
                                     if (state is SucsessAddServiceState) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(SnackBar(
+                                        behavior: SnackBarBehavior.floating,
                                         backgroundColor: Colors.grey,
                                         content: const Text('Review Added'),
                                         action: SnackBarAction(
@@ -350,10 +377,33 @@ class AddServicePageState extends State<AddServicePageBody> {
                                           onPressed: () {},
                                         ),
                                       ));
-                                      Navigator.of(context).pushReplacement(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const Navbar()));
+                                      Navigator.of(context)
+                                          .pushReplacement(MaterialPageRoute(
+                                              builder: (context) => Navbar(
+                                                    reviewsModels:
+                                                        ReviewsModels(
+                                                            id: widget.category,
+                                                            city: "",
+                                                            specificRating: [
+                                                              SpecificRating(
+                                                                  rating: "")
+                                                            ],
+                                                            userName: "Nagdy",
+                                                            name: widget
+                                                                .reviewName,
+                                                            description:
+                                                                _description
+                                                                    .text,
+                                                            title: _reivew.text,
+                                                            attachments: [
+                                                              Attachment(
+                                                                  attachmentType:
+                                                                      "PHOTO",
+                                                                  link:
+                                                                      "comment-attachment/1709137698051-nagdy11.jpg"),
+                                                            ],
+                                                            country: ''),
+                                                  )));
                                     }
                                   },
                                   child: MaterialButton(
@@ -398,17 +448,32 @@ class AddServicePageState extends State<AddServicePageBody> {
                                       child: Container(
                                         constraints: const BoxConstraints(),
                                         alignment: Alignment.center,
-                                        child: Text(
-                                          "Add Review",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: !_isButtonEnabled
-                                                ? const Color.fromARGB(
-                                                    255, 145, 145, 145)
-                                                : Colors.white,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w700,
-                                          ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Text(
+                                              "Add Review",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: !_isButtonEnabled
+                                                    ? const Color.fromARGB(
+                                                        255, 145, 145, 145)
+                                                    : Colors.white,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                            if (state is LoadingAddServiceState)
+                                              SizedBox(
+                                                width: 15,
+                                                height: 15,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  color: AppColors.n1,
+                                                ),
+                                              ),
+                                          ],
                                         ),
                                       ),
                                     ),
@@ -434,15 +499,14 @@ class AddServicePageState extends State<AddServicePageBody> {
     BlocProvider.of<AddServiceCubit>(context).addServicee(AddServiceEntity(
       attachments: Attachment(
           attachmentType: "PHOTO",
-          link:
-              "https://group.mercedes-benz.com/bilder/unternehmen/news/2021/absatz-2021-01-w1680xh945-cutout.jpg"),
+          link: "comment-attachment/1709137698051-nagdy11.jpg"),
       categoryId: widget.category,
       description: _description.text,
       name: widget.reviewName,
       overallRating: "HAPPY",
       subcategoryId: widget.subCategory,
       title: _reivew.text,
-      type: "PRODUCT",
+      type: "PLACE",
     ));
   }
 

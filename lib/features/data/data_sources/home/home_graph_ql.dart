@@ -24,3 +24,13 @@ query reviews($paginate:PaginatorInput,$filter:ReviewFilter){
   }
 }
 """;
+
+const String deleteReviewId = r"""
+mutation deleteReview ($reviewId:ID!){
+  deleteReview (reviewId:$reviewId){
+    code
+    success
+    message
+  }
+}
+""";

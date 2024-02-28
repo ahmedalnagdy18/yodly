@@ -25,3 +25,16 @@ class ErrorReviewsState extends ReviewsState {
   @override
   List<Object> get props => [message];
 }
+
+class LoadingDeleteReviewsState extends ReviewsState {}
+
+class SucsessDeleteReviewsState extends ReviewsState {}
+
+class ErrorDeleteReviewsState extends ReviewsState {
+  final String message;
+
+  ErrorDeleteReviewsState({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}

@@ -35,6 +35,7 @@ class _AddReviewPageState extends State<_AddReviewPage> {
   var items2 = ['mobile', 'Clothes', 'Covers', 'Electronics'];
 
   bool _isButtonEnabled = false;
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AddServiceCubit, AddServiceState>(
@@ -232,41 +233,41 @@ class _AddReviewPageState extends State<_AddReviewPage> {
                             child:
                                 BlocListener<AddServiceCubit, AddServiceState>(
                               listener: (context, state) {
-                                if (state is SucsessAddReviewState) {
-                                  Navigator.of(context)
-                                      .pushReplacement(MaterialPageRoute(
-                                          builder: (context) => AddServicePage(
-                                                category:
-                                                    state.reviewModel[0].id,
-                                                subCategory: state
-                                                    .reviewModel[0]
-                                                    .subcategories[0]
-                                                    .id,
-                                                reviewName:
-                                                    state.reviewModel[0].enName,
-                                              )));
+                                if (subCategory.text.isEmpty ||
+                                    category.text.isEmpty ||
+                                    reviewName.text.isEmpty) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    backgroundColor: Colors.red,
+                                    content: const Text(
+                                        'Error ! you must write all field'),
+                                    action: SnackBarAction(
+                                      label: 'Undo',
+                                      textColor: Colors.white,
+                                      onPressed: () {},
+                                    ),
+                                  ));
+                                } else {
+                                  if (state is SucsessAddReviewState) {
+                                    Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                AddServicePage(
+                                                  category:
+                                                      state.reviewModel[0].id,
+                                                  subCategory: state
+                                                      .reviewModel[0]
+                                                      .subcategories[0]
+                                                      .id,
+                                                  reviewName: reviewName.text,
+                                                )));
+                                  }
                                 }
                               },
                               child: MaterialButton(
                                 onPressed: () {
                                   BlocProvider.of<AddServiceCubit>(context)
                                       .addReview();
-                                  if (subCategory.text.isNotEmpty &&
-                                      category.text.isNotEmpty &&
-                                      reviewName.text.isNotEmpty) {
-                                  } else {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(SnackBar(
-                                      backgroundColor: Colors.red,
-                                      content: const Text(
-                                          'Error ! you must write all field'),
-                                      action: SnackBarAction(
-                                        label: 'Undo',
-                                        textColor: Colors.white,
-                                        onPressed: () {},
-                                      ),
-                                    ));
-                                  }
                                 },
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(25.0)),
@@ -287,14 +288,28 @@ class _AddReviewPageState extends State<_AddReviewPage> {
                                           BorderRadius.circular(30.0)),
                                   child: Container(
                                     alignment: Alignment.center,
-                                    child: const Text(
-                                      "Next",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w700,
-                                      ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        const Text(
+                                          "Next",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                        if (state is LoadingAddReviewState)
+                                          SizedBox(
+                                            width: 15,
+                                            height: 15,
+                                            child: CircularProgressIndicator(
+                                              color: AppColors.n1,
+                                            ),
+                                          ),
+                                      ],
                                     ),
                                   ),
                                 ),

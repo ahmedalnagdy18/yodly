@@ -20,6 +20,7 @@ import 'package:yodly/features/domain/usecase/authentication/login_usecase.dart'
 import 'package:yodly/features/domain/usecase/authentication/register_usecase.dart';
 import 'package:yodly/features/domain/usecase/authentication/send_email_verification_code_usecase.dart';
 import 'package:yodly/features/domain/usecase/authentication/verify_user_usecase.dart';
+import 'package:yodly/features/domain/usecase/home/delete_usecase.dart';
 import 'package:yodly/features/domain/usecase/home/reviews_usecase.dart';
 
 final sl = GetIt.instance;
@@ -52,6 +53,9 @@ Future<void> init() async {
 
   sl.registerLazySingleton<AddServiceUsecase>(
       () => AddServiceUsecase(repository: sl()));
+
+  sl.registerLazySingleton<DeleteReviewUsecase>(
+      () => DeleteReviewUsecase(repository: sl()));
 
 // Repository
 

@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
               if (token == null) {
                 return const OnboardingScreen();
               }
-              return const Navbar();
+              return Navbar();
             })));
     super.initState();
   }
