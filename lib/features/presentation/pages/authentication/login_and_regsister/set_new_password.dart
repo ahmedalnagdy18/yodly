@@ -94,8 +94,6 @@ class _NewPasswordPageState extends State<_NewPasswordPage> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 22),
                           child: Container(
-                            // width: 330,
-                            height: 295,
                             decoration: BoxDecoration(
                               boxShadow: [
                                 BoxShadow(
@@ -125,43 +123,38 @@ class _NewPasswordPageState extends State<_NewPasswordPage> {
                                     ),
                                   ),
                                   const SizedBox(height: 8),
-                                  SizedBox(
-                                    height: 48,
-                                    child: TextFormField(
-                                      obscureText: isObscuretext,
-                                      controller: _password,
-                                      decoration: InputDecoration(
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                          borderSide: const BorderSide(
-                                              color: Colors.grey),
+                                  TextFormField(
+                                    obscureText: isObscuretext,
+                                    controller: _password,
+                                    decoration: InputDecoration(
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                        borderSide: const BorderSide(
+                                            color: Colors.grey),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                        borderSide: const BorderSide(
+                                            color: Color.fromARGB(
+                                                255, 203, 202, 202)),
+                                      ),
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      suffixIcon: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            isObscuretext = !isObscuretext;
+                                          });
+                                        },
+                                        child: Icon(
+                                          isObscuretext
+                                              ? Icons.visibility_off
+                                              : Icons.visibility,
                                         ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                          borderSide: const BorderSide(
-                                              color: Color.fromARGB(
-                                                  255, 203, 202, 202)),
-                                        ),
-                                        filled: true,
-                                        fillColor: Colors.white,
-                                        suffixIcon: GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              isObscuretext = !isObscuretext;
-                                            });
-                                          },
-                                          child: Icon(
-                                            isObscuretext
-                                                ? Icons.visibility_off
-                                                : Icons.visibility,
-                                          ),
-                                        ),
-                                        hintStyle: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                        ),
+                                      ),
+                                      hintStyle: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
                                       ),
                                     ),
                                   ),
@@ -175,43 +168,38 @@ class _NewPasswordPageState extends State<_NewPasswordPage> {
                                     ),
                                   ),
                                   const SizedBox(height: 8),
-                                  SizedBox(
-                                    height: 48,
-                                    child: TextFormField(
-                                      obscureText: isObscuretext2,
-                                      controller: _password2,
-                                      decoration: InputDecoration(
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                          borderSide: const BorderSide(
-                                              color: Colors.grey),
+                                  TextFormField(
+                                    obscureText: isObscuretext2,
+                                    controller: _password2,
+                                    decoration: InputDecoration(
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                        borderSide: const BorderSide(
+                                            color: Colors.grey),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                        borderSide: const BorderSide(
+                                            color: Color.fromARGB(
+                                                255, 203, 202, 202)),
+                                      ),
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      suffixIcon: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            isObscuretext2 = !isObscuretext2;
+                                          });
+                                        },
+                                        child: Icon(
+                                          isObscuretext2
+                                              ? Icons.visibility_off
+                                              : Icons.visibility,
                                         ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                          borderSide: const BorderSide(
-                                              color: Color.fromARGB(
-                                                  255, 203, 202, 202)),
-                                        ),
-                                        filled: true,
-                                        fillColor: Colors.white,
-                                        suffixIcon: GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              isObscuretext2 = !isObscuretext2;
-                                            });
-                                          },
-                                          child: Icon(
-                                            isObscuretext2
-                                                ? Icons.visibility_off
-                                                : Icons.visibility,
-                                          ),
-                                        ),
-                                        hintStyle: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                        ),
+                                      ),
+                                      hintStyle: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
                                       ),
                                     ),
                                   ),
@@ -358,6 +346,7 @@ class _NewPasswordPageState extends State<_NewPasswordPage> {
                                       ),
                                     ),
                                   ),
+                                  const Center(child: SizedBox(height: 40)),
                                 ],
                               ),
                             ),

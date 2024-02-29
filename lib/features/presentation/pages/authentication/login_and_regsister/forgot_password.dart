@@ -127,33 +127,28 @@ class _ForgotPasswordState extends State<_ForgotPassword> {
                                     ),
                                   ),
                                   const SizedBox(height: 10),
-                                  SizedBox(
-                                    height: 48,
-                                    child: TextFormField(
-                                      controller: _email,
-                                      onChanged: (value) {
-                                        _isEnabled();
-                                      },
-                                      decoration: InputDecoration(
-                                        focusedBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                          borderSide: const BorderSide(
-                                              color: Colors.grey),
-                                        ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                          borderSide: const BorderSide(
-                                              color: Color.fromARGB(
-                                                  255, 203, 202, 202)),
-                                        ),
-                                        filled: true,
-                                        fillColor: Colors.white,
-                                        hintStyle: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                        ),
+                                  TextFormField(
+                                    controller: _email,
+                                    onChanged: (value) {
+                                      _isEnabled();
+                                    },
+                                    decoration: InputDecoration(
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                        borderSide: const BorderSide(
+                                            color: Colors.grey),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                        borderSide: const BorderSide(
+                                            color: Color.fromARGB(
+                                                255, 203, 202, 202)),
+                                      ),
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      hintStyle: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
                                       ),
                                     ),
                                   ),

@@ -86,7 +86,7 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                             style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w700,
-                              color: AppColors.n1,
+                              color: AppColors.p4,
                             ),
                           ),
                         ),
