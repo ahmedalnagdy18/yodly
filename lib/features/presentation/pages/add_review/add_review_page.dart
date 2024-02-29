@@ -97,10 +97,58 @@ class _AddReviewPageState extends State<_AddReviewPage> {
                             ),
                           ),
                           const SizedBox(height: 5),
-                          SizedBox(
-                            height: 50,
+                          TextFormField(
+                            readOnly: true,
+                            controller: category,
+                            decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide:
+                                    const BorderSide(color: Colors.grey),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: const BorderSide(
+                                    color: Color.fromARGB(255, 203, 202, 202)),
+                              ),
+                              filled: true,
+                              fillColor: Colors.white,
+                              hintText: '  Tech',
+                              hintStyle: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.grey,
+                              ),
+                              suffixIcon: PopupMenuButton<String>(
+                                icon: const Icon(Icons.arrow_drop_down),
+                                onSelected: (String value) {
+                                  category.text = value;
+                                },
+                                itemBuilder: (BuildContext context) {
+                                  return items.map<PopupMenuItem<String>>(
+                                      (String value) {
+                                    return PopupMenuItem(
+                                        value: value, child: Text(value));
+                                  }).toList();
+                                },
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 24),
+                          const Text(
+                            'Sub Category',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xff3B4773),
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          Form(
+                            onChanged: _isEnabled,
                             child: TextFormField(
-                              controller: category,
+                              readOnly: true,
+                              controller: subCategory,
                               decoration: InputDecoration(
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(30),
@@ -115,77 +163,24 @@ class _AddReviewPageState extends State<_AddReviewPage> {
                                 ),
                                 filled: true,
                                 fillColor: Colors.white,
-                                hintText: '  Tech',
-                                hintStyle: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.grey,
-                                ),
                                 suffixIcon: PopupMenuButton<String>(
                                   icon: const Icon(Icons.arrow_drop_down),
                                   onSelected: (String value) {
-                                    category.text = value;
+                                    subCategory.text = value;
                                   },
                                   itemBuilder: (BuildContext context) {
-                                    return items.map<PopupMenuItem<String>>(
+                                    return items2.map<PopupMenuItem<String>>(
                                         (String value) {
                                       return PopupMenuItem(
                                           value: value, child: Text(value));
                                     }).toList();
                                   },
                                 ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 24),
-                          const Text(
-                            'Sub Category',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xff3B4773),
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                          SizedBox(
-                            height: 50,
-                            child: Form(
-                              onChanged: _isEnabled,
-                              child: TextFormField(
-                                controller: subCategory,
-                                decoration: InputDecoration(
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                    borderSide:
-                                        const BorderSide(color: Colors.grey),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                    borderSide: const BorderSide(
-                                        color:
-                                            Color.fromARGB(255, 203, 202, 202)),
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  suffixIcon: PopupMenuButton<String>(
-                                    icon: const Icon(Icons.arrow_drop_down),
-                                    onSelected: (String value) {
-                                      subCategory.text = value;
-                                    },
-                                    itemBuilder: (BuildContext context) {
-                                      return items2.map<PopupMenuItem<String>>(
-                                          (String value) {
-                                        return PopupMenuItem(
-                                            value: value, child: Text(value));
-                                      }).toList();
-                                    },
-                                  ),
-                                  hintText: '  Mobile',
-                                  hintStyle: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.grey,
-                                  ),
+                                hintText: '  Mobile',
+                                hintStyle: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.grey,
                                 ),
                               ),
                             ),
@@ -200,30 +195,26 @@ class _AddReviewPageState extends State<_AddReviewPage> {
                             ),
                           ),
                           const SizedBox(height: 5),
-                          SizedBox(
-                            height: 50,
-                            child: TextFormField(
-                              controller: reviewName,
-                              decoration: InputDecoration(
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide:
-                                      const BorderSide(color: Colors.grey),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: const BorderSide(
-                                      color:
-                                          Color.fromARGB(255, 203, 202, 202)),
-                                ),
-                                filled: true,
-                                fillColor: Colors.white,
-                                hintText: '  Product name',
-                                hintStyle: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.grey,
-                                ),
+                          TextFormField(
+                            controller: reviewName,
+                            decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide:
+                                    const BorderSide(color: Colors.grey),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: const BorderSide(
+                                    color: Color.fromARGB(255, 203, 202, 202)),
+                              ),
+                              filled: true,
+                              fillColor: Colors.white,
+                              hintText: '  Product name',
+                              hintStyle: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.grey,
                               ),
                             ),
                           ),

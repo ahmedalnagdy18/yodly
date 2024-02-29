@@ -153,7 +153,7 @@ class _PostWidgetState extends State<PostWidget> {
                       ],
                     ),
                     Image.asset(
-                      'images/good.png',
+                      'images/ggood.png',
                       width: 50,
                     )
                   ],
@@ -176,15 +176,32 @@ class _PostWidgetState extends State<PostWidget> {
           widget.model.attachments.isNotEmpty
               ? Center(
                   child: widget.model.attachments.length == 1
-                      ? Image.network(
-                          addBaseUrls(widget
-                                  .model
-                                  .attachments[
-                                      widget.model.attachments.length - 1]
-                                  .link ??
-                              ''),
-                          height: MediaQuery.of(context).size.height * 0.3,
-                          fit: BoxFit.contain,
+                      ? GestureDetector(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (_) {
+                                return Dialog(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Image.network(
+                                      addBaseUrls(
+                                          widget.model.attachments[0].link ??
+                                              ''),
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          child: Image.network(
+                            addBaseUrls(widget.model.attachments[0].link ?? ''),
+                            height: MediaQuery.of(context).size.height * 0.3,
+                            fit: BoxFit.contain,
+                          ),
                         )
                       : GridView.builder(
                           itemBuilder: (context, index) {
