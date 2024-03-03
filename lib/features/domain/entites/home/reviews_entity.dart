@@ -11,3 +11,17 @@ class ReviewsEntity {
     };
   }
 }
+
+class PaginatedData<ReviewsModels> {
+  final List<ReviewsModels> data;
+  final PageInfo pageInfo;
+
+  PaginatedData({required this.data, required this.pageInfo});
+}
+
+class PageInfo {
+  final int currentPage;
+  final int totalPages;
+
+  PageInfo({required this.currentPage, required this.totalPages});
+}
