@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yodly/features/domain/entites/home/reviews_entity.dart';
 import 'package:yodly/features/domain/models/reviews_model.dart';
 import 'package:yodly/features/domain/usecase/home/delete_usecase.dart';
 import 'package:yodly/features/domain/usecase/home/reviews_usecase.dart';
@@ -13,10 +14,10 @@ class ReviewsCubit extends Cubit<ReviewsState> {
       {required this.deleteReviewUsecase, required this.reviewsUsecase})
       : super(ReviewsInitial());
 
-  void review() async {
+  void review(ReviewsEntity reviewsEntity) async {
     emit(LoadingReviewsState());
     try {
-      final data = await reviewsUsecase.call();
+      final data = await reviewsUsecase.call(reviewsEntity);
       emit(SucsessReviewsState(postItems: data));
     } catch (e) {
       if (e is FormatException) {
@@ -24,6 +25,7 @@ class ReviewsCubit extends Cubit<ReviewsState> {
       }
       rethrow;
     }
+    emit(ReviewsInitial());
   }
 
   void delete(String id) async {
@@ -40,35 +42,19 @@ class ReviewsCubit extends Cubit<ReviewsState> {
 
   void deletePost(String id) {
     final newState = state as SucsessReviewsState;
-    final newListOfPost = [...newState.postItems];
+    final newListOfPost = newState.postItems.data;
 
     final index = newListOfPost.indexWhere((element) => element.id == id);
     newListOfPost.removeAt(index);
-    emit(SucsessReviewsState(postItems: newListOfPost));
+    emit(SucsessReviewsState(postItems: newState.postItems));
   }
 
   void addPost(ReviewsModels? item) {
     final newState = state as SucsessReviewsState;
-    final newListOfPost = [...newState.postItems];
+    final newListOfPost = newState.postItems.data;
     if (item != null) {
       newListOfPost.insert(0, item);
-      emit(SucsessReviewsState(postItems: newListOfPost));
+      emit(SucsessReviewsState(postItems: newState.postItems));
     }
-  }
-
-  void test() {
-    List<ReviewsModels> stateList = [];
-    stateList.insert(
-        0,
-        ReviewsModels(
-            name: "aa",
-            id: '',
-            country: '',
-            userName: '',
-            description: '',
-            attachments: [],
-            specificRating: [],
-            title: '',
-            city: ''));
   }
 }

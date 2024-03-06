@@ -2,7 +2,14 @@ const String reviewsQuery = r"""
 query reviews($paginate:PaginatorInput,$filter:ReviewFilter){
   reviews(paginate:$paginate,filter:$filter){
     data{
+      pageInfo{
+        page
+        limit
+        totalCount
+        totalPages
+      }
       items{
+        
         user{
           userName
         }
@@ -12,9 +19,14 @@ query reviews($paginate:PaginatorInput,$filter:ReviewFilter){
         title
         country
         city
+        specificRating{
+          tag
+          rating
+        }
         attachments{
           attachmentType
           link
+          
         }
       }
     }

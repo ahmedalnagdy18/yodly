@@ -1,4 +1,6 @@
+import 'package:yodly/common/data/page_info.dart';
 import 'package:yodly/features/data/models/home/api_reviews.dart';
+import 'package:yodly/features/domain/entites/home/reviews_entity.dart';
 
 class ReviewsModels {
   final String id;
@@ -9,12 +11,10 @@ class ReviewsModels {
   final String city;
   final String userName;
   final List<Attachment> attachments;
-  final List<SpecificRating> specificRating;
 
   ReviewsModels(
       {required this.id,
       required this.city,
-      required this.specificRating,
       required this.userName,
       required this.name,
       required this.description,
@@ -34,7 +34,16 @@ extension PoostItems on Item {
       country: country ?? "",
       userName: user?.userName ?? "",
       attachments: attachments ?? [],
-      specificRating: specificRating ?? [],
     );
+  }
+}
+
+extension PageInfoExtension on ApiPageInfo {
+  PageInfo pageInfoMap() {
+    return PageInfo(
+        currentPage: page ?? 1,
+        totalPages: totalPages ?? 1,
+        totalCount: totalCount ?? 15,
+        limit: limit ?? 15);
   }
 }

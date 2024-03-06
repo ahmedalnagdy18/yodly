@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:yodly/common/data/page_info.dart';
+
 ApiReviewItems apiReviewItemsFromJson(String str) =>
     ApiReviewItems.fromJson(json.decode(str));
 
@@ -55,19 +57,25 @@ class Reviews {
 }
 
 class Data {
+  final ApiPageInfo? pageInfo;
   final List<Item>? items;
 
   Data({
+    this.pageInfo,
     this.items,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
+        pageInfo: json["pageInfo"] == null
+            ? null
+            : ApiPageInfo.fromJson(json["pageInfo"]),
         items: json["items"] == null
             ? []
             : List<Item>.from(json["items"]!.map((x) => Item.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
+        "pageInfo": pageInfo?.toJson(),
         "items": items == null
             ? []
             : List<dynamic>.from(items!.map((x) => x.toJson())),
@@ -82,7 +90,7 @@ class Item {
   final String? title;
   final dynamic country;
   final dynamic city;
-  final List<SpecificRating>? specificRating;
+  final dynamic specificRating;
   final List<Attachment>? attachments;
 
   Item({
@@ -105,10 +113,7 @@ class Item {
         title: json["title"],
         country: json["country"],
         city: json["city"],
-        specificRating: json["specificRating"] == null
-            ? []
-            : List<SpecificRating>.from(
-                json["specificRating"]!.map((x) => SpecificRating.fromJson(x))),
+        specificRating: json["specificRating"],
         attachments: json["attachments"] == null
             ? []
             : List<Attachment>.from(
@@ -123,9 +128,7 @@ class Item {
         "title": title,
         "country": country,
         "city": city,
-        "specificRating": specificRating == null
-            ? []
-            : List<dynamic>.from(specificRating!.map((x) => x.toJson())),
+        "specificRating": specificRating,
         "attachments": attachments == null
             ? []
             : List<dynamic>.from(attachments!.map((x) => x.toJson())),
@@ -149,26 +152,6 @@ class Attachment {
   Map<String, dynamic> toJson() => {
         "attachmentType": attachmentType,
         "link": link,
-      };
-}
-
-class SpecificRating {
-  final String? tag;
-  final String? rating;
-
-  SpecificRating({
-    this.tag,
-    this.rating,
-  });
-
-  factory SpecificRating.fromJson(Map<String, dynamic> json) => SpecificRating(
-        tag: json["tag"],
-        rating: json["rating"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "tag": tag,
-        "rating": rating,
       };
 }
 

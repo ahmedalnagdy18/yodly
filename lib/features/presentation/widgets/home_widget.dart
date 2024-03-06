@@ -167,9 +167,6 @@ class _PostWidgetState extends State<PostWidget> {
                     color: AppColors.n2,
                   ),
                 ),
-                widget.model.specificRating.isNotEmpty
-                    ? Text(widget.model.specificRating[0].rating ?? '')
-                    : const SizedBox(),
               ],
             ),
           ),

@@ -10,7 +10,7 @@ final class ReviewsInitial extends ReviewsState {}
 class LoadingReviewsState extends ReviewsState {}
 
 class SucsessReviewsState extends ReviewsState {
-  final List<ReviewsModels> postItems;
+  final PaginatedData<ReviewsModels> postItems;
 
   SucsessReviewsState({required this.postItems});
   @override
@@ -27,6 +27,8 @@ class ErrorReviewsState extends ReviewsState {
 }
 
 class LoadingDeleteReviewsState extends ReviewsState {}
+
+class InitialDeleteReviewsState extends ReviewsState {}
 
 class SucsessDeleteReviewsState extends ReviewsState {}
 

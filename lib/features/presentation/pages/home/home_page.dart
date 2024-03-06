@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:yodly/core/colors/app_colors.dart';
+import 'package:yodly/features/domain/entites/home/reviews_entity.dart';
 import 'package:yodly/features/domain/models/reviews_model.dart';
 import 'package:yodly/features/presentation/cubit/home_cubit/reviews_cubit/cubit/reviews_cubit.dart';
 import 'package:yodly/features/presentation/widgets/drawer_widget.dart';
@@ -15,8 +17,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          ReviewsCubit(reviewsUsecase: sl(), deleteReviewUsecase: sl())
-            ..review(),
+          ReviewsCubit(reviewsUsecase: sl(), deleteReviewUsecase: sl()),
       child: _HomePage(reviewsModels, true),
     );
   }
@@ -31,149 +32,136 @@ class _HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<_HomePage> {
+  final PagingController<int, ReviewsModels> _pagingController =
+      PagingController(firstPageKey: 1, invisibleItemsThreshold: 4);
   int selectedindex = 0;
   bool isNew = true;
   @override
   void initState() {
     isNew = widget.isNew;
+    _pagingController.addPageRequestListener((pageKey) {
+      _fetchPage(pageKey);
+    });
     super.initState();
+  }
+
+  Future<void> _fetchPage(int pageKey) async {
+    BlocProvider.of<ReviewsCubit>(context)
+        .review(ReviewsEntity(page: pageKey, limit: 10));
+  }
+
+  void getItem(SucsessReviewsState state) {
+    final list = state.postItems.data;
+    if (state.postItems.pageInfo.currentPage <
+        state.postItems.pageInfo.totalPages) {
+      _pagingController.appendPage(
+          list, state.postItems.pageInfo.currentPage + 1);
+    } else {
+      _pagingController.appendLastPage(list);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ReviewsCubit, ReviewsState>(
-      listener: (context, state) {
-        if (state is ErrorDeleteReviewsState) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: Colors.red,
-            behavior: SnackBarBehavior.floating,
-            content: Text(state.message.toString()),
-            action: SnackBarAction(
-              label: 'Undo',
-              textColor: Colors.white,
-              onPressed: () {},
+    return BlocConsumer<ReviewsCubit, ReviewsState>(listener: (context, state) {
+      if (state is ErrorDeleteReviewsState) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.red,
+          behavior: SnackBarBehavior.floating,
+          content: Text(state.message.toString()),
+          action: SnackBarAction(
+            label: 'Undo',
+            textColor: Colors.white,
+            onPressed: () {},
+          ),
+        ));
+      }
+      // if (state is SucsessReviewsState && isNew == true) {
+      //   isNew = false;
+      //   BlocProvider.of<ReviewsCubit>(context).addPost(widget.reviewsModels);
+      // }
+      if (state is SucsessReviewsState) {
+        getItem(state);
+      }
+    }, builder: (context, state) {
+      return Scaffold(
+        extendBodyBehindAppBar: true,
+        extendBody: true,
+        drawer: const DrawerWidget(),
+        body: CustomScrollView(slivers: [
+          SliverAppBar(
+            backgroundColor: Colors.transparent,
+            floating: false,
+            forceMaterialTransparency: false,
+            pinned: false,
+            snap: false,
+            leadingWidth: 70,
+            elevation: 0,
+            iconTheme: IconThemeData(
+              color: AppColors.n1,
             ),
-          ));
-        }
-        if (state is SucsessReviewsState && isNew == true) {
-          isNew = false;
-          BlocProvider.of<ReviewsCubit>(context).addPost(widget.reviewsModels);
-        }
-      },
-      builder: (context, state) {
-        if (state is SucsessReviewsState) {
-          return Scaffold(
-            extendBodyBehindAppBar: true,
-            extendBody: true,
-            drawer: const DrawerWidget(),
-            body: CustomScrollView(slivers: [
-              SliverAppBar(
-                backgroundColor: Colors.transparent,
-                floating: false,
-                forceMaterialTransparency: false,
-                pinned: false,
-                snap: false,
-                leadingWidth: 70,
-                elevation: 0,
-                iconTheme: IconThemeData(
-                  color: AppColors.n1,
-                ),
-                actions: [
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.notifications_outlined,
-                        color: AppColors.n1,
-                        size: 30,
-                      ),
-                    ],
+            actions: [
+              Row(
+                children: [
+                  Icon(
+                    Icons.notifications_outlined,
+                    color: AppColors.n1,
+                    size: 30,
                   ),
-                  const SizedBox(width: 20),
                 ],
               ),
-              SliverToBoxAdapter(
-                child: Stack(
+              const SizedBox(width: 20),
+            ],
+          ),
+          PagedSliverList.separated(
+            pagingController: _pagingController,
+            builderDelegate: PagedChildBuilderDelegate(
+              firstPageErrorIndicatorBuilder: (context) => Container(
+                color: Colors.blue,
+                width: 300,
+                height: 300,
+              ),
+              newPageErrorIndicatorBuilder: (context) => Container(
+                color: Colors.red,
+                width: 300,
+                height: 300,
+              ),
+              itemBuilder: (context, item, index) {
+                return PostWidget(model: _pagingController.itemList![index]);
+              },
+              firstPageProgressIndicatorBuilder: (context) {
+                return Center(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Opacity(
-                      opacity: .15,
-                      child: Container(
-                        width: double.infinity,
-                        height: MediaQuery.of(context).size.height,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.topRight,
-                            colors: AppColors.g2,
-                          ),
-                        ),
+                    SizedBox(
+                      height: 80,
+                      width: 80,
+                      child: Image.asset(
+                        'images/about.png',
                       ),
                     ),
-                    ListView.separated(
-                      itemBuilder: (context, index) {
-                        return PostWidget(model: state.postItems[index]);
-                      },
-                      separatorBuilder: (context, index) {
-                        return const SizedBox(height: 20);
-                      },
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: state.postItems.length,
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(
+                        color: AppColors.n1,
+                      ),
                     ),
                   ],
-                ),
-              ),
-            ]),
-          );
-        }
-        if (state is ErrorReviewsState || state is ErrorDeleteReviewsState) {
-          return Positioned.fill(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 80,
-                    width: 80,
-                    child: Image.asset(
-                      'images/about.png',
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  const Text("there is something went wrong",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      )),
-                ],
-              ),
+                ));
+              },
+              newPageProgressIndicatorBuilder: (context) {
+                return const Center(child: CircularProgressIndicator());
+              },
             ),
-          );
-        }
-        if (state is LoadingReviewsState) {
-          return Center(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 80,
-                width: 80,
-                child: Image.asset(
-                  'images/about.png',
-                ),
-              ),
-              const SizedBox(height: 10),
-              SizedBox(
-                height: 20,
-                width: 20,
-                child: CircularProgressIndicator(
-                  color: AppColors.n1,
-                ),
-              ),
-            ],
-          ));
-        }
-        return const SizedBox();
-      },
-    );
+            separatorBuilder: (context, index) {
+              return const SizedBox(height: 20);
+            },
+          ),
+        ]),
+      );
+    });
   }
 }

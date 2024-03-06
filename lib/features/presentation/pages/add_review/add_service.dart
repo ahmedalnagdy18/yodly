@@ -384,10 +384,6 @@ class AddServicePageState extends State<AddServicePageBody> {
                                                         ReviewsModels(
                                                             id: widget.category,
                                                             city: "",
-                                                            specificRating: [
-                                                              SpecificRating(
-                                                                  rating: "")
-                                                            ],
                                                             userName: "Nagdy",
                                                             name: widget
                                                                 .reviewName,
