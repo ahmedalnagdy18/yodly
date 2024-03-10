@@ -83,17 +83,21 @@ Future<void> init() async {
   sl.registerLazySingleton<AddServiceRepository>(
       () => AddServiceRepositoryImp(graphQLClient: sl()));
 
-  sl.registerLazySingleton(() => GraphQLClient(
-        link: Link.from([
-          HttpLink("https://yodly.onrender.com/graphql", defaultHeaders: {
-            "Authorization":
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4ODc4ZDQ4ZS1hNDkyLTQ4ZmYtYTNmMi1lYjcxOGIyNTk3ZjciLCJpYXQiOjE3MDg4ODQzODZ9.ioRL6Gfo_eeHpAN4xgI7Hh4FS6LLKiHdxQLGarNi-5k"
-          }),
-        ]),
-        cache: GraphQLCache(),
-      ));
+  sl.registerLazySingleton<GraphQLClient>(() {
+    final authLink = AuthLink(getToken: () async {
+      final token = await getToken();
+      return "Bearer " + token;
+    });
+
+    final httpLink = HttpLink("https://yodly.onrender.com/graphql");
+
+    return GraphQLClient(
+      link: authLink.concat(httpLink),
+      cache: GraphQLCache(),
+    );
+  });
 }
 
-String? getToken() {
-  return SharedPrefrance.instanc.getToken('token');
+Future<String> getToken() async {
+  return SharedPrefrance.instanc.getToken('token') ?? '';
 }
