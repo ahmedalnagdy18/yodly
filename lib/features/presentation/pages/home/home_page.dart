@@ -47,7 +47,7 @@ class _HomePageState extends State<_HomePage> {
 
   Future<void> _fetchPage(int pageKey) async {
     BlocProvider.of<ReviewsCubit>(context)
-        .review(ReviewsEntity(page: pageKey, limit: 10));
+        .review(ReviewsEntity(page: pageKey, limit: 3));
   }
 
   void getItem(SucsessReviewsState state) {
@@ -88,79 +88,97 @@ class _HomePageState extends State<_HomePage> {
         extendBodyBehindAppBar: true,
         extendBody: true,
         drawer: const DrawerWidget(),
-        body: CustomScrollView(slivers: [
-          SliverAppBar(
-            backgroundColor: Colors.transparent,
-            floating: false,
-            forceMaterialTransparency: false,
-            pinned: false,
-            snap: false,
-            leadingWidth: 70,
-            elevation: 0,
-            iconTheme: IconThemeData(
-              color: AppColors.n1,
-            ),
-            actions: [
-              Row(
-                children: [
-                  Icon(
-                    Icons.notifications_outlined,
-                    color: AppColors.n1,
-                    size: 30,
-                  ),
-                ],
-              ),
-              const SizedBox(width: 20),
-            ],
+        appBar: AppBar(
+          backgroundColor: Colors.grey.shade100,
+          leadingWidth: 70,
+          iconTheme: IconThemeData(
+            color: AppColors.n1,
           ),
-          PagedSliverList.separated(
-            pagingController: _pagingController,
-            builderDelegate: PagedChildBuilderDelegate(
-              firstPageErrorIndicatorBuilder: (context) => Container(
-                color: Colors.blue,
-                width: 300,
-                height: 300,
-              ),
-              newPageErrorIndicatorBuilder: (context) => Container(
-                color: Colors.red,
-                width: 300,
-                height: 300,
-              ),
-              itemBuilder: (context, item, index) {
-                return PostWidget(model: _pagingController.itemList![index]);
-              },
-              firstPageProgressIndicatorBuilder: (context) {
-                return Center(
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 80,
-                      width: 80,
-                      child: Image.asset(
-                        'images/about.png',
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: CircularProgressIndicator(
-                        color: AppColors.n1,
-                      ),
-                    ),
-                  ],
-                ));
-              },
-              newPageProgressIndicatorBuilder: (context) {
-                return const Center(child: CircularProgressIndicator());
-              },
+          actions: [
+            Row(
+              children: [
+                Icon(
+                  Icons.notifications_outlined,
+                  color: AppColors.n1,
+                  size: 30,
+                ),
+              ],
             ),
-            separatorBuilder: (context, index) {
-              return const SizedBox(height: 20);
+            const SizedBox(width: 20),
+          ],
+        ),
+        body: Center(
+          child: RefreshIndicator(
+            displacement: 100,
+            onRefresh: () async {
+              await Future.delayed(const Duration(milliseconds: 800));
+              setState(() {});
             },
+            child: PagedListView.separated(
+              pagingController: _pagingController,
+              shrinkWrap: true,
+              physics: const BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics()),
+              scrollDirection: Axis.vertical,
+              builderDelegate: PagedChildBuilderDelegate(
+                firstPageErrorIndicatorBuilder: (context) => Container(
+                  color: Colors.blue,
+                  width: 300,
+                  height: 300,
+                ),
+                itemBuilder: (context, item, index) {
+                  return PostWidget(model: _pagingController.itemList![index]);
+                },
+                firstPageProgressIndicatorBuilder: (context) {
+                  return Center(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 80,
+                        width: 80,
+                        child: Image.asset(
+                          'images/about.png',
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(
+                          color: AppColors.n1,
+                        ),
+                      ),
+                    ],
+                  ));
+                },
+                newPageProgressIndicatorBuilder: (context) {
+                  return const Center(child: CircularProgressIndicator());
+                },
+                noMoreItemsIndicatorBuilder: (context) {
+                  return Center(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 50,
+                        width: 50,
+                        child: Image.asset(
+                          'images/about.png',
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      const Text('No more data !')
+                    ],
+                  ));
+                },
+              ),
+              separatorBuilder: (context, index) {
+                return const SizedBox(height: 20);
+              },
+            ),
           ),
-        ]),
+        ),
       );
     });
   }
