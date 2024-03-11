@@ -173,7 +173,6 @@ class _AddReviewPageState extends State<_AddReviewPage> {
                             },
                           ),
                           const SizedBox(height: 24),
-                          const SizedBox(height: 24),
                           const Text(
                             'Sub Category',
                             style: TextStyle(
