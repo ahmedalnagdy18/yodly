@@ -27,12 +27,38 @@ class _AddReviewPage extends StatefulWidget {
 
 class _AddReviewPageState extends State<_AddReviewPage> {
   final TextEditingController reviewName = TextEditingController();
-
   final TextEditingController category = TextEditingController();
-  var items = ['Fashions', 'Clothes', 'photos & videos', 'places'];
-
   final TextEditingController subCategory = TextEditingController();
-  var items2 = ['mobile', 'Clothes', 'Covers', 'Electronics'];
+
+  final Map<String, List<String>> categoryMap = {
+    'Electronics': ['mobile', 'Covers', 'Electronics'],
+    'Clothes': ['Shirts', 'Pants', 'Shoes'],
+    'photos & videos': ['Camera', 'Lens', 'Tripod'],
+    'places': ['Beach', 'Mountains', 'City'],
+  };
+
+  List<String> items2 = []; // Initialize items2 as an empty list
+
+  @override
+  void initState() {
+    super.initState();
+    category.addListener(_isEnabled);
+    subCategory.addListener(_isEnabled);
+  }
+
+  @override
+  void dispose() {
+    category.removeListener(_isEnabled);
+    subCategory.removeListener(_isEnabled);
+    super.dispose();
+  }
+
+  void updateSubCategoryOptions(String selectedCategory) {
+    setState(() {
+      items2 = categoryMap[selectedCategory] ?? [];
+      subCategory.clear();
+    });
+  }
 
   bool _isButtonEnabled = false;
 
@@ -113,27 +139,40 @@ class _AddReviewPageState extends State<_AddReviewPage> {
                               ),
                               filled: true,
                               fillColor: Colors.white,
-                              hintText: '  Tech',
+                              hintText: ' category',
                               hintStyle: const TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
                                 color: Colors.grey,
                               ),
-                              suffixIcon: PopupMenuButton<String>(
-                                icon: const Icon(Icons.arrow_drop_down),
-                                onSelected: (String value) {
-                                  category.text = value;
-                                },
-                                itemBuilder: (BuildContext context) {
-                                  return items.map<PopupMenuItem<String>>(
-                                      (String value) {
-                                    return PopupMenuItem(
-                                        value: value, child: Text(value));
-                                  }).toList();
-                                },
-                              ),
                             ),
+                            onTap: () {
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return ListView.builder(
+                                    itemCount: categoryMap.keys.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      final category =
+                                          categoryMap.keys.toList()[index];
+                                      return ListTile(
+                                        title: Text(category),
+                                        onTap: () {
+                                          setState(() {
+                                            this.category.text = category;
+                                            updateSubCategoryOptions(category);
+                                          });
+                                          Navigator.pop(context);
+                                        },
+                                      );
+                                    },
+                                  );
+                                },
+                              );
+                            },
                           ),
+                          const SizedBox(height: 24),
                           const SizedBox(height: 24),
                           const Text(
                             'Sub Category',
@@ -163,26 +202,37 @@ class _AddReviewPageState extends State<_AddReviewPage> {
                                 ),
                                 filled: true,
                                 fillColor: Colors.white,
-                                suffixIcon: PopupMenuButton<String>(
-                                  icon: const Icon(Icons.arrow_drop_down),
-                                  onSelected: (String value) {
-                                    subCategory.text = value;
-                                  },
-                                  itemBuilder: (BuildContext context) {
-                                    return items2.map<PopupMenuItem<String>>(
-                                        (String value) {
-                                      return PopupMenuItem(
-                                          value: value, child: Text(value));
-                                    }).toList();
-                                  },
-                                ),
-                                hintText: '  Mobile',
+                                hintText: ' subCategory',
                                 hintStyle: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w400,
                                   color: Colors.grey,
                                 ),
                               ),
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return ListView.builder(
+                                      itemCount: items2.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        final subCategory = items2[index];
+                                        return ListTile(
+                                          title: Text(subCategory),
+                                          onTap: () {
+                                            setState(() {
+                                              this.subCategory.text =
+                                                  subCategory;
+                                            });
+                                            Navigator.pop(context);
+                                          },
+                                        );
+                                      },
+                                    );
+                                  },
+                                );
+                              },
                             ),
                           ),
                           const SizedBox(height: 24),
