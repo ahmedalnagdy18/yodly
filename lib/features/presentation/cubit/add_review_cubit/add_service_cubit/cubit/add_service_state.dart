@@ -38,3 +38,16 @@ class ErrorAddReviewState extends AddServiceState {
   @override
   List<Object> get props => [message];
 }
+
+class LoadingUploadFileState extends AddServiceState {}
+
+class SucsessUploadFileState extends AddServiceState {}
+
+class ErrorUploadFileState extends AddServiceState {
+  final String message;
+
+  const ErrorUploadFileState({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}

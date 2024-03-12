@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:yodly/core/shared_prefrances/shared_prefrance.dart';
 import 'package:yodly/features/data/repositories/add_review/add_service_repository_imp.dart';
+import 'package:yodly/features/data/repositories/add_review/upload_file_repository_imp.dart';
 import 'package:yodly/features/data/repositories/authentication/does_verification_exist_imp.dart';
 import 'package:yodly/features/data/repositories/authentication/forget_password_imp.dart';
 import 'package:yodly/features/data/repositories/authentication/login_repository_imp.dart';
@@ -14,6 +15,7 @@ import 'package:yodly/features/domain/repositories/authentication/authentication
 import 'package:yodly/features/domain/repositories/home/home_repository.dart';
 import 'package:yodly/features/domain/usecase/add_review/add_review_usecase.dart';
 import 'package:yodly/features/domain/usecase/add_review/add_service_usecase.dart';
+import 'package:yodly/features/domain/usecase/add_review/upload_file_usecase.dart';
 import 'package:yodly/features/domain/usecase/authentication/does_verification_exist_usecase.dart';
 import 'package:yodly/features/domain/usecase/authentication/forget_password_usecase.dart';
 import 'package:yodly/features/domain/usecase/authentication/login_usecase.dart';
@@ -57,6 +59,9 @@ Future<void> init() async {
   sl.registerLazySingleton<DeleteReviewUsecase>(
       () => DeleteReviewUsecase(repository: sl()));
 
+  sl.registerLazySingleton<UploadFileUsecase>(
+      () => UploadFileUsecase(repository: sl()));
+
 // Repository
 
   sl.registerLazySingleton<LoginRepository>(
@@ -82,6 +87,9 @@ Future<void> init() async {
 
   sl.registerLazySingleton<AddServiceRepository>(
       () => AddServiceRepositoryImp(graphQLClient: sl()));
+
+  sl.registerLazySingleton<UploadFileRepository>(
+      () => UploadFileRepositoryImp(graphQLClient: sl()));
 
   sl.registerLazySingleton<GraphQLClient>(() {
     final authLink = AuthLink(getToken: () async {

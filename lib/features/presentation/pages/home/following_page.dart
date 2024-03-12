@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yodly/core/colors/app_colors.dart';
-import 'package:yodly/features/presentation/widgets/followers_page_widget.dart';
-import 'package:yodly/features/presentation/widgets/following_page_widget.dart';
+import 'package:yodly/features/presentation/widgets/drawer_widget/followers_page_widget.dart';
+import 'package:yodly/features/presentation/widgets/drawer_widget/following_page_widget.dart';
 
 class FollowingPage extends StatelessWidget {
   const FollowingPage({super.key});

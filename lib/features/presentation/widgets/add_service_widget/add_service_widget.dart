@@ -65,3 +65,54 @@ class _AddServiceReactionWidgetState extends State<AddServiceReactionWidget> {
     );
   }
 }
+
+class AddServiceTextField extends StatelessWidget {
+  final TextEditingController? controller;
+  const AddServiceTextField({super.key, required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: const BorderSide(color: Colors.grey),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide:
+              const BorderSide(color: Color.fromARGB(255, 196, 194, 194)),
+        ),
+        filled: true,
+        fillColor: Colors.white,
+      ),
+    );
+  }
+}
+
+class AddServiceDescription extends StatelessWidget {
+  final TextEditingController? controller;
+  const AddServiceDescription({super.key, required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      maxLines: 4,
+      controller: controller,
+      decoration: InputDecoration(
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: const BorderSide(color: Colors.grey),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide:
+              const BorderSide(color: Color.fromARGB(255, 196, 194, 194)),
+        ),
+        filled: true,
+        fillColor: Colors.white,
+      ),
+    );
+  }
+}

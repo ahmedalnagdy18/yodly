@@ -4,7 +4,7 @@ import 'package:yodly/core/colors/app_colors.dart';
 import 'package:yodly/features/domain/entites/authentication/verify_user_entity.dart';
 import 'package:yodly/features/presentation/cubit/authentication_cubit/verify_user/cubit/verify_user_cubit.dart';
 import 'package:yodly/features/presentation/pages/home/navbar.dart';
-import 'package:yodly/features/presentation/widgets/otp_widget.dart';
+import 'package:yodly/features/presentation/widgets/acthentication/otp_widget.dart';
 import 'package:yodly/injection_container.dart';
 
 class AuthenticationPage extends StatelessWidget {

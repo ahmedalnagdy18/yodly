@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:yodly/core/colors/app_colors.dart';
 import 'package:yodly/features/presentation/pages/home/followers_page.dart';
 import 'package:yodly/features/presentation/pages/home/following_page.dart';
-import 'package:yodly/features/presentation/widgets/post_widget2.dart';
+import 'package:yodly/features/presentation/widgets/search_widget/post_widget2.dart';
 
 class MyProfileWidget extends StatelessWidget {
   const MyProfileWidget({super.key});

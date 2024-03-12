@@ -11,8 +11,10 @@ class AddReviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          AddServiceCubit(addServiceUsecase: sl(), addReviewUsecase: sl()),
+      create: (context) => AddServiceCubit(
+          addServiceUsecase: sl(),
+          addReviewUsecase: sl(),
+          uploadFileUsecase: sl()),
       child: const _AddReviewPage(),
     );
   }

@@ -10,7 +10,7 @@ import 'package:yodly/features/presentation/cubit/authentication_cubit/register_
 import 'package:yodly/features/presentation/pages/authentication/authentication_pages/authentication_page.dart';
 import 'package:yodly/features/presentation/pages/authentication/login_and_regsister/Login_page.dart';
 import 'package:yodly/features/presentation/pages/home/navbar.dart';
-import 'package:yodly/features/presentation/widgets/Registeration_widget.dart';
+import 'package:yodly/features/presentation/widgets/acthentication/Registeration_widget.dart';
 import 'package:yodly/features/presentation/widgets/textfield_widget.dart';
 import 'package:yodly/injection_container.dart';
 
@@ -283,7 +283,7 @@ class _RegisterationPageState extends State<_RegisterationPageBody> {
                                       ));
                                     }
                                     if (_isButtonEnabled) {
-                                      _loginButton(context);
+                                      _registerButton(context);
                                     }
                                   },
                                   shape: RoundedRectangleBorder(
@@ -396,7 +396,7 @@ class _RegisterationPageState extends State<_RegisterationPageBody> {
     );
   }
 
-  void _loginButton(BuildContext context) {
+  void _registerButton(BuildContext context) {
     BlocProvider.of<RegisterCubit>(context).register(RegisterEntity(
       email: _email.text,
       password: _password.text,

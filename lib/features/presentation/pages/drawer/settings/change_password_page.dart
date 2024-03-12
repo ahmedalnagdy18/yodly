@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yodly/core/colors/app_colors.dart';
-import 'package:yodly/features/presentation/widgets/change_password_widget.dart';
+import 'package:yodly/features/presentation/widgets/acthentication/change_password_widget.dart';
 
 class ChangePasswordPage extends StatelessWidget {
   const ChangePasswordPage({super.key});

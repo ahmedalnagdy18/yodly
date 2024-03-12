@@ -9,10 +9,11 @@ import 'package:yodly/features/data/models/home/api_reviews.dart';
 import 'package:yodly/features/domain/entites/add_review/add_service_entity.dart';
 import 'package:yodly/features/domain/models/reviews_model.dart';
 import 'package:yodly/features/presentation/cubit/add_review_cubit/add_service_cubit/cubit/add_service_cubit.dart';
-import 'package:yodly/features/presentation/pages/add_review/add_review_page.dart';
 import 'package:yodly/features/presentation/pages/home/navbar.dart';
-import 'package:yodly/features/presentation/widgets/add_service_widget.dart';
+import 'package:yodly/features/presentation/widgets/add_service_widget/add_service_button_widget.dart';
+import 'package:yodly/features/presentation/widgets/add_service_widget/add_service_widget.dart';
 import 'package:mobkit_dashed_border/mobkit_dashed_border.dart';
+import 'package:yodly/features/presentation/widgets/add_service_widget/add_specific_rate_widget.dart';
 import 'package:yodly/injection_container.dart';
 
 class AddServicePage extends StatelessWidget {
@@ -28,8 +29,10 @@ class AddServicePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          AddServiceCubit(addReviewUsecase: sl(), addServiceUsecase: sl()),
+      create: (context) => AddServiceCubit(
+          addReviewUsecase: sl(),
+          addServiceUsecase: sl(),
+          uploadFileUsecase: sl()),
       child: AddServicePageBody(
           category: category, subCategory: subCategory, reviewName: reviewName),
     );
@@ -69,6 +72,32 @@ class AddServicePageState extends State<AddServicePageBody> {
     }
   }
 
+//test test test test test
+  List<Widget> dynamicWidgets = [];
+
+  void addDynamicWidget() {
+    if (dynamicWidgets.length >= 2) {
+      return;
+    }
+    setState(() {
+      dynamicWidgets.add(buildDynamicWidget());
+    });
+  }
+
+  void removeDynamicWidget(int index) {
+    setState(() {
+      dynamicWidgets.removeAt(index);
+    });
+  }
+
+  Widget buildDynamicWidget() {
+    return AddSpecificRate(
+      onTap: () {
+        removeDynamicWidget(0);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AddServiceCubit, AddServiceState>(
@@ -104,31 +133,33 @@ class AddServicePageState extends State<AddServicePageBody> {
               ),
             ),
           ),
-          body: SingleChildScrollView(
-            child: Stack(
-              children: [
-                Opacity(
-                  opacity: .25,
-                  child: Container(
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.height,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        colors: AppColors.g2,
-                      ),
+          body: Stack(
+            children: [
+              Opacity(
+                opacity: .25,
+                child: Container(
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.height,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                      colors: AppColors.g2,
                     ),
                   ),
                 ),
-                SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 24,
-                      vertical: 12,
-                    ),
-                    child: Form(
-                      onChanged: _isEnabled,
+              ),
+              SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 12,
+                  ),
+                  child: Form(
+                    onChanged: _isEnabled,
+                    child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(
+                          parent: BouncingScrollPhysics()),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -208,31 +239,38 @@ class AddServicePageState extends State<AddServicePageBody> {
                             ),
                           ),
                           const SizedBox(height: 15),
-                          Row(
-                            children: [
-                              Container(
-                                  height: 24,
-                                  width: 24,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.n1,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: const Icon(
-                                    Icons.add,
-                                    color: Colors.white,
-                                    size: 15,
-                                  )),
-                              const SizedBox(width: 10),
-                              Text(
-                                'Add a Specific Rate',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w700,
-                                  color: AppColors.n1,
-                                ),
-                              ),
-                            ],
+                          Column(
+                            children: dynamicWidgets,
                           ),
+                          if (dynamicWidgets.length < 2)
+                            Row(
+                              children: [
+                                Container(
+                                    height: 24,
+                                    width: 24,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.p4,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: InkWell(
+                                      onTap: addDynamicWidget,
+                                      child: const Icon(
+                                        Icons.add,
+                                        color: Colors.white,
+                                        size: 15,
+                                      ),
+                                    )),
+                                const SizedBox(width: 10),
+                                Text(
+                                  'Add a Specific Rate',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.p4,
+                                  ),
+                                ),
+                              ],
+                            ),
                           const SizedBox(height: 24),
                           const Text(
                             'Title of Reivew*',
@@ -243,23 +281,7 @@ class AddServicePageState extends State<AddServicePageBody> {
                             ),
                           ),
                           const SizedBox(height: 5),
-                          TextFormField(
-                            controller: _reivew,
-                            decoration: InputDecoration(
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide:
-                                    const BorderSide(color: Colors.grey),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide: const BorderSide(
-                                    color: Color.fromARGB(255, 196, 194, 194)),
-                              ),
-                              filled: true,
-                              fillColor: Colors.white,
-                            ),
-                          ),
+                          AddServiceTextField(controller: _reivew),
                           const SizedBox(height: 15),
                           const Text(
                             'Description*',
@@ -271,94 +293,22 @@ class AddServicePageState extends State<AddServicePageBody> {
                           ),
                           const SizedBox(height: 5),
                           SizedBox(
-                            height: 120,
-                            child: TextFormField(
-                              maxLines: 4,
-                              controller: _description,
-                              decoration: InputDecoration(
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide:
-                                      const BorderSide(color: Colors.grey),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: const BorderSide(
-                                      color:
-                                          Color.fromARGB(255, 196, 194, 194)),
-                                ),
-                                filled: true,
-                                fillColor: Colors.white,
-                              ),
-                            ),
-                          ),
+                              height: 120,
+                              child: AddServiceDescription(
+                                  controller: _description)),
                           const SizedBox(height: 15),
-                          Center(
+                          const Center(
                             child: SizedBox(
                               height: 50,
                               width: 250,
-                              child: MaterialButton(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25)),
-                                color: Colors.white,
-                                elevation: 0,
-                                onPressed: () {},
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      width: 20,
-                                      height: 20,
-                                      child: Image.asset(
-                                        "images/location.png",
-                                      ),
-                                    ),
-                                    const SizedBox(width: 6),
-                                    Text(
-                                      'Select Place Location',
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w500,
-                                        color: AppColors.n1,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              child: SelectPlaceButton(),
                             ),
                           ),
                           const SizedBox(height: 30),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              MaterialButton(
-                                height: 50,
-                                minWidth: 150,
-                                shape: RoundedRectangleBorder(
-                                    side: BorderSide(color: AppColors.n1),
-                                    borderRadius: BorderRadius.circular(25)),
-                                color: Colors.transparent,
-                                elevation: 0,
-                                onPressed: () {
-                                  Navigator.of(context).pop(MaterialPageRoute(
-                                      builder: (context) =>
-                                          const AddReviewPage()));
-                                },
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      "Cancel",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: AppColors.n1,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              const AddServiceCancelButton(),
                               SizedBox(
                                 height: 50,
                                 width: 150,
@@ -419,7 +369,7 @@ class AddServicePageState extends State<AddServicePageBody> {
                                         ));
                                       }
                                       if (_isButtonEnabled) {
-                                        _loginButton(context);
+                                        _addServiceButton(context);
                                       }
                                     },
                                     shape: RoundedRectangleBorder(
@@ -482,16 +432,16 @@ class AddServicePageState extends State<AddServicePageBody> {
                       ),
                     ),
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
         );
       },
     );
   }
 
-  void _loginButton(BuildContext context) {
+  void _addServiceButton(BuildContext context) {
     BlocProvider.of<AddServiceCubit>(context).addServicee(AddServiceEntity(
       attachments: Attachment(
           attachmentType: "PHOTO",

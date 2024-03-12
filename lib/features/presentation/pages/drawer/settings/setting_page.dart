@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yodly/core/colors/app_colors.dart';
-import 'package:yodly/features/presentation/widgets/setting_widget.dart';
+import 'package:yodly/features/presentation/widgets/drawer_widget/setting_widget.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});

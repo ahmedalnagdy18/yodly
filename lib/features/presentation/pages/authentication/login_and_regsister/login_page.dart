@@ -6,7 +6,7 @@ import 'package:yodly/features/domain/entites/authentication/login_entity.dart';
 import 'package:yodly/features/presentation/cubit/authentication_cubit/login_cubit/login_cubit.dart';
 import 'package:yodly/features/presentation/pages/authentication/login_and_regsister/forgot_password.dart';
 import 'package:yodly/features/presentation/pages/home/navbar.dart';
-import 'package:yodly/features/presentation/widgets/login_widget.dart';
+import 'package:yodly/features/presentation/widgets/acthentication/login_widget.dart';
 import 'package:yodly/injection_container.dart';
 
 class LoginPage extends StatelessWidget {

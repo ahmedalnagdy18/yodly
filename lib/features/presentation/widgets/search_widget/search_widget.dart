@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:yodly/core/colors/app_colors.dart';
-import 'package:yodly/features/presentation/widgets/awards_widget.dart';
+import 'package:yodly/features/presentation/widgets/home_widget/awards_widget.dart';
 
-class PostWidget2 extends StatelessWidget {
-  const PostWidget2({super.key});
+class SearchWidget extends StatelessWidget {
+  const SearchWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,19 +16,41 @@ class PostWidget2 extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 10,
-                ),
-                child: Row(
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 26,
+              vertical: 21,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
                   children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: Colors.white),
+                      clipBehavior: Clip.antiAlias,
+                      width: 60,
+                      height: 60,
+                      child: Image.asset(
+                        'images/nagdi.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Text(
+                          'Ahmed Alnagdy',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.p4,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
                         Row(
                           children: [
                             Text(
@@ -47,11 +69,7 @@ class PostWidget2 extends StatelessWidget {
                       ],
                     ), //aaaaaaaaaaaaaaaaaaaaaaaaaaa
                     const Spacer(flex: 10),
-                    Image.asset(
-                      'images/present.png',
-                      width: 20,
-                    ),
-                    const Spacer(),
+
                     const Expanded(
                       child: Icon(
                         Icons.more_vert_outlined,
@@ -60,13 +78,8 @@ class PostWidget2 extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
-              const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                ),
-                child: Row(
+                const SizedBox(height: 20),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
@@ -84,61 +97,59 @@ class PostWidget2 extends StatelessWidget {
                         Text(
                           'The new skinny can',
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 16,
                             fontWeight: FontWeight.w600,
-                            color: AppColors.n1,
+                            color: AppColors.p4,
                           ),
-                        ),
-                        const Row(
-                          children: [
-                            Icon(
-                              Icons.location_on_outlined,
-                              color: Colors.grey,
-                            ),
-                            Text(
-                              'Domyat- Egypt',
-                              style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w400,
-                                color: Color.fromARGB(255, 130, 128, 128),
-                              ),
-                            ),
-                          ],
                         ),
                       ],
                     ),
-                    Image.asset(
-                      'images/good.png',
+                    Container(
+                      height: 25,
                       width: 50,
-                    )
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: AppColors.p4),
+                          borderRadius: BorderRadius.circular(30)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          const Icon(
+                            Icons.star,
+                            color: Colors.yellow,
+                            size: 15,
+                          ),
+                          Text(
+                            '5.0',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.p4,
+                            ),
+                          ),
+                          const SizedBox(),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
-              ),
-              const SizedBox(height: 14),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                ),
-                child: Text(
+                const SizedBox(height: 5),
+                Text(
                   'A Perfect Bold Refreshment for All Parties, Events, & \nSocial Gatherings! Perfect Size For Drinking With',
                   style: TextStyle(
-                    fontSize: 13,
+                    fontSize: 14,
                     fontWeight: FontWeight.w400,
                     color: AppColors.n2,
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-          const SizedBox(height: 15),
-          Image.asset(
-            'images/pepsi.png',
-            fit: BoxFit.contain,
-          ),
+          Divider(thickness: 1, color: AppColors.p4),
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 26,
-              vertical: 21,
+              vertical: 15,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

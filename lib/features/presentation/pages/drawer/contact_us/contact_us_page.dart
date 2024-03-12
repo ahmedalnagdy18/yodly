@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:yodly/core/colors/app_colors.dart';
 import 'package:yodly/features/presentation/pages/home/home_page.dart';
-import 'package:yodly/features/presentation/widgets/contact_us_widget.dart';
+import 'package:yodly/features/presentation/widgets/drawer_widget/contact_us_widget.dart';
 
 class ContactUsPage extends StatelessWidget {
   const ContactUsPage({super.key});

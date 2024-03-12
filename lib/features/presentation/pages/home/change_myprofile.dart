@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:yodly/core/colors/app_colors.dart';
 import 'package:yodly/features/presentation/pages/home/myprofile_page.dart';
-import 'package:yodly/features/presentation/widgets/change_myprofile_widget.dart';
+import 'package:yodly/features/presentation/widgets/drawer_widget/change_myprofile_widget.dart';
 
 class ChangeMyProfilePage extends StatelessWidget {
   const ChangeMyProfilePage({super.key});

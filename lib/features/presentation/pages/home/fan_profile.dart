@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yodly/core/colors/app_colors.dart';
-import 'package:yodly/features/presentation/widgets/myprofile_widget.dart';
+import 'package:yodly/features/presentation/widgets/drawer_widget/myprofile_widget.dart';
 
 class FanProfilePage extends StatelessWidget {
   const FanProfilePage({super.key});

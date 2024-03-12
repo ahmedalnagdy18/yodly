@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yodly/core/colors/app_colors.dart';
 import 'package:yodly/features/domain/models/reviews_model.dart';
 import 'package:yodly/features/presentation/cubit/home_cubit/reviews_cubit/cubit/reviews_cubit.dart';
-import 'package:yodly/features/presentation/widgets/awards_widget.dart';
+import 'package:yodly/features/presentation/widgets/home_widget/awards_widget.dart';
 
 class PostWidget extends StatefulWidget {
   const PostWidget({super.key, required this.model});

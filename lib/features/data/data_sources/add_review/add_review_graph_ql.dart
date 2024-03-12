@@ -40,3 +40,16 @@ mutation createReview($input:CreateReviewInput!){
   }
 }
 """;
+
+const String uploadPhoto = r"""
+mutation uploadFile($file :Upload!,$model :FileModelEnum!){
+  uploadFile(file :$file ,model:$model){
+    data
+    code
+    success
+    message
+    
+  }
+  
+}
+""";
