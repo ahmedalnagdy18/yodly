@@ -14,19 +14,14 @@ class ReviewsRepositryImp implements ReviewsRepository {
   @override
   Future<PaginatedData<ReviewsModels>> reviews(
       ReviewsEntity reviewsEntity) async {
-    print('cccccccccccccccccccccccccc');
-
     final result = await graphQLClient
         .query(QueryOptions(document: gql(reviewsQuery), variables: {
       "paginate":
           ReviewsEntity(limit: reviewsEntity.limit, page: reviewsEntity.page),
     }));
     if (result.data == null) {
-      print('ccccccccccccbbbbbbbcccccccccccccc');
-
       throw Exception();
     }
-    print('ccvcvcvcvcvcvcvcvcv');
 
     final response = ApiReviewItems.fromJson(result.data!);
     if (response.reviews?.data != null && response.reviews?.code == 200) {
@@ -34,7 +29,6 @@ class ReviewsRepositryImp implements ReviewsRepository {
       final reviewsList = data.map((e) => e.reviewMap()).toList();
       final pageInfo = response.reviews?.data?.pageInfo?.pageInfoMap() ??
           PageInfo(currentPage: 1, totalPages: 1, totalCount: 15, limit: 15);
-      print('..........');
       return PaginatedData(data: reviewsList, pageInfo: pageInfo);
     } else {
       throw FormatException(response.reviews?.message ?? "");

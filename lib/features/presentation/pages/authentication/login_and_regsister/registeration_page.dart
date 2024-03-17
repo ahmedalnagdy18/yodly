@@ -165,43 +165,16 @@ class _RegisterationPageState extends State<_RegisterationPageBody> {
                         const SizedBox(
                           height: 15,
                         ),
-                        TextFormField(
-                          keyboardType: TextInputType.emailAddress,
+                        TextFieldWidget(
+                          hintText: 'JohnDeo@gmail.com',
+                          obscureText: false,
+                          mycontroller: _email,
                           validator: (value) => EmailValidator.validate(value!)
                               ? null
                               : "Please enter a valid email",
-                          controller: _email,
-                          decoration: InputDecoration(
-
-                              //   errorStyle: const TextStyle(fontSize: 0.01),
-                              errorBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.red),
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.red),
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide:
-                                    const BorderSide(color: Colors.grey),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide: const BorderSide(
-                                    color: Color.fromARGB(255, 203, 202, 202)),
-                              ),
-                              prefixIcon:
-                                  const Icon(Icons.email_outlined, size: 20),
-                              hintText: 'JohnDeo@gmail.com',
-                              filled: true,
-                              fillColor: Colors.white,
-                              hintStyle: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.n3,
-                              )),
+                          keyboardType: TextInputType.emailAddress,
+                          prefixIcon:
+                              const Icon(Icons.email_outlined, size: 20),
                         ),
                         const SizedBox(
                           height: 15,

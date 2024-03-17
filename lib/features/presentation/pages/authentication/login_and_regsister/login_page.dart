@@ -6,7 +6,9 @@ import 'package:yodly/features/domain/entites/authentication/login_entity.dart';
 import 'package:yodly/features/presentation/cubit/authentication_cubit/login_cubit/login_cubit.dart';
 import 'package:yodly/features/presentation/pages/authentication/login_and_regsister/forgot_password.dart';
 import 'package:yodly/features/presentation/pages/home/navbar.dart';
+import 'package:yodly/features/presentation/widgets/acthentication/login_button.dart';
 import 'package:yodly/features/presentation/widgets/acthentication/login_widget.dart';
+import 'package:yodly/features/presentation/widgets/textfield_widget.dart';
 import 'package:yodly/injection_container.dart';
 
 class LoginPage extends StatelessWidget {
@@ -93,75 +95,37 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                         const SizedBox(
                           height: 30,
                         ),
-                        TextFormField(
-                          keyboardType: TextInputType.emailAddress,
+                        TextFieldWidget(
+                          hintText: 'Email*',
+                          obscureText: false,
+                          mycontroller: _email,
                           validator: (value) => EmailValidator.validate(value!)
                               ? null
                               : "Please enter a valid email",
-                          controller: _email,
-                          decoration: InputDecoration(
-                              errorBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.red),
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.red),
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide:
-                                    const BorderSide(color: Colors.grey),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide: const BorderSide(
-                                    color: Color.fromARGB(255, 203, 202, 202)),
-                              ),
-                              prefixIcon:
-                                  const Icon(Icons.email_outlined, size: 20),
-                              hintText: 'Email*',
-                              filled: true,
-                              fillColor: Colors.white,
-                              hintStyle: const TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.w400)),
+                          keyboardType: TextInputType.emailAddress,
+                          prefixIcon:
+                              const Icon(Icons.email_outlined, size: 20),
                         ),
                         const SizedBox(
                           height: 15,
                         ),
-                        TextFormField(
+                        TextFieldWidget(
+                          hintText: 'Password*',
                           obscureText: isObscuretext,
-                          controller: _password,
-                          decoration: InputDecoration(
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide:
-                                    const BorderSide(color: Colors.grey),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
-                                borderSide: const BorderSide(
-                                    color: Color.fromARGB(255, 203, 202, 202)),
-                              ),
-                              suffixIcon: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    isObscuretext = !isObscuretext;
-                                  });
-                                },
-                                child: Icon(
-                                  isObscuretext
-                                      ? Icons.visibility_off
-                                      : Icons.visibility,
-                                ),
-                              ),
-                              prefixIcon:
-                                  const Icon(Icons.lock_outline, size: 20),
-                              hintText: 'Password*',
-                              filled: true,
-                              fillColor: Colors.white,
-                              hintStyle: const TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.w400)),
+                          mycontroller: _password,
+                          suffixIcon: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                isObscuretext = !isObscuretext;
+                              });
+                            },
+                            child: Icon(
+                              isObscuretext
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                            ),
+                          ),
+                          prefixIcon: const Icon(Icons.lock_outline, size: 20),
                         ),
                         const SizedBox(height: 15),
                         Row(
@@ -189,38 +153,34 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                             height: 51,
                             width: 180,
                             child: BlocListener<LoginCubit, LoginState>(
-                              listener: (context, state) {
-                                if (state is SucsessLoginState) {
-                                  Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const Navbar()));
-                                }
-                              },
-                              child: MaterialButton(
-                                onPressed: () {
-                                  if (_email.text.isEmpty ||
-                                      _password.text.isEmpty) {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(SnackBar(
-                                      backgroundColor: Colors.red,
-                                      content: const Text(
-                                          'Error ! you must write all field'),
-                                      action: SnackBarAction(
-                                        label: 'Undo',
-                                        textColor: Colors.white,
-                                        onPressed: () {},
-                                      ),
-                                    ));
-                                  }
-                                  if (_isButtonEnabled) {
-                                    _loginButton(context);
+                                listener: (context, state) {
+                                  if (state is SucsessLoginState) {
+                                    Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const Navbar()));
                                   }
                                 },
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25.0)),
-                                padding: const EdgeInsets.all(0.0),
-                                child: Ink(
+                                child: LoginButton(
+                                  onPressed: () {
+                                    if (_email.text.isEmpty ||
+                                        _password.text.isEmpty) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                        backgroundColor: Colors.red,
+                                        content: const Text(
+                                            'Error ! you must write all field'),
+                                        action: SnackBarAction(
+                                          label: 'Undo',
+                                          textColor: Colors.white,
+                                          onPressed: () {},
+                                        ),
+                                      ));
+                                    }
+                                    if (_isButtonEnabled) {
+                                      _loginButton(context);
+                                    }
+                                  },
                                   decoration: BoxDecoration(
                                       color: !_isButtonEnabled
                                           ? Colors.grey
@@ -234,33 +194,26 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                                             ),
                                       borderRadius:
                                           BorderRadius.circular(30.0)),
-                                  child: Container(
-                                    constraints: const BoxConstraints(
-                                        maxWidth: 300.0, minHeight: 50.0),
-                                    alignment: Alignment.center,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        const Text(
-                                          "Login",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                        if (state is LoadingLoginState)
-                                          SizedBox(
-                                            width: 15,
-                                            height: 15,
-                                            child: CircularProgressIndicator(
-                                              color: AppColors.n1,
-                                            ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      const Text(
+                                        "Login",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      if (state is LoadingLoginState)
+                                        SizedBox(
+                                          width: 15,
+                                          height: 15,
+                                          child: CircularProgressIndicator(
+                                            color: AppColors.n1,
                                           ),
-                                      ],
-                                    ),
+                                        ),
+                                    ],
                                   ),
-                                ),
-                              ),
-                            ),
+                                )),
                           ),
                         ),
                         const SizedBox(height: 40),
