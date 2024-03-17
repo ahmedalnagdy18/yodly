@@ -75,25 +75,25 @@ class AddServicePageState extends State<AddServicePageBody> {
 //test test test test test
   List<Widget> dynamicWidgets = [];
 
-  void addDynamicWidget() {
+  void addSpecificRate() {
     if (dynamicWidgets.length >= 2) {
       return;
     }
     setState(() {
-      dynamicWidgets.add(buildDynamicWidget());
+      dynamicWidgets.add(buildSpecificRate());
     });
   }
 
-  void removeDynamicWidget(int index) {
+  void removeSpecificRate(int index) {
     setState(() {
       dynamicWidgets.removeAt(index);
     });
   }
 
-  Widget buildDynamicWidget() {
+  Widget buildSpecificRate() {
     return AddSpecificRate(
       onTap: () {
-        removeDynamicWidget(0);
+        removeSpecificRate(0);
       },
     );
   }
@@ -253,7 +253,7 @@ class AddServicePageState extends State<AddServicePageBody> {
                                       shape: BoxShape.circle,
                                     ),
                                     child: InkWell(
-                                      onTap: addDynamicWidget,
+                                      onTap: addSpecificRate,
                                       child: const Icon(
                                         Icons.add,
                                         color: Colors.white,
