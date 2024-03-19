@@ -25,13 +25,15 @@ class LoginRegsisterPage extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 40,
-                  vertical: 169,
                 ),
                 child: Column(
                   children: [
-                    Image.asset(
-                      'images/logo2.png',
-                      scale: 3,
+                    Padding(
+                      padding: const EdgeInsets.only(top: 169),
+                      child: Image.asset(
+                        'images/logo2.png',
+                        scale: 3,
+                      ),
                     ),
                     const SizedBox(height: 160),
                     SizedBox(

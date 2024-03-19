@@ -57,7 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
               const Text(
                 'Developed by Ahmed Alnagdy',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.white70),
               )
             ],
           ),
