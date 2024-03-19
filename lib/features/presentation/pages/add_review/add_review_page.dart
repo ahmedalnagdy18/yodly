@@ -330,28 +330,16 @@ class _AddReviewPageState extends State<_AddReviewPage> {
                                           BorderRadius.circular(30.0)),
                                   child: Container(
                                     alignment: Alignment.center,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        const Text(
-                                          "Next",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                        if (state is LoadingAddReviewState)
-                                          SizedBox(
-                                            width: 15,
-                                            height: 15,
-                                            child: CircularProgressIndicator(
-                                              color: AppColors.n1,
-                                            ),
-                                          ),
-                                      ],
+                                    child: Text(
+                                      state is LoadingAddReviewState
+                                          ? "loading..."
+                                          : "Next",
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
                                   ),
                                 ),
