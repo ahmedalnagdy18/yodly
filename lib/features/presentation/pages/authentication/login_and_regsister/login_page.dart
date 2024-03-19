@@ -111,6 +111,13 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                         ),
                         TextFieldWidget(
                           hintText: 'Password*',
+                          validator: (input) {
+                            if (_password.text.isNotEmpty) {
+                              return null;
+                            } else {
+                              return "Password must not be empty";
+                            }
+                          },
                           obscureText: isObscuretext,
                           mycontroller: _password,
                           suffixIcon: GestureDetector(
@@ -198,15 +205,18 @@ class _LoginPageBodyState extends State<_LoginPageBody> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      const Text(
-                                        "Login",
+                                      Text(
+                                        state is LoadingLoginState
+                                            ? "loading..."
+                                            : "Login",
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(color: Colors.white),
+                                        style: const TextStyle(
+                                            color: Colors.white),
                                       ),
                                       if (state is LoadingLoginState)
                                         SizedBox(
-                                          width: 15,
-                                          height: 15,
+                                          width: 12,
+                                          height: 12,
                                           child: CircularProgressIndicator(
                                             color: AppColors.n1,
                                           ),

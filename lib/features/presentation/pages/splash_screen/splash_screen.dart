@@ -28,25 +28,40 @@ class _SplashScreenState extends State<SplashScreen> {
               if (token == null) {
                 return const OnboardingScreen();
               }
-              return Navbar();
+              return const Navbar();
             })));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: AppColors.g3),
-      ),
-      child: Image.asset(
-        'images/logo.png',
-        scale: 3,
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: AppColors.g3),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: Column(
+            children: [
+              Expanded(
+                child: Image.asset(
+                  'images/logo.png',
+                  scale: 3,
+                ),
+              ),
+              const Text(
+                'Developed by Ahmed Alnagdy',
+                style: TextStyle(color: Colors.black),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
