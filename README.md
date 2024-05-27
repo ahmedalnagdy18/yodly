@@ -17,7 +17,7 @@ Yodly is a social app developed using GraphQL and the Flutter framework. The app
 - **Shared Preferences**: Local storage is managed using shared preferences, providing a smooth and efficient user experience.
 - **Responsive Design**: The app is designed to be responsive, adapting its layout and behavior to different screen sizes and orientations, providing a seamless user experience across various devices.
 - **GraphQL**: Data is managed using GraphQL in this app.
-- **Add & Delete**: Users can add, delete, and update posts.
+- **Add & Delete**: Users can add, delete and update posts.
 
 ### Screenshots
 
